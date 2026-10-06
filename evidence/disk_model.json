@@ -1,0 +1,23 @@
+{
+  "20260917.132101": {
+    "image_logical_bytes": 2580786618,
+    "estimated_gnu_tar_bytes": 2580797440,
+    "GiB": 2.4035448376089334
+  },
+  "20260930.105301": {
+    "image_logical_bytes": 2579715385,
+    "estimated_gnu_tar_bytes": 2579722240,
+    "GiB": 2.4025471741333604
+  },
+  "20261003.102419": {
+    "image_logical_bytes": 2579697210,
+    "estimated_gnu_tar_bytes": 2579701760,
+    "GiB": 2.4025302473455667
+  },
+  "successful_peak_model": {
+    "C": 696473433,
+    "before_logical_I_plus_T_plus_C": 5858057491,
+    "streaming_logical_I_plus_C": 3277260051,
+    "note": "仅逻辑量估算，非基线实测；另有 bootstrap、RPM cache、cpio/安装目录等未计入"
+  }
+}

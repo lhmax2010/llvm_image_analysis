@@ -1,0 +1,30 @@
+[
+  {
+    "path": "work/compressor-probe/gzip.gz",
+    "bytes": 67119133,
+    "sha256": "7cb5f3bb49a91f52d6b27f93f858eaffe3b2367dcf767079d0d736d570dd9938",
+    "source_url": null,
+    "origin": "本机work/compressor_probe.py生成；随机输入或其压缩输出，未从网络下载"
+  },
+  {
+    "path": "work/compressor-probe/random.bin",
+    "bytes": 67108864,
+    "sha256": "53ebe1780c40a54fd33e76deaa00f865d9708d565b71e844be8ef616cd09d4ae",
+    "source_url": null,
+    "origin": "本机work/compressor_probe.py生成；随机输入或其压缩输出，未从网络下载"
+  },
+  {
+    "path": "work/compressor-probe/pigz-default.gz",
+    "bytes": 67129373,
+    "sha256": "3870880f505219dcfef47c3a6a4646fb03a7e0859b6d14521b61b1f5b80f2451",
+    "source_url": null,
+    "origin": "本机work/compressor_probe.py生成；随机输入或其压缩输出，未从网络下载"
+  },
+  {
+    "path": "work/compressor-probe/pigz-p2.gz",
+    "bytes": 67129373,
+    "sha256": "3870880f505219dcfef47c3a6a4646fb03a7e0859b6d14521b61b1f5b80f2451",
+    "source_url": null,
+    "origin": "本机work/compressor_probe.py生成；随机输入或其压缩输出，未从网络下载"
+  }
+]

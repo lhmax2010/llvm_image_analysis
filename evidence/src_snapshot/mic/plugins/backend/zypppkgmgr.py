@@ -1,0 +1,1030 @@
+#!/usr/bin/python3 -tt
+#
+# Copyright (c) 2010, 2011 Intel, Inc.
+#
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; version 2 of the License
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+# or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+# for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc., 59
+# Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+import os
+import shutil
+import urllib.parse
+import rpm
+import glob
+import functools
+
+import zypp #pylint: disable=import-error
+if not hasattr(zypp, 'PoolQuery') or \
+   not hasattr(zypp.RepoManager, 'loadSolvFile'):
+    raise ImportError("python-zypp in host system cannot support PoolQuery or "
+                      "loadSolvFile interface, please update it to enhanced "
+                      "version which can be found in download.tizen.org/tools")
+
+from mic import msger
+from mic.kickstart import ksparser
+from mic.utils import misc, rpmmisc, runner, fs_related
+from mic.utils.grabber import myurlgrab, TextProgress
+from mic.utils.proxy import get_proxy_for
+from mic.utils.errors import CreatorError, RepoError, RpmError
+from mic.conf import configmgr
+
+class RepositoryStub:
+    def __init__(self):
+        self.name = None
+        self.baseurl = []
+        self.mirrorlist = None
+        self.proxy = None
+        self.proxy_username = None
+        self.proxy_password = None
+        self.nocache = False
+
+        self.enabled = True
+        self.autorefresh = True
+        self.keeppackages = True
+        self.priority = None
+
+from mic.pluginbase import BackendPlugin
+class Zypp(BackendPlugin):
+    name = 'zypp'
+
+    def __init__(self, target_arch, instroot, cachedir, strict_mode = False):
+        self.cachedir = cachedir
+        self.instroot  = instroot
+        self.target_arch = target_arch
+        self.strict_mode = strict_mode
+
+        self.__pkgs_license = {}
+        self.__pkgs_content = {}
+        self.__pkgs_vcsinfo = {}
+        self.repos = []
+        self.to_deselect = []
+        self.localpkgs = {}
+        self.repo_manager = None
+        self.repo_manager_options = None
+        self.Z = None
+        self.ts = None
+        self.ts_pre = None
+        self.pkgs_bak = []
+        self.incpkgs = {}
+        self.excpkgs = {}
+        self.pre_pkgs = []
+        self.check_pkgs = []
+        self.probFilterFlags = [ rpm.RPMPROB_FILTER_OLDPACKAGE,
+                                 rpm.RPMPROB_FILTER_REPLACEPKG ]
+
+        self.has_prov_query = True
+        self.install_debuginfo = False
+        # this can't be changed, it is used by zypp
+        self.tmp_file_path = '/var/tmp'
+
+    def doFileLogSetup(self, uid, logfile):
+        # don't do the file log for the livecd as it can lead to open fds
+        # being left and an inability to clean up after ourself
+        pass
+
+    def closeRpmDB(self):
+        pass
+
+    def close(self):
+        if self.ts:
+            self.ts.closeDB()
+            self.ts = None
+
+        if self.ts_pre:
+            self.ts_pre.closeDB()
+            self.ts_pre = None
+
+        self.pkgs_bak = []
+
+        self.closeRpmDB()
+
+    def __del__(self):
+        self.close()
+
+    def _cleanupRpmdbLocks(self, installroot):
+        # cleans up temporary files left by bdb so that differing
+        # versions of rpm don't cause problems
+        for f in glob.glob(installroot + "/var/lib/rpm/__db*"):
+            os.unlink(f)
+
+    def _cleanupZyppJunk(self, installroot):
+        try:
+            shutil.rmtree(os.path.join(installroot, '.zypp'))
+        except:
+            pass
+
+    def setup(self):
+        self._cleanupRpmdbLocks(self.instroot)
+        # '/var/tmp' is used by zypp to build cache, so make sure
+        # if it exists
+        if not os.path.exists(self.tmp_file_path ):
+            os.makedirs(self.tmp_file_path)
+
+    def whatObsolete(self, pkg):
+        query = zypp.PoolQuery()
+        query.addKind(zypp.ResKind.package)
+        query.addDependency(zypp.SolvAttr.obsoletes, pkg.name(), pkg.edition())
+        query.setMatchExact()
+        for pi in query.queryResults(self.Z.pool()):
+            return pi
+        return None
+
+    def _zyppQueryPackage(self, pkg):
+        query = zypp.PoolQuery()
+        query.addKind(zypp.ResKind.package)
+        query.addAttribute(zypp.SolvAttr.name, pkg)
+        query.setMatchExact()
+        for pi in query.queryResults(self.Z.pool()):
+            return pi
+        return None
+
+    def _splitPkgString(self, pkg):
+        sp = pkg.rsplit(".", 1)
+        name = sp[0]
+        arch = None
+        if len(sp) == 2:
+            arch = sp[1]
+            sysarch = zypp.Arch(self.target_arch)
+            if not zypp.Arch(arch).compatible_with (sysarch):
+                arch = None
+                name = ".".join(sp)
+        return name, arch
+
+    def selectPackage(self, pkg):
+        """Select a given package or package pattern, can be specified
+        with name.arch or name* or *name
+        """
+
+        if not self.Z:
+            self.__initialize_zypp()
+
+        def markPoolItem(obs, pi):
+            if obs == None:
+                pi.status().setToBeInstalled (zypp.ResStatus.USER)
+            else:
+                obs.status().setToBeInstalled (zypp.ResStatus.USER)
+
+        def cmpEVR(p1, p2):
+            # compare criterion: arch compatibility first, then repo
+            # priority, and version last
+            a1 = p1.arch()
+            a2 = p2.arch()
+            if str(a1) != str(a2):
+                if a1.compatible_with(a2):
+                    return -1
+                else:
+                    return 1
+            # Priority of a repository is an integer value between 0 (the
+            # highest priority) and 99 (the lowest priority)
+            pr1 = int(p1.repoInfo().priority())
+            pr2 = int(p2.repoInfo().priority())
+            if pr1 > pr2:
+                return -1
+            elif pr1 < pr2:
+                return 1
+
+            ed1 = p1.edition()
+            ed2 = p2.edition()
+            (e1, v1, r1) = list(map(str, [ed1.epoch(), ed1.version(), ed1.release()]))
+            (e2, v2, r2) = list(map(str, [ed2.epoch(), ed2.version(), ed2.release()]))
+            return rpm.labelCompare((e1, v1, r1), (e2, v2, r2))
+
+        found = False
+        startx = pkg.startswith("*")
+        endx = pkg.endswith("*")
+        ispattern = startx or endx
+        name, arch = self._splitPkgString(pkg)
+
+        q = zypp.PoolQuery()
+        q.addKind(zypp.ResKind.package)
+
+        if ispattern:
+            if startx and not endx:
+                pattern = '%s$' % (pkg[1:])
+            if endx and not startx:
+                pattern = '^%s' % (pkg[0:-1])
+            if endx and startx:
+                pattern = '%s' % (pkg[1:-1])
+            q.setMatchRegex()
+            q.addAttribute(zypp.SolvAttr.name, pattern)
+
+        elif arch:
+            q.setMatchExact()
+            q.addAttribute(zypp.SolvAttr.name, name)
+
+        else:
+            q.setMatchExact()
+            q.addAttribute(zypp.SolvAttr.name, pkg)
+
+        for pitem in sorted(
+                        q.queryResults(self.Z.pool()),
+                        key=functools.cmp_to_key(lambda x,y: cmpEVR(zypp.asKindPackage(x), zypp.asKindPackage(y))),
+                        reverse=True):
+            item = zypp.asKindPackage(pitem)
+            if item.name() in list(self.excpkgs.keys()) and \
+               self.excpkgs[item.name()] == item.repoInfo().name():
+                continue
+            if item.name() in list(self.incpkgs.keys()) and \
+               self.incpkgs[item.name()] != item.repoInfo().name():
+                continue
+
+            found = True
+            obspkg = self.whatObsolete(item)
+            if arch:
+                if arch == str(item.arch()):
+                    pitem.status().setToBeInstalled (zypp.ResStatus.USER)
+            else:
+                markPoolItem(obspkg, pitem)
+            if not ispattern:
+                break
+
+        # Can't match using package name, then search from packge
+        # provides infomation
+        if found == False and not ispattern:
+            q.addAttribute(zypp.SolvAttr.provides, pkg)
+            q.addAttribute(zypp.SolvAttr.name,'')
+
+            for pitem in sorted(
+                            q.queryResults(self.Z.pool()),
+                            key=functools.cmp_to_key(lambda x,y: cmpEVR(zypp.asKindPackage(x), zypp.asKindPackage(y))),
+                            reverse=True):
+                item = zypp.asKindPackage(pitem)
+                if item.name() in list(self.excpkgs.keys()) and \
+                   self.excpkgs[item.name()] == item.repoInfo().name():
+                    continue
+                if item.name() in list(self.incpkgs.keys()) and \
+                   self.incpkgs[item.name()] != item.repoInfo().name():
+                    continue
+
+                found = True
+                obspkg = self.whatObsolete(item)
+                markPoolItem(obspkg, pitem)
+                break
+
+        if found:
+            return None
+        else:
+            raise CreatorError("Unable to find package: %s" % (pkg,))
+
+    def inDeselectPackages(self, pitem):
+        """check if specified pacakges are in the list of inDeselectPackages
+        """
+        item = zypp.asKindPackage(pitem)
+        name = item.name()
+        for pkg in self.to_deselect:
+            startx = pkg.startswith("*")
+            endx = pkg.endswith("*")
+            ispattern = startx or endx
+            pkgname, pkgarch = self._splitPkgString(pkg)
+            if not ispattern:
+                if pkgarch:
+                    if name == pkgname and str(item.arch()) == pkgarch:
+                        return True
+                else:
+                    if name == pkgname:
+                        return True
+            else:
+                if startx and name.endswith(pkg[1:]):
+                    return True
+                if endx and name.startswith(pkg[:-1]):
+                    return True
+
+        return False
+
+    def deselectPackage(self, pkg):
+        """collect packages should not be installed"""
+        self.to_deselect.append(pkg)
+
+    def selectGroup(self, grp, include = ksparser.constants.GROUP_DEFAULT):
+        def compareGroup(pitem):
+            item = zypp.asKindPattern(pitem)
+            return item.repoInfo().priority()
+        if not self.Z:
+            self.__initialize_zypp()
+        found = False
+        q = zypp.PoolQuery()
+        q.addKind(zypp.ResKind.pattern)
+        for pitem in sorted(q.queryResults(self.Z.pool()), key=compareGroup):
+            item = zypp.asKindPattern(pitem)
+            summary = "%s" % item.summary()
+            name = "%s" % item.name()
+            if name == grp or summary == grp:
+                found = True
+                pitem.status().setToBeInstalled (zypp.ResStatus.USER)
+                break
+
+        if found:
+            if include == ksparser.constants.GROUP_REQUIRED:
+                list([self.deselectPackage(p) for p in list(grp.default_packages.keys())])
+
+            return None
+        else:
+            raise CreatorError("Unable to find pattern: %s" % (grp,))
+
+    def addRepository(self, name,
+                            url = None,
+                            mirrorlist = None,
+                            proxy = None,
+                            proxy_username = None,
+                            proxy_password = None,
+                            inc = None,
+                            exc = None,
+                            ssl_verify = True,
+                            nocache = False,
+                            cost=None,
+                            priority=None):
+        # TODO: Handle cost attribute for repos
+
+        if not self.repo_manager:
+            self.__initialize_repo_manager()
+
+        if not proxy and url:
+            proxy = get_proxy_for(url)
+
+        repo = RepositoryStub()
+        repo.name = name
+        repo.id = name
+        repo.proxy = proxy
+        repo.proxy_username = proxy_username
+        repo.proxy_password = proxy_password
+        repo.ssl_verify = ssl_verify
+        repo.nocache = nocache
+        repo.baseurl.append(url)
+        if inc:
+            for pkg in inc:
+                self.incpkgs[pkg] = name
+        if exc:
+            for pkg in exc:
+                self.excpkgs[pkg] = name
+
+        if mirrorlist:
+            repo.mirrorlist = mirrorlist
+
+        # Enable gpg check for verifying corrupt packages
+        repo.gpgcheck = 1
+        if priority is not None:
+            # priority 0 has issue in RepoInfo.setPriority
+            repo.priority = priority + 1
+
+        try:
+            repo_info = zypp.RepoInfo()
+            repo_info.setAlias(repo.name)
+            repo_info.setName(repo.name)
+            repo_info.setEnabled(repo.enabled)
+            repo_info.setAutorefresh(repo.autorefresh)
+            repo_info.setKeepPackages(repo.keeppackages)
+            baseurl = zypp.Url(repo.baseurl[0].full)
+            if not ssl_verify:
+                baseurl.setQueryParam("ssl_verify", "no")
+            if proxy:
+                host = urllib.parse.urlparse(proxy)[1]
+                # scheme, host, path, parm, query, frag = urlparse.urlparse(proxy)
+
+                proxyinfo = host.rsplit(":", 1)
+                host = proxyinfo[0]
+
+                port = "80"
+                if len(proxyinfo) > 1:
+                    port = proxyinfo[1]
+
+                if proxy.startswith("socks") and len(proxy.rsplit(':', 1)) == 2:
+                    host = proxy.rsplit(':', 1)[0]
+                    port = proxy.rsplit(':', 1)[1]
+
+                # parse user/pass from proxy host
+                proxyinfo = host.rsplit("@", 1)
+                if len(proxyinfo) == 2:
+                    host = proxyinfo[1]
+                    # Known Issue: If password contains ":", which should be
+                    # quoted, for example, use '123%3Aabc' instead of 123:abc
+                    userpassinfo = proxyinfo[0].rsplit(":", 1)
+                    if len(userpassinfo) == 2:
+                        proxy_username = userpassinfo[0]
+                        proxy_password = userpassinfo[1]
+                    elif len(userpassinfo) == 1:
+                        proxy_username = userpassinfo[0]
+
+                baseurl.setQueryParam ("proxy", host)
+                baseurl.setQueryParam ("proxyport", port)
+                if proxy_username:
+                    baseurl.setQueryParam ("proxyuser", proxy_username)
+                if proxy_password:
+                    baseurl.setQueryParam ("proxypass", proxy_password)
+            else:
+                baseurl.setQueryParam ("proxy", "_none_")
+
+            self.repos.append(repo)
+
+            repo_info.addBaseUrl(baseurl)
+
+            if repo.priority is not None:
+                repo_info.setPriority(repo.priority)
+
+            # this hack is used to change zypp credential file location
+            # the default one is $HOME/.zypp, which cause conflicts when
+            # installing some basic packages, and the location doesn't
+            # have any interface actually, so use a tricky way anyway
+            homedir = None
+            if 'HOME' in os.environ:
+                homedir = os.environ['HOME']
+                os.environ['HOME'] = '/'
+            else:
+                os.environ['HOME'] = '/'
+
+            self.repo_manager.addRepository(repo_info)
+
+            # save back the $HOME env
+            if homedir:
+                os.environ['HOME'] = homedir
+            else:
+                del os.environ['HOME']
+
+            self.__build_repo_cache(name)
+
+        except RuntimeError as e:
+            raise CreatorError(str(e))
+
+        msger.verbose('repo: %s was added' % name)
+        return repo
+
+    def installHasFile(self, file):
+        return False
+
+    def preInstall(self, pkg):
+        self.pre_pkgs.append(pkg)
+
+    def checkPackage(self, pkg):
+        self.check_pkgs.append(pkg)
+
+    def _get_local_packages(self):
+        """Return a list of rpm path to be local installed.
+        This is the hook where subclasses may specify a set of rpms which
+        it requires to be installed locally.
+        This returns an empty list by default.
+        Note, subclasses should usually chain up to the base class
+        implementation of this hook.
+        """
+        cropts = configmgr.create
+        if cropts['local_pkgs_path']:
+            if os.path.isdir(cropts['local_pkgs_path']):
+                return glob.glob(
+                        os.path.join(cropts['local_pkgs_path'], '*.rpm'))
+            elif os.path.splitext(cropts['local_pkgs_path'])[-1] == '.rpm':
+                return [cropts['local_pkgs_path']]
+        return []
+    def __localinst_packages(self):
+        for rpm_path in self._get_local_packages():
+            self.installLocal(rpm_path)
+    def runInstall(self, checksize = 0):
+        os.environ["HOME"] = "/"
+        os.environ["LD_PRELOAD"] = ""
+        self.buildTransaction()
+        self.__localinst_packages()
+
+        todo = zypp.GetResolvablesToInsDel(self.Z.pool())
+        installed_pkgs = todo._toInstall
+        dlpkgs = []
+
+        for pitem in installed_pkgs:
+            if not zypp.isKindPattern(pitem) and \
+              not self.inDeselectPackages(pitem):
+                item = zypp.asKindPackage(pitem)
+                dlpkgs.append(item)
+
+                if item.name() in self.check_pkgs:
+                    self.check_pkgs.remove(item.name())
+
+                if not self.install_debuginfo or str(item.arch()) == "noarch":
+                    continue
+
+                dipkg = self._zyppQueryPackage("%s-debuginfo" % item.name())
+                if dipkg:
+                    ditem = zypp.asKindPackage(dipkg)
+                    dlpkgs.append(ditem)
+                else:
+                    msger.warning("No debuginfo rpm found for: %s" \
+                                  % item.name())
+
+        if self.check_pkgs:
+            raise CreatorError('Packages absent in image: %s' % ','.join(self.check_pkgs))
+
+        # record all pkg and the content
+        localpkgs = list(self.localpkgs.keys())
+        for pkg in dlpkgs:
+            license = ''
+            if pkg.name() in localpkgs:
+                hdr = rpmmisc.readRpmHeader(self.ts, self.localpkgs[pkg.name()])
+                pkg_long_name = misc.RPM_FMT % {
+                                    'name': hdr['name'],
+                                    'arch': hdr['arch'],
+                                    'version': hdr['version'],
+                                    'release': hdr['release']
+                                }
+                license = hdr['license']
+
+            else:
+                pkg_long_name = misc.RPM_FMT % {
+                                    'name': pkg.name(),
+                                    'arch': pkg.arch(),
+                                    'version': pkg.edition().version(),
+                                    'release': pkg.edition().release()
+                                }
+
+                license = pkg.license()
+
+            if license in list(self.__pkgs_license.keys()):
+                self.__pkgs_license[license].append(pkg_long_name)
+            else:
+                self.__pkgs_license[license] = [pkg_long_name]
+
+        total_count = len(dlpkgs)
+        cached_count = 0
+        download_total_size = sum([int(x.downloadSize()) for x in dlpkgs])
+        localpkgs = list(self.localpkgs.keys())
+
+        msger.info("Checking packages cached ...")
+        for po in dlpkgs:
+            # Check if it is cached locally
+            if po.name() in localpkgs:
+                cached_count += 1
+            else:
+                local = self.getLocalPkgPath(po)
+                name = str(po.repoInfo().name())
+                try:
+                    repo = list(filter(lambda r: r.name == name, self.repos))[0]
+                except IndexError:
+                    repo = None
+                nocache = repo.nocache if repo else False
+
+                if os.path.exists(local):
+                    if nocache or self.checkPkg(local) !=0:
+                        os.unlink(local)
+                    else:
+                        download_total_size -= int(po.downloadSize())
+                        cached_count += 1
+        cache_avail_size = misc.get_filesystem_avail(self.cachedir)
+        if cache_avail_size < download_total_size:
+            raise CreatorError("No enough space used for downloading.")
+
+        # record the total size of installed pkgs
+        install_total_size = sum([int(x.installSize()) for x in dlpkgs])
+        # check needed size before actually download and install
+
+        # FIXME: for multiple partitions for loop type, check fails
+        #        skip the check temporarily
+        #if checksize and install_total_size > checksize:
+        #    raise CreatorError("No enough space used for installing, "
+        #                       "please resize partition size in ks file")
+
+        download_count =  total_count - cached_count
+        msger.info("Packages: %d Total, %d Cached, %d Missed" \
+                   % (total_count, cached_count, download_count))
+
+        try:
+            if download_count > 0:
+                msger.info("Downloading packages ...")
+            self.downloadPkgs(dlpkgs, download_count)
+        except CreatorError as e:
+            raise CreatorError("Package download failed: %s" %(e,))
+
+        try:
+            self.installPkgs(dlpkgs)
+        except (RepoError, RpmError):
+            raise
+        except Exception as e:
+            raise CreatorError("Package installation failed: %s" % (e,))
+
+    def getVcsInfo(self):
+        if self.__pkgs_vcsinfo:
+            return
+
+        if not self.ts:
+            self.__initialize_transaction()
+
+        mi = self.ts.dbMatch()
+        for hdr in mi:
+            lname = misc.RPM_FMT % {
+                        'name': hdr['name'],
+                        'arch': hdr['arch'],
+                        'version': hdr['version'],
+                        'release': hdr['release']
+                    }
+            try:
+                self.__pkgs_vcsinfo[lname] = hdr['VCS']
+            except ValueError:
+                # if rpm not support VCS, set to None
+                self.__pkgs_vcsinfo[lname] = None
+
+        return self.__pkgs_vcsinfo
+
+    def getAllContent(self):
+        if self.__pkgs_content:
+            return self.__pkgs_content
+
+        if not self.ts:
+            self.__initialize_transaction()
+
+        mi = self.ts.dbMatch()
+        for hdr in mi:
+            lname = misc.RPM_FMT % {
+                        'name': hdr['name'],
+                        'arch': hdr['arch'],
+                        'version': hdr['version'],
+                        'release': hdr['release']
+                    }
+            self.__pkgs_content[lname] = hdr['FILENAMES']
+
+        return self.__pkgs_content
+
+    def getPkgsLicense(self):
+        return self.__pkgs_license
+
+    def getFilelist(self, pkgname):
+        if not pkgname:
+            return None
+
+        if not self.ts:
+            self.__initialize_transaction()
+
+        mi = self.ts.dbMatch('name', pkgname)
+        for header in mi:
+            return header['FILENAMES']
+
+    def __initialize_repo_manager(self):
+        if self.repo_manager:
+            return
+
+        # Clean up repo metadata
+        shutil.rmtree(self.cachedir + "/etc", ignore_errors = True)
+        shutil.rmtree(self.cachedir + "/solv", ignore_errors = True)
+        shutil.rmtree(self.cachedir + "/raw", ignore_errors = True)
+
+        zypp.KeyRing.setDefaultAccept( zypp.KeyRing.ACCEPT_UNSIGNED_FILE
+                                     | zypp.KeyRing.ACCEPT_VERIFICATION_FAILED
+                                     | zypp.KeyRing.ACCEPT_UNKNOWNKEY
+                                     | zypp.KeyRing.TRUST_KEY_TEMPORARILY
+                                     )
+
+        self.repo_manager_options = \
+                zypp.RepoManagerOptions(zypp.Pathname(self.instroot))
+
+        self.repo_manager_options.knownReposPath = \
+                zypp.Pathname(self.cachedir + "/etc/zypp/repos.d")
+
+        self.repo_manager_options.repoCachePath = \
+                zypp.Pathname(self.cachedir)
+
+        self.repo_manager_options.repoRawCachePath = \
+                zypp.Pathname(self.cachedir + "/raw")
+
+        self.repo_manager_options.repoSolvCachePath = \
+                zypp.Pathname(self.cachedir + "/solv")
+
+        self.repo_manager_options.repoPackagesCachePath = \
+                zypp.Pathname(self.cachedir + "/packages")
+
+        self.repo_manager = zypp.RepoManager(self.repo_manager_options)
+
+    def __build_repo_cache(self, name):
+        repo = self.repo_manager.getRepositoryInfo(name)
+        if self.repo_manager.isCached(repo) or not repo.enabled():
+            return
+
+        msger.info('Refreshing repository: %s ...' % name)
+        self.repo_manager.buildCache(repo, zypp.RepoManager.BuildIfNeeded)
+
+    def __initialize_zypp(self):
+        if self.Z:
+            return
+
+        zconfig = zypp.ZConfig_instance()
+
+        # Set system architecture
+        if self.target_arch:
+            zconfig.setSystemArchitecture(zypp.Arch(self.target_arch))
+
+        msger.info("zypp architecture is <%s>" % zconfig.systemArchitecture())
+
+        # repoPackagesCachePath is corrected by this
+        self.repo_manager = zypp.RepoManager(self.repo_manager_options)
+        repos = self.repo_manager.knownRepositories()
+        for repo in repos:
+            if not repo.enabled():
+                continue
+            self.repo_manager.loadFromCache(repo)
+
+        self.Z = zypp.ZYppFactory_instance().getZYpp()
+        if configmgr.create['block_recommends']:
+            msger.info("zypp not install recommend packages")
+            self.Z.resolver().setOnlyRequires(True)
+        self.Z.initializeTarget(zypp.Pathname(self.instroot))
+        self.Z.target().load()
+
+    def buildTransaction(self):
+        if not self.Z.resolver().resolvePool():
+            probs = self.Z.resolver().problems()
+
+            for problem in probs:
+                msger.warning("repo problem: %s, %s" \
+                              % (problem.description(),
+                                 problem.details()))
+
+            raise RepoError("found %d resolver problem, abort!" \
+                            % len(probs))
+
+    def getLocalPkgPath(self, po):
+        repoinfo = po.repoInfo()
+        cacheroot = repoinfo.packagesPath()
+        location = po.location()
+        rpmpath = str(location.filename())
+        pkgpath = "%s/%s" % (cacheroot, os.path.basename(rpmpath))
+        return pkgpath
+
+    def installLocal(self, pkg, po=None, updateonly=False):
+        if not self.ts:
+            self.__initialize_transaction()
+
+        solvfile = "%s/.solv" % (self.cachedir)
+
+        #for python3.x, use subprocess.popen(), it can't deal with the solv contents. the contents
+        #is garbled code. so use redirect way to solvfile directly.
+        os.system('%s %s > %s' % (fs_related.find_binary_path("rpms2solv"), pkg, solvfile))
+        if os.path.exists(solvfile):
+            warnmsg = self.repo_manager.loadSolvFile(solvfile,
+                                                     os.path.basename(pkg))
+            if warnmsg:
+                msger.warning(warnmsg)
+
+            os.unlink(solvfile)
+        else:
+            msger.warning('Can not get %s solv data.' % pkg)
+
+        hdr = rpmmisc.readRpmHeader(self.ts, pkg)
+        arch = zypp.Arch(hdr['arch'])
+        sysarch = zypp.Arch(self.target_arch)
+
+        if arch.compatible_with (sysarch):
+            pkgname = hdr['name']
+            self.localpkgs[pkgname] = pkg
+            self.selectPackage(pkgname)
+            msger.info("Marking %s to be installed" % (pkg))
+
+        else:
+            msger.warning("Cannot add package %s to transaction. "
+                          "Not a compatible architecture: %s" \
+                          % (pkg, hdr['arch']))
+
+    def downloadPkgs(self, package_objects, count):
+        localpkgs = list(self.localpkgs.keys())
+        progress_obj = TextProgress(count)
+
+        for po in package_objects:
+            if po.name() in localpkgs:
+                continue
+
+            filename = self.getLocalPkgPath(po)
+            if os.path.exists(filename):
+                if self.checkPkg(filename) == 0:
+                    continue
+
+            dirn = os.path.dirname(filename)
+            if not os.path.exists(dirn):
+                os.makedirs(dirn)
+
+            url = self.get_url(po)
+            proxies = self.get_proxies(po)
+
+            try:
+                filename = myurlgrab(url.full, filename, proxies, progress_obj)
+            except CreatorError:
+                self.close()
+                raise
+
+    def preinstallPkgs(self):
+        if not self.ts_pre:
+            self.__initialize_transaction()
+
+        self.ts_pre.order()
+        cb = rpmmisc.RPMInstallCallback(self.ts_pre)
+        cb.headmsg = "Preinstall"
+        installlogfile = "%s/__catched_stderr.buf" % (self.instroot)
+
+        # start to catch stderr output from librpm
+        msger.enable_logstderr(installlogfile)
+
+        errors = self.ts_pre.run(cb.callback, '')
+        # stop catch
+        msger.disable_logstderr()
+        self.ts_pre.closeDB()
+        self.ts_pre = None
+
+        if errors is not None:
+            if len(errors) == 0:
+                msger.warning('scriptlet or other non-fatal errors occurred '
+                              'during transaction.')
+
+            else:
+                for e in errors:
+                    msger.warning(e[0])
+                raise RepoError('Could not run transaction.')
+    def show_unresolved_dependencies_msg(self, unresolved_dependencies):
+        for pkg, need, needflags, sense, key in unresolved_dependencies:
+
+            package = '-'.join(pkg)
+
+            if needflags == rpm.RPMSENSE_LESS:
+                deppkg = ' < '.join(need)
+            elif needflags == rpm.RPMSENSE_EQUAL:
+                deppkg = ' = '.join(need)
+            elif needflags == rpm.RPMSENSE_GREATER:
+                deppkg = ' > '.join(need)
+            else:
+                deppkg = '-'.join(need)
+
+            if sense == rpm.RPMDEP_SENSE_REQUIRES:
+                msger.warning("[%s] Requires [%s], which is not provided" \
+                              % (package, deppkg))
+
+            elif sense == rpm.RPMDEP_SENSE_CONFLICTS:
+                msger.warning("[%s] Conflicts with [%s]" % (package, deppkg))
+
+    def installPkgs(self, package_objects):
+        if not self.ts:
+            self.__initialize_transaction()
+
+        # clean rpm lock
+        self._cleanupRpmdbLocks(self.instroot)
+        self._cleanupZyppJunk(self.instroot)
+        # Set filters
+        probfilter = 0
+        for flag in self.probFilterFlags:
+            probfilter |= flag
+        self.ts.setProbFilter(probfilter)
+        self.ts_pre.setProbFilter(probfilter)
+
+        localpkgs = list(self.localpkgs.keys())
+
+        for po in package_objects:
+            pkgname = po.name()
+            if pkgname in localpkgs:
+                rpmpath = self.localpkgs[pkgname]
+            else:
+                rpmpath = self.getLocalPkgPath(po)
+
+            if not os.path.exists(rpmpath):
+                # Maybe it is a local repo
+                rpmuri = self.get_url(po)
+                if rpmuri.startswith("file:/"):
+                    rpmpath = rpmuri[5:]
+
+            if not os.path.exists(rpmpath):
+                raise RpmError("Error: %s doesn't exist" % rpmpath)
+
+            h = rpmmisc.readRpmHeader(self.ts, rpmpath)
+
+            if pkgname in self.pre_pkgs:
+                msger.verbose("pre-install package added: %s" % pkgname)
+                self.ts_pre.addInstall(h, rpmpath, 'u')
+
+            #for rpm4.14 vesion, need to split addInstall for these two transactionSet.
+            #addInstall for self.ts should be after self.ts_pre done.
+            self.pkgs_bak.append({"header": h, "rpmpath": rpmpath})
+
+        unresolved_dependencies = self.ts.check()
+        if not unresolved_dependencies:
+            if self.pre_pkgs:
+                self.preinstallPkgs()
+
+            for pkg_bak in self.pkgs_bak:
+                self.ts.addInstall(pkg_bak["header"], pkg_bak["rpmpath"], 'u')
+            self.ts.order()
+            cb = rpmmisc.RPMInstallCallback(self.ts)
+            installlogfile = "%s/__catched_stderr.buf" % (self.instroot)
+
+            # start to catch stderr output from librpm
+            msger.enable_logstderr(installlogfile)
+
+            errors = self.ts.run(cb.callback, '')
+            # stop catch
+            msger.disable_logstderr()
+            self.ts.closeDB()
+            self.ts = None
+            self.pkgs_bak = []
+
+            if errors is not None:
+                if len(errors) == 0:
+                    msger.warning('scriptlet or other non-fatal errors occurred '
+                                  'during transaction.')
+                    if self.strict_mode:
+                        raise CreatorError("mic failes to install some packages")
+                else:
+                    for e in errors:
+                        msger.warning(e[0])
+                    raise RepoError('Could not run transaction.')
+
+        else:
+            self.show_unresolved_dependencies_msg(unresolved_dependencies)
+            raise RepoError("Unresolved dependencies, transaction failed.")
+
+    def __initialize_transaction(self):
+        if not self.ts:
+            self.ts = rpm.TransactionSet(self.instroot)
+            # Set to not verify DSA signatures.
+            self.ts.setVSFlags(rpm._RPMVSF_NOSIGNATURES|rpm._RPMVSF_NODIGESTS)
+
+        if not self.ts_pre:
+            self.ts_pre = rpm.TransactionSet(self.instroot)
+            # Just unpack the files, don't run scripts
+            self.ts_pre.setFlags(rpm.RPMTRANS_FLAG_ALLFILES | rpm.RPMTRANS_FLAG_NOSCRIPTS)
+            # Set to not verify DSA signatures.
+            self.ts_pre.setVSFlags(rpm._RPMVSF_NOSIGNATURES|rpm._RPMVSF_NODIGESTS)
+
+    def checkPkg(self, pkg):
+        ret = 1
+        if not os.path.exists(pkg):
+            return ret
+        ret = rpmmisc.checkRpmIntegrity('rpm', pkg)
+        if ret != 0:
+            msger.warning("package %s is damaged: %s" \
+                          % (os.path.basename(pkg), pkg))
+
+        return ret
+
+    def _add_prob_flags(self, *flags):
+        for flag in flags:
+            if flag not in self.probFilterFlags:
+                self.probFilterFlags.append(flag)
+
+    def get_proxies(self, pobj):
+        if not pobj:
+            return None
+
+        proxy = None
+        proxies = None
+        repoinfo = pobj.repoInfo()
+        reponame = "%s" % repoinfo.name()
+        repos = [r for r in self.repos if r.name == reponame]
+        repourl = str(repoinfo.baseUrls()[0])
+
+        if repos:
+            proxy = repos[0].proxy
+        if not proxy:
+            proxy = get_proxy_for(repourl)
+        if proxy:
+            proxies = {str(repourl.split(':')[0]): str(proxy)}
+
+        return proxies
+
+    def get_url(self, pobj):
+        if not pobj:
+            return None
+
+        name = str(pobj.repoInfo().name())
+        try:
+            repo = list(filter(lambda r: r.name == name, self.repos))[0]
+        except IndexError:
+            return None
+
+        location = pobj.location()
+        location = str(location.filename())
+        if location.startswith("./"):
+            location = location[2:]
+
+        return repo.baseurl[0].join(location)
+
+    def package_url(self, pkgname):
+
+        def cmpEVR(p1, p2):
+            ed1 = p1.edition()
+            ed2 = p2.edition()
+            (e1, v1, r1) = list(map(str, [ed1.epoch(), ed1.version(), ed1.release()]))
+            (e2, v2, r2) = list(map(str, [ed2.epoch(), ed2.version(), ed2.release()]))
+            return rpm.labelCompare((e1, v1, r1), (e2, v2, r2))
+
+        if not self.Z:
+            self.__initialize_zypp()
+
+        q = zypp.PoolQuery()
+        q.addKind(zypp.ResKind.package)
+        q.setMatchExact()
+        q.addAttribute(zypp.SolvAttr.name, pkgname)
+        items = sorted(q.queryResults(self.Z.pool()),
+                       key=functools.cmp_to_key(lambda x,y: cmpEVR(zypp.asKindPackage(x), zypp.asKindPackage(y))),
+                       reverse=True)
+
+        if items:
+            item = zypp.asKindPackage(items[0])
+            url = self.get_url(item)
+            proxies = self.get_proxies(item)
+            return (url, proxies)
+
+        return (None, None)

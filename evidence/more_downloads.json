@@ -1,0 +1,37 @@
+[
+  {
+    "url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260917.132101/repos/standard/source/mic-bootstrap-1.0-1.src.rpm",
+    "path": "downloads/src/20260917.132101-mic-bootstrap-1.0-1.src.rpm",
+    "status": 200,
+    "size": 8468,
+    "sha256": "e9027e8a38b32a9de3a37c4dad80aa9945dd9e5a9ce5947daa859c3049cb1dc7"
+  },
+  {
+    "url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260930.105301/repos/standard/source/mic-bootstrap-1.0-1.src.rpm",
+    "path": "downloads/src/20260930.105301-mic-bootstrap-1.0-1.src.rpm",
+    "status": 200,
+    "size": 8468,
+    "sha256": "e9027e8a38b32a9de3a37c4dad80aa9945dd9e5a9ce5947daa859c3049cb1dc7"
+  },
+  {
+    "url": "https://api.github.com/repos/tizenorg/tools.mic",
+    "path": "downloads/indexes/github-tools-mic.json",
+    "status": 200,
+    "size": 6198,
+    "sha256": "c0698d911c95417376897d88174407150f231de952563a3f12c5d69ac72d0fd3"
+  },
+  {
+    "url": "https://api.github.com/repos/tizenorg/tools.mic-bootstrap",
+    "path": "downloads/indexes/github-tools-mic-bootstrap.json",
+    "status": 200,
+    "size": 6481,
+    "sha256": "edb3feb887609fee4541cbeaef4f9e8c2cb5e03148af1748b91d6cfbc8a3d413"
+  },
+  {
+    "url": "https://download.tizen.org/tools/latest-release/Ubuntu_24.04/all/mic_2.1.3_all.deb",
+    "path": "downloads/mic_2.1.3_all.deb",
+    "status": 200,
+    "size": 433354,
+    "sha256": "da04eb9d000c0a47a5580634741645efa755e7d12d1310a53b7ef0ffde0f482c"
+  }
+]

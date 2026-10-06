@@ -1,0 +1,4 @@
+67119133	./work/compressor-probe/gzip.gz
+67108864	./work/compressor-probe/random.bin
+67129373	./work/compressor-probe/pigz-default.gz
+67129373	./work/compressor-probe/pigz-p2.gz

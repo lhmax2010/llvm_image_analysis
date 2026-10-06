@@ -1,0 +1,34 @@
+[
+  {
+    "url": "https://download.tizen.org/tools/latest-release/",
+    "path": "downloads/indexes/tools-latest.html",
+    "status": 200,
+    "size": 1503,
+    "sha256": "14e18bc5b3c20115d6dd0c6d5510dc01a3694023df951f956bbbd68ee90df41c",
+    "elapsed_s": 1.0830161740013864
+  },
+  {
+    "url": "https://download.tizen.org/tools/latest-release/Ubuntu_24.04/",
+    "path": "downloads/indexes/tools-ubuntu24.html",
+    "status": 200,
+    "size": 9629,
+    "sha256": "8c18810d136b00f24982740e3b1839a8eb3606ec0a38eaa5e9087018c389dcb2",
+    "elapsed_s": 1.0733866750015295
+  },
+  {
+    "url": "https://raw.githubusercontent.com/madler/pigz/master/pigz.c",
+    "path": "downloads/src/pigz.c",
+    "status": 200,
+    "size": 180222,
+    "sha256": "cd31c5d6b0a8d88bc79422e6c0e2ef53d30f88a6eb45598bf7bf2c8f7a0b65f9",
+    "elapsed_s": 1.031185464002192
+  },
+  {
+    "url": "https://raw.githubusercontent.com/madler/pigz/master/pigz.1",
+    "path": "downloads/src/pigz.1",
+    "status": 200,
+    "size": 6872,
+    "sha256": "05f32e54bafb4bd946c6cc26c24979f8a49a3b8e70445c8f72693025457b63a5",
+    "elapsed_s": 0.8511429189966293
+  }
+]

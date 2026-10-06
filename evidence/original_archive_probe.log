@@ -1,0 +1,45 @@
+[
+  {
+    "mode": "exit1",
+    "raw_returncode": 1,
+    "raw_stdout": "gzip: simulated write failure: No space left on device\n",
+    "raw_stderr": null,
+    "exception": "FileNotFoundError(2, 'No such file or directory')",
+    "traceback": "Traceback (most recent call last):\n  File \"/usr/lib/python3.12/shutil.py\", line 886, in move\n    os.rename(src, real_dst)\nFileNotFoundError: [Errno 2] No such file or directory: '/home/linhao/Toolchain/development/llvm_image_analysis/work/original-probe/exit1/tmpiztbzmb8.tar.gz' -> '/home/linhao/Toolchain/development/llvm_image_analysis/work/original-probe/exit1/output.tar.gz'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/home/linhao/Toolchain/development/llvm_image_analysis/work/original_archive_probe.py\", line 25, in <module>\n    try: archive.packing(str(d/'output.tar.gz'),str(d/'input'))\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/linhao/Toolchain/development/llvm_image_analysis/downloads/src/mic/mic/archive.py\", line 453, in make_archive\n    return func(archive_name, target_name, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/linhao/Toolchain/development/llvm_image_analysis/downloads/src/mic/mic/archive.py\", line 346, in _make_tarball\n    shutil.move(tarball_name, archive_name)\n  File \"/usr/lib/python3.12/shutil.py\", line 906, in move\n    copy_function(src, real_dst)\n  File \"/usr/lib/python3.12/shutil.py\", line 475, in copy2\n    copyfile(src, dst, follow_symlinks=follow_symlinks)\n  File \"/usr/lib/python3.12/shutil.py\", line 260, in copyfile\n    with open(src, 'rb') as fsrc:\n         ^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/home/linhao/Toolchain/development/llvm_image_analysis/work/original-probe/exit1/tmpiztbzmb8.tar.gz'\n",
+    "elapsed_s": 0.006623678003961686,
+    "mic_log": "[10/06 20:43:46 CST] Running command: gzip -f /home/linhao/Toolchain/development/llvm_image_analysis/work/original-probe/exit1/input/rootfs.img\n[10/06 20:43:46 CST] Running command: tar -C /home/linhao/Toolchain/development/llvm_image_analysis/work/original-probe/exit1/input -cf /home/linhao/Toolchain/development/llvm_image_analysis/work/original-probe/exit1/tmpiztbzmb8.tar rootfs.img\n[10/06 20:43:46 CST] Running command: gzip -f /home/linhao/Toolchain/development/llvm_image_analysis/work/original-probe/exit1/tmpiztbzmb8.tar\n"
+  },
+  {
+    "mode": "sigkill",
+    "raw_returncode": -9,
+    "raw_stdout": "",
+    "raw_stderr": null,
+    "exception": "FileNotFoundError(2, 'No such file or directory')",
+    "traceback": "Traceback (most recent call last):\n  File \"/usr/lib/python3.12/shutil.py\", line 886, in move\n    os.rename(src, real_dst)\nFileNotFoundError: [Errno 2] No such file or directory: '/home/linhao/Toolchain/development/llvm_image_analysis/work/original-probe/sigkill/tmp02xu5t4j.tar.gz' -> '/home/linhao/Toolchain/development/llvm_image_analysis/work/original-probe/sigkill/output.tar.gz'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/home/linhao/Toolchain/development/llvm_image_analysis/work/original_archive_probe.py\", line 25, in <module>\n    try: archive.packing(str(d/'output.tar.gz'),str(d/'input'))\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/linhao/Toolchain/development/llvm_image_analysis/downloads/src/mic/mic/archive.py\", line 453, in make_archive\n    return func(archive_name, target_name, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/linhao/Toolchain/development/llvm_image_analysis/downloads/src/mic/mic/archive.py\", line 346, in _make_tarball\n    shutil.move(tarball_name, archive_name)\n  File \"/usr/lib/python3.12/shutil.py\", line 906, in move\n    copy_function(src, real_dst)\n  File \"/usr/lib/python3.12/shutil.py\", line 475, in copy2\n    copyfile(src, dst, follow_symlinks=follow_symlinks)\n  File \"/usr/lib/python3.12/shutil.py\", line 260, in copyfile\n    with open(src, 'rb') as fsrc:\n         ^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/home/linhao/Toolchain/development/llvm_image_analysis/work/original-probe/sigkill/tmp02xu5t4j.tar.gz'\n",
+    "elapsed_s": 0.0060737259991583414,
+    "mic_log": "[10/06 20:43:47 CST] Running command: gzip -f /home/linhao/Toolchain/development/llvm_image_analysis/work/original-probe/sigkill/input/rootfs.img\n[10/06 20:43:47 CST] Running command: tar -C /home/linhao/Toolchain/development/llvm_image_analysis/work/original-probe/sigkill/input -cf /home/linhao/Toolchain/development/llvm_image_analysis/work/original-probe/sigkill/tmp02xu5t4j.tar rootfs.img\n[10/06 20:43:47 CST] Running command: gzip -f /home/linhao/Toolchain/development/llvm_image_analysis/work/original-probe/sigkill/tmp02xu5t4j.tar\n"
+  }
+]
+	Command being timed: "python3 work/original_archive_probe.py"
+	User time (seconds): 0.07
+	System time (seconds): 0.01
+	Percent of CPU this job got: 95%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.10
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 15724
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 6825
+	Voluntary context switches: 547
+	Involuntary context switches: 1
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 192
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

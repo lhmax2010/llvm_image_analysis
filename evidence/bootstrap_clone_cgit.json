@@ -1,0 +1,6 @@
+{
+  "error": "timeout 20s",
+  "output": "Cloning into '/home/linhao/Toolchain/development/llvm_image_analysis/downloads/src/mic-bootstrap'...\n",
+  "url": "https://git.tizen.org/cgit/tools/mic-bootstrap",
+  "elapsed_s": 20.022083765994466
+}

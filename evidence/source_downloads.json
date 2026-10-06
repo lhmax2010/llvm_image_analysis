@@ -1,0 +1,37 @@
+[
+  {
+    "url": "https://download.tizen.org/tools/latest-release/Ubuntu_24.04/mic_2.1.3.tar.gz",
+    "path": "downloads/src/mic_2.1.3.tar.gz",
+    "status": 200,
+    "size": 2050750,
+    "sha256": "a231e80e4a8a23ed8225f5911140b5e91ef1b8122183d15775d5534cd8986df0"
+  },
+  {
+    "url": "https://download.tizen.org/tools/latest-release/Ubuntu_24.04/mic_2.1.3.dsc",
+    "path": "downloads/src/mic_2.1.3.dsc",
+    "status": 200,
+    "size": 626,
+    "sha256": "b8f150b0f2d8757b6ff7bbc2b6ed830be4974f3525d7c5ea6642c2985a287fa8"
+  },
+  {
+    "url": "https://download.tizen.org/tools/latest-release/Ubuntu_24.04/Packages",
+    "path": "downloads/tools-Packages",
+    "status": 200,
+    "size": 34036,
+    "sha256": "21d5d0256a290283c460cc6dbc8ee60d31eac09fb1a11caf199dcaad3814b0b3"
+  },
+  {
+    "url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20261003.102419/repos/standard/source/mic-bootstrap-1.0-1.src.rpm",
+    "path": "downloads/src/mic-bootstrap-1.0-1.src.rpm",
+    "status": 200,
+    "size": 269986,
+    "sha256": "3a0da792ebb28a209015002869ad557d7dc0f27af778849b9ee746d97637182b"
+  },
+  {
+    "url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20261003.102419/repos/standard/source/",
+    "path": "downloads/indexes/20261003-source.html",
+    "status": 200,
+    "size": 142789,
+    "sha256": "102abe71f1294ac640eae9bce0ee4528c49783c5aa2fa5815eb0045f013e70ab"
+  }
+]

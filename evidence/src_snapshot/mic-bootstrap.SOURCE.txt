@@ -1,0 +1,9 @@
+远端URL：https://github.com/tizenorg/tools.mic-bootstrap.git
+Tizen原始仓URL：https://git.tizen.org/cgit/tools/mic-bootstrap（匿名访问超时）
+分支：master
+commit hash：116b2e549d57c804549cd240078ef40c681ac41c
+checkout时间：2026-10-06本次取证期间；初次clone未保存准确墙钟时分秒，不能伪填为commit时间
+这是2012年的旧GitHub镜像，不代表实际2026构建；其packaging文本目录已全部原样复制。
+sandbox/dkson95/clang：fetch missing remote ref，尚未取得，不创建虚假sandbox快照。
+快照复制/核验时间：2026-10-06T21:05:59.391739+08:00
+原始取得时间：2026-10-06，精确时刻未在初次下载元数据中记录；见evidence/prepare_sources.json及source_downloads.json。

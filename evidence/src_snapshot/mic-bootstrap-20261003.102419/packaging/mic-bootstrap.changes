@@ -1,0 +1,28 @@
+* Fri Oct 02 2026 Dongkyun Son <dongkyun.s@samsung.com> - 1.0
+- Build pigz from source and include it in the bootstrap
+  MIC uses gzip -f to pack loop images into .tar.gz. Without pigz,
+  single-core gzip is used, which is slow for large images
+  (e.g. tizen-headed-aarch64 ~4.5GB). pigz enables parallel
+  compression for faster image packing.
+  pigz is not available as a Tizen package, so build from upstream
+  source (v2.8) and install to bootstrap/bin/pigz after the bootstrap
+  copy step. Source0 is the GBS auto-generated tarball; pigz source
+  is provided as Source1 and extracted during %prep.
+
+* Fri Jun 21 2013 Gui Chen <gui.chen@intel.com> -1.0
+- fix baselib.conf
+
+* Wed Jun 19 2013 Anas Nashif <anas.nashif@intel.com> submit/tizen/20130618.163133@495ed63
+- fix duplicate source and regex of lint filter
+
+* Tue Jun 18 2013 Anas Nashif <anas.nashif@intel.com> accepted/tizen/20130606.122015@a0a738f
+- Add rpmlintrc to skip errors
+
+* Mon Jun 03 2013 Anas Nashif <anas.nashif@intel.com> submit/tizen/20130603.141902@da9a281
+- fixed arch exclusion again
+
+* Mon Jun 03 2013 Anas Nashif <anas.nashif@intel.com> accepted/tizen_2.1/20130520.103448@7e6ff80
+- fixed arch exclusion
+
+* Fri Nov  9 14:48:24 CST 2012 Gui Chen <gui.chen@intel.com> - 1.0
+- Initial version on tizen.org

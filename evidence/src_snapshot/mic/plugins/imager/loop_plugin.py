@@ -1,0 +1,213 @@
+#!/usr/bin/python3 -tt
+#
+# Copyright (c) 2011 Intel, Inc.
+#
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; version 2 of the License
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+# or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+# for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc., 59
+# Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+import os
+import subprocess
+import shutil
+import tempfile
+
+from mic import chroot, msger, rt_util
+from mic.utils import misc, fs_related, errors, runner
+from mic.plugin import pluginmgr
+from mic.imager.loop import LoopImageCreator, load_mountpoints
+
+from mic.pluginbase import ImagerPlugin
+class LoopPlugin(ImagerPlugin):
+    name = 'loop'
+
+    @classmethod
+    def do_create(self, args):
+        """${cmd_name}: create loop image
+        """
+
+        creatoropts, pkgmgr, recording_pkgs = rt_util.prepare_create(args)
+
+        creator = LoopImageCreator(creatoropts,
+                                   pkgmgr,
+                                   args.compress_image,
+                                   args.shrink)
+
+        if len(recording_pkgs) > 0:
+            creator._recording_pkgs = recording_pkgs
+
+        image_names = [creator.name + ".img"]
+        image_names.extend(creator.get_image_names())
+        self.check_image_exists(creator.destdir,
+                                creator.pack_to,
+                                image_names,
+                                creatoropts['release'])
+
+        try:
+            creator.check_depend_tools()
+            creator.mount(None, creatoropts["cachedir"])
+            creator.install()
+            creator.tpkinstall()
+            creator.configure(creatoropts["repomd"])
+            creator.copy_kernel()
+            creator.create_cpio_image()
+            creator.unmount()
+            creator.copy_cpio_image()
+            creator.package(creatoropts["destdir"])
+            creator.create_manifest()
+
+            if creatoropts['release'] is not None:
+                creator.release_output(args.ksfile,
+                                       creatoropts['destdir'],
+                                       creatoropts['release'])
+            creator.print_outimage_info()
+
+        except errors.CreatorError:
+            raise
+        finally:
+            creator.cleanup()
+
+        #Run script of --run_script after image created
+        if creatoropts['run_script']:
+            cmd = creatoropts['run_script']
+            try:
+                runner.show(cmd)
+            except OSError as err:
+                msger.warning(str(err))
+
+        msger.info("Finished.")
+        return 0
+
+    @classmethod
+    def _do_chroot_tar(cls, target, cmd=[]):
+        mountfp_xml = os.path.splitext(target)[0] + '.xml'
+        if not os.path.exists(mountfp_xml):
+            raise errors.CreatorError("No mount point file found for this tar "
+                                      "image, please check %s" % mountfp_xml)
+
+        import tarfile
+        tar = tarfile.open(target, 'r')
+        tmpdir = misc.mkdtemp()
+        tar.extractall(path=tmpdir)
+        tar.close()
+
+        mntdir = misc.mkdtemp()
+
+        loops = []
+        for (mp, label, name, size, fstype) in load_mountpoints(mountfp_xml):
+            if fstype in ("ext2", "ext3", "ext4"):
+                myDiskMount = fs_related.ExtDiskMount
+            elif fstype == "btrfs":
+                myDiskMount = fs_related.BtrfsDiskMount
+            elif fstype in ("vfat", "msdos"):
+                myDiskMount = fs_related.VfatDiskMount
+            else:
+                raise errors.CreatorError("Cannot support fstype: %s" % fstype)
+
+            name = os.path.join(tmpdir, name)
+            size = size * 1024 * 1024
+            loop = myDiskMount(fs_related.SparseLoopbackDisk(name, size),
+                               os.path.join(mntdir, mp.lstrip('/')),
+                               fstype, size, label)
+
+            try:
+                msger.verbose("Mount %s to %s" % (mp, mntdir + mp))
+                fs_related.makedirs(os.path.join(mntdir, mp.lstrip('/')))
+                loop.mount()
+
+            except:
+                loop.cleanup()
+                for lp in reversed(loops):
+                    chroot.cleanup_after_chroot("img", lp, None, mntdir)
+
+                shutil.rmtree(tmpdir, ignore_errors=True)
+                raise
+
+            loops.append(loop)
+
+        try:
+            if cmd is not None and len(cmd) != 0:
+                cmdline = "/usr/bin/env HOME=/root " + ' '.join(cmd)
+            else:
+                cmdline = "/usr/bin/env HOME=/root /bin/bash"
+            chroot.chroot(mntdir, None, cmdline)
+        except:
+            raise errors.CreatorError("Failed to chroot to %s." % target)
+        finally:
+            for loop in reversed(loops):
+                chroot.cleanup_after_chroot("img", loop, None, mntdir)
+
+            shutil.rmtree(tmpdir, ignore_errors=True)
+
+    @classmethod
+    def do_chroot(cls, target, cmd=[]):
+        if target.endswith('.tar'):
+            import tarfile
+            if tarfile.is_tarfile(target):
+                LoopPlugin._do_chroot_tar(target, cmd)
+                return
+            else:
+                raise errors.CreatorError("damaged tarball for loop images")
+
+        img = target
+        imgsize = misc.get_file_size(img) * 1024 * 1024
+        imgtype = misc.get_image_type(img)
+        if imgtype == "btrfsimg":
+            fstype = "btrfs"
+            myDiskMount = fs_related.BtrfsDiskMount
+        elif imgtype in ("ext3fsimg", "ext4fsimg"):
+            fstype = imgtype[:4]
+            myDiskMount = fs_related.ExtDiskMount
+        elif imgtype == "f2fsimg":
+            fstype = "f2fs"
+            myDiskMount = fs_related.F2fsDiskMount
+        elif imgtype == "erofsimg":
+            fstype = "erofs"
+            myDiskMount = fs_related.ErofsDiskMount
+        else:
+            raise errors.CreatorError("Unsupported filesystem type: %s" \
+                                      % imgtype)
+
+        extmnt = misc.mkdtemp()
+        extloop = myDiskMount(fs_related.SparseLoopbackDisk(img, imgsize),
+                                                         extmnt,
+                                                         fstype,
+                                                         4096,
+                                                         "%s label" % fstype)
+        try:
+            extloop.mount()
+
+        except errors.MountError:
+            extloop.cleanup()
+            shutil.rmtree(extmnt, ignore_errors=True)
+            raise
+
+        try:
+            if cmd is not None:
+                cmdline = cmd
+            else:
+                cmdline = "/bin/bash"
+            envcmd = fs_related.find_binary_inchroot("env", extmnt)
+            if envcmd:
+                cmdline = "%s HOME=/root %s" % (envcmd, cmdline)
+            chroot.chroot(extmnt, None, cmdline)
+        except:
+            raise errors.CreatorError("Failed to chroot to %s." % img)
+        finally:
+            chroot.cleanup_after_chroot("img", extloop, None, extmnt)
+
+    @classmethod
+    def do_unpack(cls, srcimg):
+        image = os.path.join(tempfile.mkdtemp(dir="/var/tmp", prefix="tmp"),
+                             "target.img")
+        msger.info("Copying file system ...")
+        shutil.copyfile(srcimg, image)
+        return image

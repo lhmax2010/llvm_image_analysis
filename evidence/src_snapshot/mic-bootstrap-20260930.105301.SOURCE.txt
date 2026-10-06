@@ -1,0 +1,9 @@
+原始源码仓URL：https://git.tizen.org/cgit/tools/mic-bootstrap
+实际材料URL：https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260930.105301/repos/standard/source/mic-bootstrap-1.0-1.src.rpm
+分支：未验证（源码RPM导出，不是Git checkout）
+commit hash：51f241d86ecc960aaa2d4440d7da82aa45d5dbe5（来自mic-bootstrap.spec的VCS字段，未独立checkout验证）
+checkout时间：不适用；源码RPM下载/解包在2026-10-06本次取证期间
+保留源RPM中全部已有packaging文本；压缩包与二进制不进Git。
+未纳入的归档文件：无（该SRPM只有spec/config文本）
+快照复制/核验时间：2026-10-06T21:05:59.391739+08:00
+原始取得时间：2026-10-06，精确时刻未在初次下载元数据中记录；见evidence/prepare_sources.json及source_downloads.json。

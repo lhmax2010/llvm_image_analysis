@@ -1,0 +1,50 @@
+{
+  "cpu_count": 20,
+  "affinity_cpus": 20,
+  "results": [
+    {
+      "command": [
+        "/usr/bin/time",
+        "-v",
+        "/usr/bin/gzip",
+        "-c",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/compressor-probe/random.bin"
+      ],
+      "rc": 0,
+      "elapsed_s": 1.237454729998717,
+      "max_rss_kib": 1804,
+      "input_bytes": 67108864,
+      "output_bytes": 67119133
+    },
+    {
+      "command": [
+        "/usr/bin/time",
+        "-v",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/pigz-src/pigz-2.8/pigz",
+        "-c",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/compressor-probe/random.bin"
+      ],
+      "rc": 0,
+      "elapsed_s": 0.11371333800343564,
+      "max_rss_kib": 17392,
+      "input_bytes": 67108864,
+      "output_bytes": 67129373
+    },
+    {
+      "command": [
+        "/usr/bin/time",
+        "-v",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/pigz-src/pigz-2.8/pigz",
+        "-p",
+        "2",
+        "-c",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/compressor-probe/random.bin"
+      ],
+      "rc": 0,
+      "elapsed_s": 0.4528211580036441,
+      "max_rss_kib": 3800,
+      "input_bytes": 67108864,
+      "output_bytes": 67129373
+    }
+  ]
+}

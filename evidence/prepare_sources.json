@@ -1,0 +1,50 @@
+[
+  {
+    "command": [
+      "git",
+      "clone",
+      "https://github.com/tizenorg/tools.mic-bootstrap.git",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/downloads/src/mic-bootstrap"
+    ],
+    "rc": 0,
+    "output": "Cloning into '/home/linhao/Toolchain/development/llvm_image_analysis/downloads/src/mic-bootstrap'...\n",
+    "elapsed_s": 1.778753719998349
+  },
+  {
+    "command": [
+      "git",
+      "-C",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/downloads/src/mic-bootstrap",
+      "fetch",
+      "origin",
+      "sandbox/dkson95/clang"
+    ],
+    "rc": 128,
+    "output": "fatal: couldn't find remote ref sandbox/dkson95/clang\n",
+    "elapsed_s": 1.1358527929987758
+  },
+  {
+    "command": [
+      "git",
+      "-C",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/downloads/src/mic-bootstrap",
+      "log",
+      "-1",
+      "--format=fuller"
+    ],
+    "rc": 0,
+    "output": "commit 116b2e549d57c804549cd240078ef40c681ac41c\nAuthor:     Gui Chen <gui.chen@intel.com>\nAuthorDate: Thu Nov 29 20:28:56 2012 +0800\nCommit:     Gui Chen <gui.chen@intel.com>\nCommitDate: Thu Nov 29 20:28:56 2012 +0800\n\n    remove busybox requires\n    \n    Signed-off-by: Gui Chen <gui.chen@intel.com>\n",
+    "elapsed_s": 0.0033172730036312714
+  },
+  {
+    "command": [
+      "git",
+      "ls-remote",
+      "https://github.com/tizenorg/tools.mic.git",
+      "refs/tags/*2.1.3*"
+    ],
+    "rc": 0,
+    "output": "",
+    "elapsed_s": 1.1672279060003348
+  }
+]

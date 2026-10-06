@@ -1,0 +1,191 @@
+[
+  {
+    "url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260917.132101/images/standard/tizen-headed-aarch64/",
+    "path": "downloads/indexes/20260917.132101-images.html",
+    "status": 200,
+    "final_url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260917.132101/images/standard/tizen-headed-aarch64/",
+    "size": 2056,
+    "sha256": "5a484222f15cdb9ed6194854f03169ed9db1da1431e94e4da8b0d0000b7f69cb",
+    "elapsed_s": 1.087
+  },
+  {
+    "url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260930.105301/images/standard/tizen-headed-aarch64/",
+    "path": "downloads/indexes/20260930.105301-images.html",
+    "status": 200,
+    "final_url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260930.105301/images/standard/tizen-headed-aarch64/",
+    "size": 553,
+    "sha256": "447b66089320fad102d271309c8a4d6685b575abef8dcbeaf5aab34146b5e905",
+    "elapsed_s": 1.092
+  },
+  {
+    "url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20261003.102419/images/standard/tizen-headed-aarch64/",
+    "path": "downloads/indexes/20261003.102419-images.html",
+    "status": 200,
+    "final_url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20261003.102419/images/standard/tizen-headed-aarch64/",
+    "size": 553,
+    "sha256": "69cd69bb63e55203a08a073a7d5eb1a502af6f7d280f393febfb312edf36f2c7",
+    "elapsed_s": 1.111
+  },
+  {
+    "url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260917.132101/images/standard/tizen-headed-aarch64/MD5SUMS",
+    "path": "downloads/logs/MD5SUMS",
+    "status": 200,
+    "final_url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260917.132101/images/standard/tizen-headed-aarch64/MD5SUMS",
+    "size": 655,
+    "sha256": "4bfca170ce4aee99ae74fe74a1f90d658d7e5da59b9e2078c4a847bb7a9959c5",
+    "elapsed_s": 1.013
+  },
+  {
+    "url": "https://quickbuild.tizen.org/build/1187398/",
+    "path": "downloads/logs/qb-1187398.html",
+    "status": 200,
+    "final_url": "https://quickbuild.tizen.org/signin?redirect-url-after-sign-in=https%3A//quickbuild.tizen.org/build/1187398/",
+    "size": 19011,
+    "sha256": "a6643aaddae7f3ff88795672439b6f192de8ccf6be17beb8d52fcb1eaba7411e",
+    "elapsed_s": 2.271
+  },
+  {
+    "url": "https://quickbuild.tizen.org/build/1178308/",
+    "path": "downloads/logs/qb-1178308.html",
+    "status": 200,
+    "final_url": "https://quickbuild.tizen.org/signin?redirect-url-after-sign-in=https%3A//quickbuild.tizen.org/build/1178308/",
+    "size": 19011,
+    "sha256": "4339335136ab3c1f684862a96310efdff3fb731fa7acf8168781a48e8ae0c80f",
+    "elapsed_s": 2.293
+  },
+  {
+    "url": "https://quickbuild.tizen.org/build/1189686/",
+    "path": "downloads/logs/qb-1189686.html",
+    "status": 200,
+    "final_url": "https://quickbuild.tizen.org/signin?redirect-url-after-sign-in=https%3A//quickbuild.tizen.org/build/1189686/",
+    "size": 19011,
+    "sha256": "945eb5e59efc1a6cb9b2df4fca320055631769de4ba648d6ef72e0d90622a85f",
+    "elapsed_s": 2.295
+  },
+  {
+    "url": "https://quickbuild.tizen.org/build/1189639/",
+    "path": "downloads/logs/qb-1189639.html",
+    "status": 200,
+    "final_url": "https://quickbuild.tizen.org/signin?redirect-url-after-sign-in=https%3A//quickbuild.tizen.org/build/1189639/",
+    "size": 19011,
+    "sha256": "3828d789a50c52e3c6fa4dd3586fcce47d8fbf82ef535d558f5099750eaf4350",
+    "elapsed_s": 2.307
+  },
+  {
+    "url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20261003.102419/images/standard/tizen-headed-aarch64/tizen-unified-toolchain_20261003.102419_tizen-headed-aarch64.log",
+    "path": "downloads/logs/tizen-unified-toolchain_20261003.102419_tizen-headed-aarch64.log",
+    "status": 200,
+    "final_url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20261003.102419/images/standard/tizen-headed-aarch64/tizen-unified-toolchain_20261003.102419_tizen-headed-aarch64.log",
+    "size": 743273,
+    "sha256": "3d3ec7c3450da2d6d38f5b053699c8dcde34e4b777a442b7710ffd27ea6c8250",
+    "elapsed_s": 1.654
+  },
+  {
+    "url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260930.105301/images/standard/tizen-headed-aarch64/tizen-unified-toolchain_20260930.105301_tizen-headed-aarch64.log",
+    "path": "downloads/logs/tizen-unified-toolchain_20260930.105301_tizen-headed-aarch64.log",
+    "status": 200,
+    "final_url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260930.105301/images/standard/tizen-headed-aarch64/tizen-unified-toolchain_20260930.105301_tizen-headed-aarch64.log",
+    "size": 743317,
+    "sha256": "e9f5f51a8c8539a9762931c6b626c366be511d5abc21fdb7431378a3485b6845",
+    "elapsed_s": 1.689
+  },
+  {
+    "url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260917.132101/images/standard/tizen-headed-aarch64/manifest.json",
+    "path": "downloads/logs/manifest.json",
+    "status": 200,
+    "final_url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260917.132101/images/standard/tizen-headed-aarch64/manifest.json",
+    "size": 652,
+    "sha256": "4181412a5729c2d1db590cefbccb0f2b2df03e23737813820a429135f945decd",
+    "elapsed_s": 1.013
+  },
+  {
+    "url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20261003.102419/builddata/images/standard/image-configurations/tizen-headed-aarch64.ks",
+    "path": "downloads/ks/20261003.102419-tizen-headed-aarch64.ks",
+    "status": 200,
+    "final_url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20261003.102419/builddata/images/standard/image-configurations/tizen-headed-aarch64.ks",
+    "size": 11886,
+    "sha256": "331398c760363ca4275dd5595891aef7627df3aa02d2ff9af18b428abdae1735",
+    "elapsed_s": 1.144
+  },
+  {
+    "url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260930.105301/builddata/images/standard/image-configurations/tizen-headed-aarch64.ks",
+    "path": "downloads/ks/20260930.105301-tizen-headed-aarch64.ks",
+    "status": 200,
+    "final_url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260930.105301/builddata/images/standard/image-configurations/tizen-headed-aarch64.ks",
+    "size": 11886,
+    "sha256": "331398c760363ca4275dd5595891aef7627df3aa02d2ff9af18b428abdae1735",
+    "elapsed_s": 1.133
+  },
+  {
+    "url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260917.132101/images/standard/tizen-headed-aarch64/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.files",
+    "path": "downloads/logs/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.files",
+    "status": 200,
+    "final_url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260917.132101/images/standard/tizen-headed-aarch64/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.files",
+    "size": 1155335,
+    "sha256": "9c4be6ceecf0f7b6e8b21eb03e67a2b7029374bc8e489b71a8c2dedeeee91b71",
+    "elapsed_s": 1.786
+  },
+  {
+    "url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260930.105301/repos/standard/packages/repodata/repomd.xml",
+    "path": "downloads/repodata/20260930.105301-repomd.xml",
+    "status": 200,
+    "final_url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260930.105301/repos/standard/packages/repodata/repomd.xml",
+    "size": 4476,
+    "sha256": "73f81a9a47c67008d199b7863c63734b27bc6f9b0476a49b6998d44b6fb021ea",
+    "elapsed_s": 1.002
+  },
+  {
+    "url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20261003.102419/repos/standard/packages/repodata/repomd.xml",
+    "path": "downloads/repodata/20261003.102419-repomd.xml",
+    "status": 200,
+    "final_url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20261003.102419/repos/standard/packages/repodata/repomd.xml",
+    "size": 4476,
+    "sha256": "eceea605210e53bc5b9cea7483da60e6a9bdffb971efa082d1e12a07625d24c1",
+    "elapsed_s": 1.005
+  },
+  {
+    "url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260917.132101/images/standard/tizen-headed-aarch64/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.ks",
+    "path": "downloads/logs/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.ks",
+    "status": 200,
+    "final_url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260917.132101/images/standard/tizen-headed-aarch64/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.ks",
+    "size": 12048,
+    "sha256": "351c38fcc9cfd27379fd4696631ccf6ee4ef347ec1257900a5810150cd9d6cc4",
+    "elapsed_s": 1.13
+  },
+  {
+    "url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260917.132101/images/standard/tizen-headed-aarch64/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.log",
+    "path": "downloads/logs/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.log",
+    "status": 200,
+    "final_url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260917.132101/images/standard/tizen-headed-aarch64/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.log",
+    "size": 751197,
+    "sha256": "4cf81d21856e9f43f49f0d324040d93d47da5eb844d23c865fb91b806cbf2f4b",
+    "elapsed_s": 1.663
+  },
+  {
+    "url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260917.132101/images/standard/tizen-headed-aarch64/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.packages",
+    "path": "downloads/logs/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.packages",
+    "status": 200,
+    "final_url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260917.132101/images/standard/tizen-headed-aarch64/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.packages",
+    "size": 140158,
+    "sha256": "9721029ba4cd98186a4e7045d9f8c95775819f08b4a31193be17c44c0b828d48",
+    "elapsed_s": 1.421
+  },
+  {
+    "url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260917.132101/images/standard/tizen-headed-aarch64/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.xml",
+    "path": "downloads/logs/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.xml",
+    "status": 200,
+    "final_url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260917.132101/images/standard/tizen-headed-aarch64/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.xml",
+    "size": 2984,
+    "sha256": "b1a425474f466416d7e6434ac6249b477ace9a0cbcbbadf8ab9322e486cb13e6",
+    "elapsed_s": 1.016
+  },
+  {
+    "url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260917.132101/repos/standard/packages/repodata/repomd.xml",
+    "path": "downloads/repodata/20260917.132101-repomd.xml",
+    "status": 200,
+    "final_url": "https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260917.132101/repos/standard/packages/repodata/repomd.xml",
+    "size": 4476,
+    "sha256": "09a7478992391ccdde899eb8a2aa351987f8170a5e3a89a2a98405506bdbf990",
+    "elapsed_s": 1.008
+  }
+]

@@ -1,0 +1,20 @@
+# 只跟踪分析所需的文本；源码通过 evidence/src_snapshot 保存。
+/work/
+/downloads/cache/
+/downloads/src/
+*.rpm
+*.tar.gz
+*.tar
+*.img
+*.iso
+*.deb
+*.zip
+*.pyc
+__pycache__/
+.osc/
+
+# 当前单文件超过 5,000,000 字节的产物（见 docs/downloads.md）。
+/work/compressor-probe/gzip.gz
+/work/compressor-probe/random.bin
+/work/compressor-probe/pigz-default.gz
+/work/compressor-probe/pigz-p2.gz

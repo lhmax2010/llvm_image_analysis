@@ -1,0 +1,9 @@
+上游URL：https://github.com/madler/pigz
+实际材料：20261003.102419的mic-bootstrap源RPM内pigz-2.8.tar.gz
+实际材料URL：https://download.tizen.org/snapshots/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20261003.102419/repos/standard/source/mic-bootstrap-1.0-1.src.rpm
+分支：不适用（2.8发布源码包）
+commit hash：未独立Git验证
+checkout时间：不适用；从源RPM解包于2026-10-06本次取证期间
+本快照对应实际编译测量使用的2.8源码，不是先下载的当前上游master。
+快照复制/核验时间：2026-10-06T21:05:59.391739+08:00
+原始取得时间：2026-10-06，精确时刻未在初次下载元数据中记录；见evidence/prepare_sources.json及source_downloads.json。

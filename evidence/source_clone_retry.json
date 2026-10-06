@@ -1,0 +1,37 @@
+[
+  {
+    "name": "mic",
+    "url": "https://review.tizen.org/git/tools/mic",
+    "rc": 128,
+    "output": "Cloning into '/home/linhao/Toolchain/development/llvm_image_analysis/downloads/src/mic'...\nfatal: unable to access 'https://review.tizen.org/git/tools/mic/': The requested URL returned error: 403\n",
+    "elapsed_s": 1.354632255002798
+  },
+  {
+    "name": "mic-bootstrap",
+    "url": "https://review.tizen.org/git/tools/mic-bootstrap",
+    "rc": 128,
+    "output": "Cloning into '/home/linhao/Toolchain/development/llvm_image_analysis/downloads/src/mic-bootstrap'...\nfatal: unable to access 'https://review.tizen.org/git/tools/mic-bootstrap/': The requested URL returned error: 403\n",
+    "elapsed_s": 1.3602851780015044
+  },
+  {
+    "name": "mic-bootstrap",
+    "url": "git://review.tizen.org/tools/mic-bootstrap",
+    "rc": 128,
+    "output": "Cloning into '/home/linhao/Toolchain/development/llvm_image_analysis/downloads/src/mic-bootstrap'...\nfatal: remote error: access denied or repository not exported: /tools/mic-bootstrap\n",
+    "elapsed_s": 0.7171548559999792
+  },
+  {
+    "name": "mic",
+    "url": "git://review.tizen.org/tools/mic",
+    "rc": 128,
+    "output": "Cloning into '/home/linhao/Toolchain/development/llvm_image_analysis/downloads/src/mic'...\nfatal: remote error: access denied or repository not exported: /tools/mic\n",
+    "elapsed_s": 0.7364122119979584
+  },
+  {
+    "name": "mic",
+    "url": "https://github.com/intel/mic.git",
+    "rc": 0,
+    "output": "Cloning into '/home/linhao/Toolchain/development/llvm_image_analysis/downloads/src/mic'...\n",
+    "elapsed_s": 2.2563341300046886
+  }
+]

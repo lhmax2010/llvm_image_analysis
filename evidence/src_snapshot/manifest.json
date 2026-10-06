@@ -1,0 +1,236 @@
+[
+  {
+    "local_source": "downloads/src/mic/mic/archive.py",
+    "snapshot": "evidence/src_snapshot/mic/mic/archive.py",
+    "bytes": 14894,
+    "sha256": "6bf6d3a6f60300e94ac66f1d9fd9f3b0585b809b7a8f222fe72d3972480c6ba4"
+  },
+  {
+    "local_source": "downloads/src/mic/mic/imager/loop.py",
+    "snapshot": "evidence/src_snapshot/mic/mic/imager/loop.py",
+    "bytes": 22521,
+    "sha256": "ad851fc24d909821aad1002e3035db8cc37269bbe2dc566335f016cd2a306dd9"
+  },
+  {
+    "local_source": "downloads/src/mic/mic/imager/baseimager.py",
+    "snapshot": "evidence/src_snapshot/mic/mic/imager/baseimager.py",
+    "bytes": 64365,
+    "sha256": "2f63838a5e29ce151c534abd779b24c9169d4da6cd57b60fbb89d6cab865d7ea"
+  },
+  {
+    "local_source": "downloads/src/mic/mic/utils/runner.py",
+    "snapshot": "evidence/src_snapshot/mic/mic/utils/runner.py",
+    "bytes": 3156,
+    "sha256": "2ed3c1d2d3e54f6eb730a7c454a1ae1380186d699448d702b37c39fa8d4eb1f0"
+  },
+  {
+    "local_source": "downloads/src/mic/mic/conf.py",
+    "snapshot": "evidence/src_snapshot/mic/mic/conf.py",
+    "bytes": 12667,
+    "sha256": "4b7c1a37b938ef11c971893ff175310bd30beafabd8a11fe1eb6e2b1ce03cb91"
+  },
+  {
+    "local_source": "downloads/src/mic/mic/msger.py",
+    "snapshot": "evidence/src_snapshot/mic/mic/msger.py",
+    "bytes": 17207,
+    "sha256": "6c0b4086a15f4dab6cac5719694056042a0017a26e0ab0f52ccd98287ea01277"
+  },
+  {
+    "local_source": "downloads/src/mic/mic/rt_util.py",
+    "snapshot": "evidence/src_snapshot/mic/mic/rt_util.py",
+    "bytes": 13616,
+    "sha256": "9dfaf17e7bb5778c975bff06e8c655b3da62e03b23bab35d037340937be93f84"
+  },
+  {
+    "local_source": "downloads/src/mic/mic/bootstrap.py",
+    "snapshot": "evidence/src_snapshot/mic/mic/bootstrap.py",
+    "bytes": 12302,
+    "sha256": "847c867c64e5cf4c5635998ca41c8cd8118c500c98921b167a2a6768f90a7277"
+  },
+  {
+    "local_source": "downloads/src/mic/mic/utils/misc.py",
+    "snapshot": "evidence/src_snapshot/mic/mic/utils/misc.py",
+    "bytes": 37764,
+    "sha256": "c88d97dd22adfa4760f0d4b381ca105c0ed3e8d575733aad309518136485be32"
+  },
+  {
+    "local_source": "downloads/src/mic/mic/__init__.py",
+    "snapshot": "evidence/src_snapshot/mic/mic/__init__.py",
+    "bytes": 816,
+    "sha256": "bdc4608cb00a3f7afe7c362aa3198a6c19fead4c7d2fc7c1ac903085d069d7ff"
+  },
+  {
+    "local_source": "downloads/src/mic/mic/cmd_create.py",
+    "snapshot": "evidence/src_snapshot/mic/mic/cmd_create.py",
+    "bytes": 9301,
+    "sha256": "220007ffc6cd75edaf080a29b264a685ccfc28250a5a91ca50daef466734112d"
+  },
+  {
+    "local_source": "downloads/src/mic/mic/imager/raw.py",
+    "snapshot": "evidence/src_snapshot/mic/mic/imager/raw.py",
+    "bytes": 25820,
+    "sha256": "44d4caa4242528e6f6b269f22afd5ca8a10981d56efd53adbefa528215d88aa3"
+  },
+  {
+    "local_source": "downloads/src/mic/mic/imager/fs.py",
+    "snapshot": "evidence/src_snapshot/mic/mic/imager/fs.py",
+    "bytes": 3624,
+    "sha256": "b1837a1afb8e71e967b3b892768e27fabd32a2d95dade4297ea751cbfd8c9ac3"
+  },
+  {
+    "local_source": "downloads/src/mic/plugins/imager/loop_plugin.py",
+    "snapshot": "evidence/src_snapshot/mic/plugins/imager/loop_plugin.py",
+    "bytes": 7675,
+    "sha256": "c1dea3bfae77150e74fc109fabf6dbbd05c456724c5a6ed0c423f29ad580c8da"
+  },
+  {
+    "local_source": "downloads/src/mic/plugins/backend/zypppkgmgr.py",
+    "snapshot": "evidence/src_snapshot/mic/plugins/backend/zypppkgmgr.py",
+    "bytes": 36707,
+    "sha256": "091a271609ba7eae5257a9db45dbad36c19fa9a15c74888606909f88ee173d31"
+  },
+  {
+    "local_source": "downloads/src/mic/tools/mic",
+    "snapshot": "evidence/src_snapshot/mic/tools/mic",
+    "bytes": 17229,
+    "sha256": "8150d5f5f6c3c2edf45e6e3c245f3bd15820cd842e9b78b71dd93a5ea376babe"
+  },
+  {
+    "local_source": "downloads/src/mic/packaging/mic.spec",
+    "snapshot": "evidence/src_snapshot/mic/packaging/mic.spec",
+    "bytes": 2552,
+    "sha256": "11be2dd273a380cc71214466716f332ac2af7f67903ccd3cbd28e8470fabae1a"
+  },
+  {
+    "local_source": "downloads/src/mic/etc/mic.conf",
+    "snapshot": "evidence/src_snapshot/mic/etc/mic.conf",
+    "bytes": 683,
+    "sha256": "6c03d5f5485e758fe9bb298ef83f933cc46bcf8ac9dd6989d9adcb5bb80a812e"
+  },
+  {
+    "local_source": "downloads/src/mic/COPYING",
+    "snapshot": "evidence/src_snapshot/mic/COPYING",
+    "bytes": 17995,
+    "sha256": "aafcb8d3e2523737670e0d6f2517f21f506a9b572f97bf66ec29c0ccd6b8ee0a"
+  },
+  {
+    "local_source": "downloads/src/mic-bootstrap/packaging/baselibs.conf",
+    "snapshot": "evidence/src_snapshot/mic-bootstrap/packaging/baselibs.conf",
+    "bytes": 195,
+    "sha256": "e31d049bc60aa728b9ace475c26beddc75620821fa0376a97bffeb089c15f66a"
+  },
+  {
+    "local_source": "downloads/src/mic-bootstrap/packaging/mic-bootstrap.changes",
+    "snapshot": "evidence/src_snapshot/mic-bootstrap/packaging/mic-bootstrap.changes",
+    "bytes": 98,
+    "sha256": "26b0ee1ce737832d2323d0fc0be30ac68a7f5fb46c1d1a8a55794398a79814d2"
+  },
+  {
+    "local_source": "downloads/src/mic-bootstrap/packaging/mic-bootstrap.spec",
+    "snapshot": "evidence/src_snapshot/mic-bootstrap/packaging/mic-bootstrap.spec",
+    "bytes": 2140,
+    "sha256": "eb141eef523176307152b29ce798233c54cf05710746ea7b8873305836537dea"
+  },
+  {
+    "local_source": "downloads/src/20260917.132101-mic-bootstrap-srpm/baselibs.conf",
+    "snapshot": "evidence/src_snapshot/mic-bootstrap-20260917.132101/packaging/baselibs.conf",
+    "bytes": 254,
+    "sha256": "bdb6027b7f0d2a44635956176c8431a0f10761b72530909e4368829aac2714fb"
+  },
+  {
+    "local_source": "downloads/src/20260917.132101-mic-bootstrap-srpm/mic-bootstrap.spec",
+    "snapshot": "evidence/src_snapshot/mic-bootstrap-20260917.132101/packaging/mic-bootstrap.spec",
+    "bytes": 3146,
+    "sha256": "33cbe821cbc53f0ffab61962062cdeaaf2d319e6074cc7953f0a2662a76ae000"
+  },
+  {
+    "local_source": "downloads/src/20260917.132101-mic-bootstrap-srpm/rpmlintrc",
+    "snapshot": "evidence/src_snapshot/mic-bootstrap-20260917.132101/packaging/rpmlintrc",
+    "bytes": 101,
+    "sha256": "a4375904d0b3c0b9166668a6671c23c386ac5ba7f8f115405a673ce505a95872"
+  },
+  {
+    "local_source": "downloads/src/20260930.105301-mic-bootstrap-srpm/baselibs.conf",
+    "snapshot": "evidence/src_snapshot/mic-bootstrap-20260930.105301/packaging/baselibs.conf",
+    "bytes": 254,
+    "sha256": "bdb6027b7f0d2a44635956176c8431a0f10761b72530909e4368829aac2714fb"
+  },
+  {
+    "local_source": "downloads/src/20260930.105301-mic-bootstrap-srpm/mic-bootstrap.spec",
+    "snapshot": "evidence/src_snapshot/mic-bootstrap-20260930.105301/packaging/mic-bootstrap.spec",
+    "bytes": 3146,
+    "sha256": "33cbe821cbc53f0ffab61962062cdeaaf2d319e6074cc7953f0a2662a76ae000"
+  },
+  {
+    "local_source": "downloads/src/20260930.105301-mic-bootstrap-srpm/rpmlintrc",
+    "snapshot": "evidence/src_snapshot/mic-bootstrap-20260930.105301/packaging/rpmlintrc",
+    "bytes": 101,
+    "sha256": "a4375904d0b3c0b9166668a6671c23c386ac5ba7f8f115405a673ce505a95872"
+  },
+  {
+    "local_source": "downloads/src/mic-bootstrap-srpm/baselibs.conf",
+    "snapshot": "evidence/src_snapshot/mic-bootstrap-20261003.102419/packaging/baselibs.conf",
+    "bytes": 254,
+    "sha256": "bdb6027b7f0d2a44635956176c8431a0f10761b72530909e4368829aac2714fb"
+  },
+  {
+    "local_source": "downloads/src/mic-bootstrap-srpm/mic-bootstrap.spec",
+    "snapshot": "evidence/src_snapshot/mic-bootstrap-20261003.102419/packaging/mic-bootstrap.spec",
+    "bytes": 3457,
+    "sha256": "6d191923feeeab38bd3c120ba8ce87fe34a539a75d06165d44e5abaa3f34073f"
+  },
+  {
+    "local_source": "downloads/src/mic-bootstrap-srpm/rpmlintrc",
+    "snapshot": "evidence/src_snapshot/mic-bootstrap-20261003.102419/packaging/rpmlintrc",
+    "bytes": 101,
+    "sha256": "a4375904d0b3c0b9166668a6671c23c386ac5ba7f8f115405a673ce505a95872"
+  },
+  {
+    "local_source": "downloads/src/mic-bootstrap-srpm/mic-bootstrap-1.0.tar.gz::mic-bootstrap-1.0/packaging/baselibs.conf",
+    "snapshot": "evidence/src_snapshot/mic-bootstrap-20261003.102419/packaging/baselibs.conf",
+    "bytes": 254,
+    "sha256": "bdb6027b7f0d2a44635956176c8431a0f10761b72530909e4368829aac2714fb"
+  },
+  {
+    "local_source": "downloads/src/mic-bootstrap-srpm/mic-bootstrap-1.0.tar.gz::mic-bootstrap-1.0/packaging/mic-bootstrap.changes",
+    "snapshot": "evidence/src_snapshot/mic-bootstrap-20261003.102419/packaging/mic-bootstrap.changes",
+    "bytes": 1282,
+    "sha256": "82da0aca079a6b2dd2e10a257330bc2d6c92e18a055e2971567b0d886f130b0e"
+  },
+  {
+    "local_source": "downloads/src/mic-bootstrap-srpm/mic-bootstrap-1.0.tar.gz::mic-bootstrap-1.0/packaging/mic-bootstrap.spec",
+    "snapshot": "evidence/src_snapshot/mic-bootstrap-20261003.102419/source-package/packaging/mic-bootstrap.spec",
+    "bytes": 3389,
+    "sha256": "39971c7890cf79b27074934e4dbaae981e5c4debcf03b199d7be2daf8ce121a6"
+  },
+  {
+    "local_source": "downloads/src/mic-bootstrap-srpm/mic-bootstrap-1.0.tar.gz::mic-bootstrap-1.0/packaging/rpmlintrc",
+    "snapshot": "evidence/src_snapshot/mic-bootstrap-20261003.102419/packaging/rpmlintrc",
+    "bytes": 101,
+    "sha256": "a4375904d0b3c0b9166668a6671c23c386ac5ba7f8f115405a673ce505a95872"
+  },
+  {
+    "local_source": "downloads/src/pigz-2.8/pigz.c",
+    "snapshot": "evidence/src_snapshot/pigz-2.8/pigz.c",
+    "bytes": 180222,
+    "sha256": "cd31c5d6b0a8d88bc79422e6c0e2ef53d30f88a6eb45598bf7bf2c8f7a0b65f9"
+  },
+  {
+    "local_source": "downloads/src/pigz-2.8/pigz.1",
+    "snapshot": "evidence/src_snapshot/pigz-2.8/pigz.1",
+    "bytes": 6872,
+    "sha256": "05f32e54bafb4bd946c6cc26c24979f8a49a3b8e70445c8f72693025457b63a5"
+  },
+  {
+    "local_source": "work/original_archive_probe.py",
+    "snapshot": "evidence/probe_scripts/original_archive_probe.py",
+    "bytes": 1896,
+    "sha256": "9e81351c80f52b6b059fc50b15c054d47fa4e766c9d0e1b62ff3b02d0042f2ed"
+  },
+  {
+    "local_source": "work/compressor_probe.py",
+    "snapshot": "evidence/probe_scripts/compressor_probe.py",
+    "bytes": 1260,
+    "sha256": "eb82fb44b95c24374b7c2bdd235062f650b5aad295a267e9373661c703dbd4b9"
+  }
+]

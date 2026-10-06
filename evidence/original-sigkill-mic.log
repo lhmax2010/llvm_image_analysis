@@ -1,0 +1,3 @@
+[10/06 20:43:47 CST] Running command: gzip -f /home/linhao/Toolchain/development/llvm_image_analysis/work/original-probe/sigkill/input/rootfs.img
+[10/06 20:43:47 CST] Running command: tar -C /home/linhao/Toolchain/development/llvm_image_analysis/work/original-probe/sigkill/input -cf /home/linhao/Toolchain/development/llvm_image_analysis/work/original-probe/sigkill/tmp02xu5t4j.tar rootfs.img
+[10/06 20:43:47 CST] Running command: gzip -f /home/linhao/Toolchain/development/llvm_image_analysis/work/original-probe/sigkill/tmp02xu5t4j.tar

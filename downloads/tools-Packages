@@ -1,0 +1,861 @@
+Package: build
+Version: 20160629-tizen20260814
+Architecture: amd64
+Maintainer: Adrian Schroeter <adrian@suse.de>
+Installed-Size: 2540
+Depends: rpm, libxml-parser-perl, libcrypt-ssleay-perl (>= 0.64-tizen20130308), binfmt-support, tizen-qemu-arm-static-2024.07.22
+Recommends: rpm2cpio, zstd
+Filename: ./amd64/build_20160629-tizen20260814_amd64.deb
+Size: 490060
+MD5sum: 8cf637c68697249faf30a2b78840305c
+SHA1: d18e1c7b07946876a676a12293d9a68f5482994e
+SHA256: 696bbd096322caa40aac2585ef0d8da2120fe751c60530b7af95f8b5168202e0
+Section: devel
+Priority: optional
+Description: A script to build SUSE Linux RPMs
+ This package provides a script for building RPMs for SUSE Linux
+ in a chroot environment.
+
+Package: clewarecontrol
+Version: 4.3-1
+Architecture: amd64
+Maintainer: Donghoon Shin <dhs.shin@samsung.com>
+Installed-Size: 133
+Depends: libc6 (>= 2.38), libgcc-s1 (>= 3.3.1), libhidapi-hidraw0 (>= 0.8.0~rc1+git20140201.3a66d4e+dfsg), libstdc++6 (>= 13.1)
+Filename: ./amd64/clewarecontrol_4.3-1_amd64.deb
+Size: 49290
+MD5sum: 59e529d813d9361ef8bde6d294b336eb
+SHA1: 631c4c6300108c95fec5b43b37a6288cd3a69173
+SHA256: e997e3728f67dec8fdf25a790a624e9b6f0b567af55e7cfe1221729c9501a9fa
+Section: devel
+Priority: optional
+Homepage: https://github.com/flok99/clewarecontrol
+Description: A program to control devices by Cleware
+ control the USB devices made by Cleware GmbH.
+Original-Maintainer: Folkert van Heusden <folkert@vanheusden.com>
+
+Package: createrepo-c
+Version: 1.2.2
+Architecture: amd64
+Maintainer: Jian-feng Ding <jian-feng.ding@intel.com>
+Installed-Size: 169
+Depends: libcreaterepo-c0 (= 1.2.2)
+Filename: ./amd64/createrepo-c_1.2.2_amd64.deb
+Size: 41858
+MD5sum: 60cc91f2effdd2ce5fe539c6dca329fc
+SHA1: 3c6edd5b0f3057b1897d6b125cce9ed24836ba10
+SHA256: 5f58788948113360ee253d12a2a08d2752aa7ef74355de1733550f86795fc9b1
+Section: devel
+Priority: extra
+Multi-Arch: foreign
+Homepage: http://www.tizen.org
+Description: tool to create RPM repository metadata (C implementation)
+ The createrepo_c tool generates the repodata directory and XML metadata that
+ makes up a repository of RPM packages. This repository format is supported
+ by apt-rpm, red-carpet(zen), smartpm, up2date, yast, and yum.
+ .
+ This package is similar to the apt-ftparchive or reprepro commands, but for
+ working with RPM repositories.
+
+Package: deltarpm
+Version: 3.5.git-tizen20141002
+Architecture: amd64
+Maintainer: Gui Chen <gui.chen@inte.com>
+Installed-Size: 2665
+Depends: python-rpm, rpm (>= 4.1.1)
+Filename: ./amd64/deltarpm_3.5.git-tizen20141002_amd64.deb
+Size: 515044
+MD5sum: c021771f3b65455d4f107f5f3ce00718
+SHA1: f39a71de0886610f3123659414d9e18de8619a4b
+SHA256: 2d01978001cba5aa3f59a5bfd3dc337e10c580bcd093335973de9d8ee189921a
+Section: admin
+Priority: optional
+Homepage: ftp://ftp.suse.com/pub/projects/deltarpm
+Description: This package contains tools to create and apply deltarpms. A deltarpm contains the difference between an old and a new version of an RPM, which makes it possible to recreate the new RPM from the deltarpm and the old one. You do not need to have a copy of the old RPM, because deltarpms can also work with installed RPMs.
+
+Package: depanneur
+Version: 0.16.30
+Architecture: all
+Maintainer: Qiang Zhang <qiang.z.zhang@intel.com>
+Installed-Size: 137
+Depends: build (>= 20160629-tizen20260721), libyaml-perl, createrepo-c, libjson-perl, libconfig-tiny-perl, libhtml-template-perl, libparallel-forkmanager-perl, perl-bssolv (>= 0.37.2)
+Filename: ./all/depanneur_0.16.30_all.deb
+Size: 30418
+MD5sum: e124e6981ba0ff8e9f7e0d44fc8e2172
+SHA1: 34ee7c0b56c10613946da59df330d45f8a9b4f79
+SHA256: 2ebc9cfbf17fe096fdad533674ea852596430a2250cf7dff81bd8b6164cc1ce1
+Section: devel
+Priority: extra
+Homepage: http://www.tizen.org
+Description: Manages and executes the builds using the obs-build script.
+  The depanneur tool goes through local Git trees and evaluates packaging
+  meta-data to determine packages needed and the build order; it then starts
+  the build process and populates a local repository with the generated
+  binaries; the generated binaries are then used to build the remaining
+  packages in the queue.
+  This tool can build one package or multiple packages at a time, making it
+  possible to build hundreds of packages on a single computer with enough
+  power in a matter of hours. Depanneur supports two build modes: traditional
+  build mode and incremental build mode.
+
+Package: gbp-repocache
+Source: obs-service-git-buildpackage
+Version: 0.10
+Architecture: all
+Maintainer: Jian-feng Ding <jian-feng.ding@intel.com>
+Installed-Size: 38
+Depends: python3:any
+Filename: ./all/gbp-repocache_0.10_all.deb
+Size: 7478
+MD5sum: 5bcaa682e713d9ddf42e74d0b8f3eaef
+SHA1: 19533ea81c6cf2cc2b0f798d357020c99b56b23b
+SHA256: d576dc5532bd603d557a2599ae6e718aa68ff1f06462f00a6107896ea03510d7
+Section: devel
+Priority: extra
+Homepage: http://www.tizen.org
+Description: image creator for Linux distributions
+  The tool createrep is used to ppfarm test
+
+Package: gbs
+Version: 2.1.0
+Architecture: all
+Maintainer: Jian-feng Ding <jian-feng.ding@intel.com>
+Installed-Size: 10243
+Depends: python3:any, python3-pycurl, python3-requests, python3-lxml, sudo, osc (>= 1.16.0), git-buildpackage-rpm (>= 0.9.43+tizen20260625), gbs-api (= 2.1.0), gbs-export (= 2.1.0), gbs-remotebuild (= 2.1.0), gbs-bsr (= 2.1.0), depanneur (>= 0.16.30), librpm-tizen (>= 4.14.1.1.tizen20230628-20230828)
+Filename: ./all/gbs_2.1.0_all.deb
+Size: 10262920
+MD5sum: c25ccec4cbc4ef1585ece09ba5d80b69
+SHA1: 28c716a3219218eae53f0f967dcc5f07a41bed31
+SHA256: 57d1878b8b0eb474e5460ead47d7e8f3de3b35c1671e82b0509ed703adcb0800
+Section: devel
+Priority: extra
+Homepage: http://www.tizen.org
+Description: Command line tools for Tizen package developers
+ The command line tools for Tizen package developers will
+ be used to do packaging related tasks.
+
+Package: gbs-api
+Source: gbs
+Version: 2.1.0
+Architecture: all
+Maintainer: Jian-feng Ding <jian-feng.ding@intel.com>
+Installed-Size: 109
+Depends: python3:any, python3-pycurl, osc (>= 1.16.0), git-buildpackage-rpm
+Conflicts: gbs (<< 2.0.9)
+Replaces: gbs (<< 2.0.9)
+Filename: ./all/gbs-api_2.1.0_all.deb
+Size: 24454
+MD5sum: 1e9b184cc2e126c3f0741db78887454a
+SHA1: 01d7b56cadaa77f00c36cac3bc595c6e301c6f2b
+SHA256: 5b543d1f3dc51a82d6a6ddb14caefcbf70b5d2103202020d2139b4ed7359fbcf
+Section: devel
+Priority: extra
+Homepage: http://www.tizen.org
+Description: GBS API
+ This package contains gbs APIs, which can be used by
+ external software.
+
+Package: gbs-bsr
+Source: gbs
+Version: 2.1.0
+Architecture: all
+Maintainer: Jian-feng Ding <jian-feng.ding@intel.com>
+Installed-Size: 6025
+Depends: python3:any, python3-psutil, python3-yaml
+Filename: ./all/gbs-bsr_2.1.0_all.deb
+Size: 1570332
+MD5sum: d40eaef1a5c0b765d90be81b72c6a2db
+SHA1: 28b8b9d5193764280cee29145debeb45a6082380
+SHA256: a342947e044510fa33d465a152f3aec0c832f4145830f7b70b4b9e3889c60085
+Section: devel
+Priority: extra
+Homepage: http://www.tizen.org
+Description: GBS build monitirong scripts
+ This package monitors the build status and generates report using the relevant data.
+
+Package: gbs-export
+Source: gbs
+Version: 2.1.0
+Architecture: all
+Maintainer: Jian-feng Ding <jian-feng.ding@intel.com>
+Installed-Size: 30
+Depends: python3:any, gbs-api (= 2.1.0), pristine-tar (>= 1.35-tizen20161231), git-buildpackage-rpm
+Conflicts: gbs (<< 2.0.9)
+Replaces: gbs (<< 2.0.9)
+Filename: ./all/gbs-export_2.1.0_all.deb
+Size: 8536
+MD5sum: 9e5b91956febffc420e4a825d2fd6d62
+SHA1: 25992040eb1bf6f4093c9dff1cdffc5707363793
+SHA256: 7930f64690b9d7107daabfc5b633b5931ac5b4618d3ccc45bcfa46c56d408cb4
+Section: devel
+Priority: extra
+Homepage: http://www.tizen.org
+Description: GBS export API
+ This package contains gbs export APIs, which can be used by
+ external software.
+
+Package: gbs-jenkins-jobs
+Source: gbs
+Version: 2.1.0
+Architecture: all
+Maintainer: Jian-feng Ding <jian-feng.ding@intel.com>
+Installed-Size: 42
+Filename: ./all/gbs-jenkins-jobs_2.1.0_all.deb
+Size: 7392
+MD5sum: 4ff1c0b486e3949a617376db436c2bfb
+SHA1: 2a73007f4cf482e42ffbd3d29342dc551d692428
+SHA256: 5d01425f13f5f10632b467ef41f336f75b7519eebee93ccac699a9835376f22c
+Section: devel
+Priority: extra
+Homepage: http://www.tizen.org
+Description: GBS local full build jenkins jobs configurations.
+ These jenkins jobs are used to build tizen source from scratch or only a part of packages, and create images finally.
+
+Package: gbs-jenkins-scripts
+Source: gbs
+Version: 2.1.0
+Architecture: all
+Maintainer: Jian-feng Ding <jian-feng.ding@intel.com>
+Installed-Size: 26
+Depends: gbs, mic
+Filename: ./all/gbs-jenkins-scripts_2.1.0_all.deb
+Size: 7254
+MD5sum: 4c3179f24ea99d5cf219caddbe2247fe
+SHA1: 7c674b1a79848a0bd7e79ae15e6c67cc6113b868
+SHA256: 8b42bf674936e7ec99a273c2df9c36b4ceb27de409584b649e441f3571b84e06
+Section: devel
+Priority: extra
+Homepage: http://www.tizen.org
+Description: Jenkins scripts used by gbs-jenkins-job
+ These scripts are used by GBS local full build jenkins jobs. These scripts should be installed on Jenkins slave nodes.
+
+Package: gbs-remotebuild
+Source: gbs
+Version: 2.1.0
+Architecture: all
+Maintainer: Jian-feng Ding <jian-feng.ding@intel.com>
+Installed-Size: 25
+Depends: python3:any, gbs-api (= 2.1.0), gbs-export (= 2.1.0), git-buildpackage-rpm
+Conflicts: gbs (<< 2.0.9)
+Replaces: gbs (<< 2.0.9)
+Filename: ./all/gbs-remotebuild_2.1.0_all.deb
+Size: 7250
+MD5sum: 084b1af3ec8f9f666f74d5ec325f7fa1
+SHA1: 965888eff42543ff116107618f94a3066ad1703c
+SHA256: d08e3fb86c12c7ebab08db8c25a0d81815034e57f205b1647c5d7f4eabfadc5e
+Section: devel
+Priority: extra
+Homepage: http://www.tizen.org
+Description: GBS remotebuild API
+ This package contains gbs remotebuild APIs, which can be used by
+ external software.
+
+Package: git-buildpackage
+Version: 0.9.43+tizen20260625
+Architecture: all
+Maintainer: Guido Günther <agx@sigxcpu.org>
+Installed-Size: 288
+Depends: python3:any (>= 3.5~), devscripts, git-buildpackage-common (= 0.9.43+tizen20260625)
+Recommends: cowbuilder
+Filename: ./all/git-buildpackage_0.9.43+tizen20260625_all.deb
+Size: 66566
+MD5sum: fb2337b1f4a8061048e059c14f1273f4
+SHA1: 645a3560f5dbc2bbbd46e5f0505f8aada3c22ec6
+SHA256: 81225ab50a9f8c508d64429421f6d1bdf1e2fc8821c440dfbe8c76989a991b67
+Section: vcs
+Priority: optional
+Homepage: https://honk.sigxcpu.org/piki/projects/git-buildpackage/
+Description: Suite to help with Debian packages in Git repositories
+ This package contains the following tools:
+  * gbp import-{dsc,dscs}: import existing Debian source packages into a git
+    repository
+  * gbp import-orig: import a new upstream version into the git repository
+  * gbp buildpackage: build a package out of a git repository, check for local
+    modifications and tag appropriately
+  * gbp dch: generate Debian changelog entries from Git commit messages
+  * gbp {pull,clone}: clone and pull from remote repos
+  * gbp pq: manage debian/patches easily
+  * gbp create-remote-repo: create remote repositories
+
+Package: git-buildpackage-bb
+Source: git-buildpackage
+Version: 0.9.43+tizen20260625
+Architecture: all
+Maintainer: Guido Günther <agx@sigxcpu.org>
+Installed-Size: 105
+Depends: python3:any (>= 3.5~), git-buildpackage-common (= 0.9.43+tizen20260625), git-buildpackage-rpm (= 0.9.43+tizen20260625)
+Recommends: bitbake
+Filename: ./all/git-buildpackage-bb_0.9.43+tizen20260625_all.deb
+Size: 20010
+MD5sum: 56e3ae5754f4ddca14f059acf2d17550
+SHA1: 24f5bc63b6e3275a7df756239454d7ce1945b71e
+SHA256: a1df9e1c539e5f985dc92992511c5a88d6b6ac4ffa62caefbb33d1d9984b630d
+Section: vcs
+Priority: optional
+Homepage: https://honk.sigxcpu.org/piki/projects/git-buildpackage/
+Description: Suite to help with BitBake builds from Git repositories
+ This package contains the following tools:
+  * gbp import-bb: import sources from distribution repository
+  * gbp buildpackage-bb: build a package out of a Git repository
+  * gbp pq-bb: manage separate development and packaging branches
+
+Package: git-buildpackage-common
+Source: git-buildpackage
+Version: 0.9.43+tizen20260625
+Architecture: all
+Maintainer: Guido Günther <agx@sigxcpu.org>
+Installed-Size: 332
+Depends: python3:any (>= 3.5~), devscripts (>= 2.13.5~), git (>= 1:1.7.9.1-1~), man-db, python3-pkg-resources, python3-dateutil, zipmerge
+Recommends: pristine-tar (>= 0.5)
+Suggests: python3-notify2, unzip
+Filename: ./all/git-buildpackage-common_0.9.43+tizen20260625_all.deb
+Size: 67194
+MD5sum: cff1079dd513edb80af84063a5226e64
+SHA1: 964966e0586aba3f309c48bd822fabfe9bee9697
+SHA256: 8ccce0253563e35b126285e4b811a063f2c068e5954724918b8a24d0ff277e01
+Section: vcs
+Priority: optional
+Homepage: https://honk.sigxcpu.org/piki/projects/git-buildpackage/
+Description: Suite to help with packaging in Git repositories
+ This package contains the common API and scripts for Debian and rpm packaging
+
+Package: git-buildpackage-rpm
+Source: git-buildpackage
+Version: 0.9.43+tizen20260625
+Architecture: all
+Maintainer: Guido Günther <agx@sigxcpu.org>
+Installed-Size: 218
+Depends: python3:any (>= 3.5~), python3-rpm, rpm2cpio, git-buildpackage-common (= 0.9.43+tizen20260625)
+Recommends: rpm
+Filename: ./all/git-buildpackage-rpm_0.9.43+tizen20260625_all.deb
+Size: 39638
+MD5sum: e75affe762e194717507df91288074f1
+SHA1: 5d5f47a7d53f37786d900906c2186254294d18af
+SHA256: 50db1e21d8a7dada61ac96aaacc9f6ee28464753082cd65e9e68745c7218e853
+Section: vcs
+Priority: optional
+Homepage: https://honk.sigxcpu.org/piki/projects/git-buildpackage/
+Description: Suite to help with rpm packages in Git repositories
+ This package contains the following tools:
+  * git-import-srpm: import existing rpm source packages into a git
+    repository
+  * git-import-orig-rpm: import a new upstream version into the git repository
+  * git-buildpackage-rpm: build a package out of a git repository, check for local
+    modifications and tag appropriately
+  * gbp-pq-rpm: manage separate development and packaging branches
+
+Package: itest-cases-gbs
+Version: 0.9
+Architecture: all
+Maintainer: Junchun Guan <junchunx.guan@intel.com>
+Installed-Size: 628
+Depends: zip, p7zip-full
+Filename: ./all/itest-cases-gbs_0.9_all.deb
+Size: 68428
+MD5sum: c36c02d5b5a91efad8bb78a536b5e647
+SHA1: ee2b4b96957c085b3220d83638a7e19bbe048e7c
+SHA256: 1c3807f5f2cd4672e6f3fa3480e9468de74d8ad9d3ec4702f149ed391bf39511
+Section: devel
+Priority: extra
+Homepage: http://www.tizen.org
+Description: Cases for gbs functional testing
+
+Package: itest-cases-mic
+Version: 0.1
+Architecture: all
+Maintainer: Huanhuan Li <huanhuanx.li@intel.com>
+Installed-Size: 2057
+Depends: zip, createrepo-c, tar, man-db
+Filename: ./all/itest-cases-mic_0.1_all.deb
+Size: 1640864
+MD5sum: e4a92b8291245ba1d13fb64e75a504c4
+SHA1: 5b4813163a89418084df47ddf7f2eb2025eb7396
+SHA256: 1cd302bebd3d46a725cdfe93f842ed2a150fd2f7ec1257d26e647c2a35fa3958
+Section: devel
+Priority: extra
+Homepage: http://www.tizen.org
+Description: Cases for mic functional testing
+
+Package: itest-core
+Version: 1.7
+Architecture: all
+Maintainer: Junchun Guan <junchunx.guan@intel.com>
+Installed-Size: 102
+Depends: python3:any, python3-distro, python3-pexpect, python3-coverage, python3-jinja2, python3-unittest2, spm
+Filename: ./all/itest-core_1.7_all.deb
+Size: 22458
+MD5sum: 2bcf5de0151262c8ec2649c34cbca902
+SHA1: 69f999e55e2ca61584bf6ad9cefa4b3ce0b33e18
+SHA256: e668e434567d6da5e69dfacdf49120d2729aa47327bcc370ab5a747fb69acab8
+Section: devel
+Priority: extra
+Homepage: http://www.tizen.org
+Description: functional test framework for gbs and mic
+
+Package: libcreaterepo-c-dev
+Source: createrepo-c
+Version: 1.2.2
+Architecture: amd64
+Maintainer: Jian-feng Ding <jian-feng.ding@intel.com>
+Installed-Size: 270
+Depends: libcreaterepo-c0 (= 1.2.2), libbz2-dev, libcurl4-openssl-dev, libglib2.0-dev, liblzma-dev, libmagic-dev, libpython3-dev, librpm-dev, libssl-dev, libsqlite3-dev, libxml2-dev, python3-nose, zlib1g-dev
+Filename: ./amd64/libcreaterepo-c-dev_1.2.2_amd64.deb
+Size: 52070
+MD5sum: b9a4ad60f174e6462258bbf8b50b4094
+SHA1: 7e886baeb0ec2387385caf34ed3239782b39d8fe
+SHA256: c7e84583c5f8fecfe5136f0bd014b487d67b4657f45ad0924ab8e8b68f823d75
+Section: libdevel
+Priority: extra
+Multi-Arch: same
+Homepage: http://www.tizen.org
+Description: library for creating RPM repository metadata (development)
+ The createrepo tool generates the repodata directory and XML metadata that
+ makes up a repository of RPM packages. This repository format is supported
+ by apt-rpm, red-carpet(zen), smartpm, up2date, yast, and yum.
+ .
+ This package contains the header files needed for developing programs
+ using the libcreaterepo-c library.
+
+Package: libcreaterepo-c0
+Source: createrepo-c
+Version: 1.2.2
+Architecture: amd64
+Maintainer: Jian-feng Ding <jian-feng.ding@intel.com>
+Installed-Size: 205
+Depends: rpm, python3-rpm, python3-urlgrabber, cpio, bzip2, libpython3-dev, libcurl3 | libcurl4, libxml2 | libxml2-16, gzip, libglib2.0-0, libglib2.0-data
+Filename: ./amd64/libcreaterepo-c0_1.2.2_amd64.deb
+Size: 69456
+MD5sum: 7703d93a7b4023c515a6cb0ec4baaf7e
+SHA1: 90978559e0882c9e3392b78d5b31ffaaa980cc43
+SHA256: 974910c7a9f4b7930e8d19b94f4d553f91e6cbf3ff06abbf3da6beed47696f2e
+Section: libs
+Priority: extra
+Multi-Arch: same
+Homepage: http://www.tizen.org
+Description: library for creating RPM repository metadata
+ The createrepo tool generates the repodata directory and XML metadata that
+ makes up a repository of RPM packages. This repository format is supported
+ by apt-rpm, red-carpet(zen), smartpm, up2date, yast, and yum.
+ .
+ This package contains a shared library for managing RPM repositories.
+
+Package: librpm-tizen
+Version: 4.14.1.1.tizen20230628-20230828
+Architecture: amd64
+Maintainer: Markus Lehtonen <markus.lehtonen@linux.intel.com>
+Installed-Size: 1965
+Depends: libbz2-1.0, libc6 (>= 2.38), libdb5.3t64, libdw1t64 (>= 0.167), libelf1t64 (>= 0.144), liblua5.1-0, liblzma5 (>= 5.2.2), libmagic1t64 (>= 5.12), libnss3 (>= 2:3.13.4-2~), libpopt0 (>= 1.14), libzstd1 (>= 1.5.5), zlib1g (>= 1:1.1.4), python3 (<< 3.13), python3 (>= 3.12~), python3:any
+Filename: ./amd64/librpm-tizen_4.14.1.1.tizen20230628-20230828_amd64.deb
+Size: 449712
+MD5sum: 2c085969cd6add9d3aae43d04171128e
+SHA1: 5e1aeea844a359c25c03693e7abddbad1e7ad4e3
+SHA256: fe565320f955f45af428ea5f44e600ff0325329806893f44ac0bbb202f97cad9
+Section: vcs
+Priority: optional
+Homepage: http://rpm.org/
+Description: The RPM libraries for git-buildpackage
+ RPM Package Manager is the main tool for managing the software packages
+ of Tizen.
+ .
+ RPM can be used to install and remove software packages. With rpm, it
+ is easy to update packages.  RPM keeps track of all these manipulations
+ in a central database.»·This way it is possible to get an overview of
+ all installed packages.  RPM also supports database queries.
+ .
+ This is a special stripped-down version of RPM, only intended to be used by the
+ git-buildpackage tool. Doesn't interfere with the RPM libraries of the host system.
+ This package only contains rpmlib and rpm-python.
+
+Package: litmus
+Version: 0.3.5-1
+Architecture: amd64
+Maintainer: Donghoon Shin <dhs.shin@samsung.com>
+Installed-Size: 221
+Depends: python3:any, python3 (>= 3.3), python3-serial (>= 2.6), python3-yaml (>= 3.10), python3-requests (>= 2.2.1), python3-bs4 (>= 4.2.1), python3-pil (>= 2.3.0), python3-fasteners (>= 0.12), git (>= 1.9), lthor (>= 2.0), imagemagick (>= 6.7.7), clewarecontrol (>= 4.1), smartpower (>= 0.1), heimdall-flash (>= 1.4.1-2)
+Filename: ./amd64/litmus_0.3.5-1_amd64.deb
+Size: 26758
+MD5sum: 2dae3f3b8bff494b97b23d02e6f10efc
+SHA1: 1ba85c3e7ae5180fb38289839a733710a1ebf427
+SHA256: 1510d92df249b313a09329a3d9822794f1b25865be177a3696782c67849f827b
+Section: devel
+Priority: optional
+Homepage: http://www.tizen.org
+Description: Lightweight test manager for tizen automated testing
+ Litmus is a tool for managing test projects and supporting APIs for automated testing.
+ Supported API : turn on / off device, Run commands / push and pull files over sdb
+
+Package: lthor
+Version: 3.4
+Architecture: amd64
+Maintainer: Ed Bartosh <eduard.bartosh@intel.com>
+Installed-Size: 55
+Depends: libarchive13t64 (>= 3.0.4), libc6 (>= 2.34), libusb-1.0-0 (>= 2:1.0.16), udev
+Filename: ./amd64/lthor_3.4_amd64.deb
+Size: 15760
+MD5sum: a88f703d85442527cc51224ae8529cc7
+SHA1: f8f94e04bad17b13bcca00f8c31e03ad6abe14e5
+SHA256: cbbe2d6835e89f030d24ed8f6b3b61bd55d6a52a906593c8d06a9df3bfa88ffb
+Section: net
+Priority: extra
+Description: Phone flashing tool
+ Tool for downloading binaries from a Linux host PC to a target phone.
+ It uses a USB cable as a physical communication medium.
+ It is prerequisite that the boot-loader should support download protocol
+ which is compatible with 'lthor'
+
+Package: mic
+Version: 2.1.3
+Architecture: all
+Maintainer: Jian-feng Ding <jian-feng.ding@intel.com>
+Installed-Size: 2557
+Depends: python3:any, rpm, python3-rpm, python3-py, python3-pycurl, python3-distro, file, cpio, bzip2, gzip, yum
+Conflicts: mic2
+Filename: ./all/mic_2.1.3_all.deb
+Size: 433354
+MD5sum: daa7f755369d582f078e0d96824892a0
+SHA1: 8c46224490727a832af419e9c84e6d6bbbce6383
+SHA256: da04eb9d000c0a47a5580634741645efa755e7d12d1310a53b7ef0ffde0f482c
+Section: devel
+Priority: extra
+Homepage: http://www.tizen.org
+Description: image creator for Linux distributions
+  The tool mic is used to create and manipulate images for Linux distributions.
+  It is composed of three subcommand\: create, convert, chroot. Subcommand create
+  is used to create images with different types; subcommand convert is used to
+  convert an image to a specified type; subcommand chroot is used to chroot into
+  an image.
+
+Package: nosexcase
+Source: itest-core
+Version: 1.7
+Architecture: all
+Maintainer: Junchun Guan <junchunx.guan@intel.com>
+Installed-Size: 23
+Depends: python3:any, itest-core, python3-nose
+Filename: ./all/nosexcase_1.7_all.deb
+Size: 4966
+MD5sum: 27bf0f674d8f27a4cf9e5d79aee83587
+SHA1: 31a7ff7f1528c888b12266765b1deb21eedbe5ad
+SHA256: def1df9df06630db9a83f57e9347e74c715d81327e49335f17657a13db5a8f0f
+Section: devel
+Priority: extra
+Homepage: http://www.tizen.org
+Description: A nose plugin that supports running test cases defined in XML format
+
+Package: obs-service-git-buildpackage
+Version: 0.10
+Architecture: all
+Maintainer: Jian-feng Ding <jian-feng.ding@intel.com>
+Installed-Size: 29
+Depends: python3:any, rpm, python3-rpm, python3-urlgrabber, cpio, bzip2, git-buildpackage, git-buildpackage-rpm, gbp-repocache, obs-service-git-buildpackage-utils
+Filename: ./all/obs-service-git-buildpackage_0.10_all.deb
+Size: 5466
+MD5sum: 86ced3e34898dd2cc06491bc63186d8e
+SHA1: d0a71a9d9d2987949ab9d85c83c1b2ff81ec5ae2
+SHA256: b8dcda08da83f3db9007e5edfcac3261d3556dfbbd28875bc76ff3d8dd0d4493
+Section: devel
+Priority: extra
+Homepage: http://www.tizen.org
+Description: image creator for Linux distributions
+  The tool createrep is used to ppfarm test
+
+Package: obs-service-git-buildpackage-utils
+Source: obs-service-git-buildpackage
+Version: 0.10
+Architecture: all
+Maintainer: Jian-feng Ding <jian-feng.ding@intel.com>
+Installed-Size: 20
+Depends: python3:any, rpm, python3, python3-urlgrabber, cpio, bzip2, gbp-repocache
+Filename: ./all/obs-service-git-buildpackage-utils_0.10_all.deb
+Size: 4166
+MD5sum: 1fcd2bfe7a1d884b29a0dfe3fc39fe5f
+SHA1: 9caceaa2e534f66d07638c5da64e198db1d843ae
+SHA256: c13ba7b1756a283045ebd1699458a2f461f2da9fa11c362c1626279f0a50409a
+Section: devel
+Priority: extra
+Homepage: http://www.tizen.org
+Description: image creator for Linux distributions
+  The tool createrep is used to ppfarm test
+
+Package: osc
+Version: 1.16.0+tizen20260625
+Architecture: all
+Maintainer: Adrian Schroeter <adrian@suse.de>
+Installed-Size: 956
+Depends: python3:any, python3-urlgrabber, python3-rpm, python3-keyring, python3-m2crypto
+Suggests: build (>= 2010.04.24)
+Filename: ./all/osc_1.16.0+tizen20260625_all.deb
+Size: 210682
+MD5sum: 81d399d7adda4527808780dbd38764fc
+SHA1: 9ddce834ed9a9f4451af12728e0278308f50cf7c
+SHA256: 08e3daff08adf493e831d0e7bb61402d629565821793f0aaf341c4259e077d18
+Section: devel
+Priority: extra
+Homepage: http://en.opensuse.org/Build_Service/CLI
+Description: openSUSE (buildsystem) commander
+ Commandline client for the openSUSE Build Service, which allows to access
+ repositories in the openSUSE Build Service in similar way as Subversion
+ repositories.
+ .
+ The openSUSE Build Service is service that allows developers to  package
+ software for all major Linux distributions.
+
+Package: perl-bssolv
+Version: 0.37.2
+Architecture: amd64
+Maintainer: Shuai Fu <shuai01.fu@samsung.com>
+Installed-Size: 943
+Depends: cpio, bzip2, gzip
+Filename: ./amd64/perl-bssolv_0.37.2_amd64.deb
+Size: 417792
+MD5sum: d75342c0b8a0ca397cd46b627f8980cd
+SHA1: cf31c8e80f30e967754240f867c94aa7fa81d556
+SHA256: cbd652b8965c89e06a6cf6e7f32daa9536710db01705a2e614f96e3b673b26eb
+Section: devel
+Priority: extra
+Homepage: http://www.tizen.org
+Description: image creator for Linux distributions
+  The tool perl-bssolv is used to gbs
+
+Package: pristine-tar
+Version: 1.35-tizen20161231
+Architecture: amd64
+Maintainer: Debian QA Group <packages@qa.debian.org>
+Installed-Size: 508
+Depends: xdelta3, libbz2-1.0, libc6 (>= 2.38), zlib1g (>= 1:1.1.4), perl-modules, tar (<= 1.27) | tar (>= 1.27-3)
+Recommends: pbzip2, bzip2, xz-utils
+Filename: ./amd64/pristine-tar_1.35-tizen20161231_amd64.deb
+Size: 104572
+MD5sum: 8bb63e79bd632262f3579e0fb03f9a25
+SHA1: 9a38a1ae0b8d876afaf4ac4608799a0fa3dd5093
+SHA256: 402e134c071cc2fea9497ee4c2c19ddcbc2f1794920ef59e4dc39c3667a2158b
+Section: utils
+Priority: optional
+Homepage: http://kitenet.net/~joey/code/pristine-tar/
+Description: regenerate pristine tarballs
+ pristine-tar can regenerate a pristine upstream tarball using only a small
+ binary delta file and a revision control checkout of the upstream branch.
+ .
+ The package also includes a pristine-gz command, which can regenerate a
+ pristine .gz file, a pristine-bz2 for .bz2 files, and a pristine-xz for .xz
+ files.
+ .
+ The delta file is designed to be checked into revision control along-side
+ the upstream branch, thus allowing Debian packages to be built entirely
+ using sources in revision control, without the need to keep copies of
+ upstream tarballs.
+
+Package: python-support
+Version: 1.0.15
+Architecture: all
+Maintainer: Josselin Mouette <joss@debian.org>
+Installed-Size: 88
+Depends: python3, python3-minimal, dpkg (>= 1.14.19)
+Conflicts: debhelper (<< 5.0.38)
+Filename: ./all/python-support_1.0.15_all.deb
+Size: 22318
+MD5sum: 7303d9b3ce8683470fbc03a477ed7484
+SHA1: d6a058ddb7aa731f9e6de302767126f615f868db
+SHA256: 6d9364bada1462801c14cfa4c8de1775b8e9f5f9c89483d2d5cde31f1c32a401
+Section: python
+Priority: optional
+Description: automated rebuilding support for Python modules
+ This package contains the 'update-python-modules' script, which takes
+ care of byte-compilation of Python-only modules.
+ .
+ Private modules are automatically rebuilt upon major Python upgrades,
+ avoiding the need for strong dependencies.
+ .
+ Public modules are automatically made available for all installed
+ Python versions.
+
+Package: python3-createrepo-c
+Source: createrepo-c
+Version: 1.2.2
+Architecture: amd64
+Maintainer: Jian-feng Ding <jian-feng.ding@intel.com>
+Installed-Size: 140
+Depends: libcreaterepo-c0 (= 1.2.2)
+Filename: ./amd64/python3-createrepo-c_1.2.2_amd64.deb
+Size: 32238
+MD5sum: d367461b539fd28ab810645c575edfe0
+SHA1: 64e21c99f6d8d339b5b2d2ca356f2edcca7017e7
+SHA256: d963ea6c79b43ac09bb39af6e25274e205500a4de72bca356a525cb2cf0e68ce
+Section: python
+Priority: extra
+Multi-Arch: foreign
+Homepage: http://www.tizen.org
+Description: library for creating RPM repository metadata (Python bindings)
+ The createrepo tool generates the repodata directory and XML metadata that
+ makes up a repository of RPM packages. This repository format is supported
+ by apt-rpm, red-carpet(zen), smartpm, up2date, yast, and yum.
+ .
+ This package contains a Python module for interfacing with
+ the libcreaterepo-c library.
+
+Package: python3-jenkinsapi
+Source: python-jenkinsapi
+Version: 0.2.26-1
+Architecture: all
+Maintainer: Al Stone <ahs3@debian.org>
+Installed-Size: 175
+Depends: python3-lxml, python3-bs4, python3-pkg-resources, python3-requests, python3-six (>= 1.10.0), python3-tz, python3:any
+Filename: ./all/python3-jenkinsapi_0.2.26-1_all.deb
+Size: 35198
+MD5sum: 03406495810e15f36d8d946734474c6c
+SHA1: 4e38195eb683169c6371f45d5ea9f777ce20ba78
+SHA256: 63785127a349a5a9c119900befc17a59cd5df023d7092380bdd7fe028a7fd003
+Section: python
+Priority: optional
+Homepage: http://pypi.python.org/pypi/jenkinsapi
+Description: bindings for Python usage of the Jenkins remote API
+ Jenkins is the market leading continuous integration system, originally
+ created by Kohsuke Kawaguchi. This API makes Jenkins even easier to use
+ by providing an easy to use conventional Python interface.
+ .
+ Jenkins (and its predecessor Hudson) are useful projects for automating
+ common development tasks (e.g., unit-testing, production batches) - but
+ they are somewhat Java-centric. Thankfully the designers have provided
+ an excellent and complete REST interface. This library wraps up that
+ interface as more conventional Python objects in order to make most
+ Jenkins-oriented tasks simpler.
+
+Package: python3-sqlitecachec
+Source: yum-metadata-parser
+Version: 1.1.4-99
+Architecture: amd64
+Maintainer: Mike Miller <mtmiller@ieee.org>
+Installed-Size: 72
+Depends: libc6 (>= 2.14), libglib2.0-0t64 (>= 2.16.0), libsqlite3-0 (>= 3.5.9), libxml2 (>= 2.7.4), python3 (<< 3.13), python3 (>= 3.12~), python3:any
+Filename: ./amd64/python3-sqlitecachec_1.1.4-99_amd64.deb
+Size: 19832
+MD5sum: 2730a6eab4db7d3995e245238492e488
+SHA1: 92992bdf8f26c6ef2a6bb4db75927f09beca568b
+SHA256: 884ffe9e4003c1aca71bd65e958e31d88e7e30cdca478d23e0a3d44ac0f05d95
+Section: python
+Priority: extra
+Homepage: http://yum.baseurl.org/
+Description: Fast metadata parser for yum
+ Python module providing a fast metadata parser for yum implemented in C.
+ The sqlitecachec module is used by createrepo and the yum package manager
+ to update and query local caches of RPM package repositories.
+
+Package: python3-urlgrabber
+Source: python-urlgrabber
+Version: 4.1.0
+Architecture: all
+Maintainer: Jong-Woo Chae <jonwoo.chae@samsung.com>
+Installed-Size: 225
+Depends: python3:any, python3-pycurl
+Filename: ./all/python3-urlgrabber_4.1.0_all.deb
+Size: 60258
+MD5sum: 96b3975a9d2c68ec0e9b40326a2c5161
+SHA1: 050c90f80d2d4540c71c0b2000bb72ce2adc63ff
+SHA256: 8b672a4196169189185f2b7df06ca6f5f7444fa14e4c5f1b9458e2f691247eb5
+Section: devel
+Priority: extra
+Homepage: http://www.tizen.org
+Description: image creator for Linux distributions
+  The tool createrep is used to ppfarm test
+
+Package: qemu-arm-static
+Version: 5.2.0-tizen20240722
+Architecture: amd64
+Maintainer: Gui Chen <gui.chen@intel.com>
+Installed-Size: 20041
+Replaces: qemu-user-static
+Provides: tizen-qemu-arm-static-2024.07.22
+Filename: ./amd64/qemu-arm-static_5.2.0-tizen20240722_amd64.deb
+Size: 2828126
+MD5sum: f249152967a26cd001014744afec86cc
+SHA1: 5a1ad7fb394045b225daa8669f74eacf62e4289c
+SHA256: 6d7154201b5386525cd8ceaee469371f28d84cf4fbc94dd09406bd68dd2b7268
+Section: devel
+Priority: extra
+Homepage: http://wiki.qemu.org/Index.html
+Description: QEMU is an extremely well-performing CPU emulator that allows you to choose between simulating an entire system and running userspace binaries for different architectures under your native operating system. It currently emulates x86, ARM, PowerPC and SPARC CPUs as well as PC and PowerMac systems.
+
+Package: repa
+Version: 0.7
+Architecture: all
+Maintainer: Junghyun Kim <jh0822.kim@samsung.com>
+Installed-Size: 114
+Depends: python3, osc, gbs-api, python3-setuptools, python3-jenkinsapi, python3:any
+Filename: ./all/repa_0.7_all.deb
+Size: 21196
+MD5sum: 0a141ae8890fbf289b72a6a821f0aa61
+SHA1: 3c2f98cd4acf9a234b75b99c140adab0d474b876
+SHA256: ac2ab0a48740b7674626d7f4153f731d688fee129f5df5bced954419a8f6efef
+Section: utils
+Priority: optional
+Description: tool to help release engineers to maintain code submissions
+ Release Engineering Process Assistant(REPA) is a tool for release engineers
+ of Tizen projects. It allows to list submissions, accept or reject them and
+ group them into submission groups
+
+Package: smartpower
+Version: 0.1-1
+Architecture: amd64
+Maintainer: Donghoon Shin <dhs.shin@samsung.com>
+Installed-Size: 30
+Depends: libc6 (>= 2.34)
+Filename: ./amd64/smartpower_0.1-1_amd64.deb
+Size: 7438
+MD5sum: cafe49baeda0c5697d20c9f53d1774e3
+SHA1: 8cbd3ecfc1a0e649f22cb6f30454b031557ee729
+SHA256: 45923eec4f0ab561f311c709bb9352314519dc2e46568766a5960d8ebfe92efc
+Section: devel
+Priority: optional
+Homepage: https://github.com/polarcat/smartpower.git
+Description: smartpower
+ This work is motivated by the need of having command line tool that can stream data from ODROID Smart Power power supply.
+
+Package: spm
+Source: itest-core
+Version: 1.7
+Architecture: all
+Maintainer: Junchun Guan <junchunx.guan@intel.com>
+Installed-Size: 35
+Depends: python3:any, python3-jinja2, python3-yaml
+Filename: ./all/spm_1.7_all.deb
+Size: 5862
+MD5sum: 3a59a0e3e1c13fab1b1537f7e57d73ed
+SHA1: bed9d8d71a7b214c5efe1ea9b3ea19f34e1886a3
+SHA256: 062d554caff49e59432f67ed926e6b40bb256b1a4ee3f706718ba1d755665df6
+Section: devel
+Priority: extra
+Homepage: http://www.tizen.org
+Description: Smart package management tool on Linux
+ A wrapper of yum, apt-get, zypper command. Support Redhat, Debian, SuSE
+
+Package: yum
+Version: 3.4.3-9
+Architecture: all
+Maintainer: Thomas Goirand <zigo@debian.org>
+Installed-Size: 4560
+Depends: python3, python3-libxml2, python3-rpm, python3-sqlitecachec, python3-urlgrabber, rpm (>= 4.4.1)
+Filename: ./all/yum_3.4.3-9_all.deb
+Size: 1136010
+MD5sum: a33b9548641c28d94a56861a715f92be
+SHA1: c3ab668b65750d91b53dfa91ff2c5a659c12e73d
+SHA256: dc64f6475efbb4e931c5ce117af2c33c99b96ee0c23c2a8dcec788510597a90e
+Section: admin
+Priority: extra
+Homepage: http://yum.baseurl.org/
+Description: Advanced front-end for rpm
+ Yum (Yellow dog Updater, Modified) is an automatic updater and package
+ installer/remover for rpm systems. It automatically computes dependencies
+ and figures out what things should occur to install packages. It makes it
+ easier to maintain groups of machines without having to manually update
+ each one using rpm.
+ .
+ Features include:
+ .
+     * Multiple Repositories
+     * Simple config file
+     * Correct dependency calculation
+     * Fast operation
+     * rpm-consistent behavior
+     * comps.xml group support, including multiple repository groups
+     * Simple interface
+

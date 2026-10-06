@@ -1,0 +1,484 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title>QuickBuild - the build lifecycle management server</title>
+		
+
+		<link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-114x114.png?v=3" />
+		<link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png?v=3"/>
+		<link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-144x144.png?v=3"/>
+		<link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.png?v=3" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=3" />	
+		<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=3"/>
+		<link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png?v=3"/>
+	<link rel="stylesheet" type="text/css" href="/jquery/css/smoothness/jquery-ui-1.8.11.custom.css?v=1701391813000" />
+<link rel="stylesheet" type="text/css" href="/jquery/colorpicker/css/colorpicker.css?v=1701391813000" />
+<link rel="stylesheet" type="text/css" href="/styles/webfonts.css?v=1701391813000" />
+<link rel="stylesheet" type="text/css" href="/styles/base.css?v=1701391813000" />
+<link rel="stylesheet" type="text/css" href="/codemirror/codemirror.css?v=1701391813000" />
+<link rel="stylesheet" type="text/css" href="/codemirror/theme/eclipse.css?v=1701391813000" />
+<link rel="stylesheet" type="text/css" href="/codemirror/theme/dracula.css?v=1701391813000" />
+<link rel="stylesheet" type="text/css" href="/datetimepicker/flatpickr.min.css?v=1701391813000" />
+<link rel="stylesheet" type="text/css" href="/styles/pages.css?v=1701391813000" />
+<link rel="stylesheet" type="text/css" href="/styles/themes.css?v=1701391813000" />
+<script type="text/javascript" src="/jquery/jquery-1.5.1.min.js?v=1701391813000"></script>
+<script type="text/javascript" src="/jquery/jquery-ui-1.8.11.custom.min.js?v=1701391813000"></script>
+<script type="text/javascript" src="/jquery/plugins/jquery.align.js?v=1701391813000"></script>
+<script type="text/javascript" src="/jquery/plugins/jquery.tooltip.js?v=1701391813000"></script>
+<script type="text/javascript" src="/jquery/plugins/jquery.popup.js?v=1701391813000"></script>
+<script type="text/javascript" src="/jquery/plugins/jquery.center.js?v=1701391813000"></script>
+<script type="text/javascript" src="/jquery/plugins/jquery.fancytip.js?v=1701391813000"></script>
+<script type="text/javascript" src="/jquery/plugins/jquery.ui.layout.js?v=1701391813000"></script>
+<script type="text/javascript" src="/jquery/colorpicker/js/colorpicker.js?v=1701391813000"></script>
+<script type="text/javascript" src="/datetimepicker/flatpickr.min.js?v=1701391813000"></script>
+<script type="text/javascript" src="/scripts/autosize.js?v=1701391813000"></script>
+<script type="text/javascript" src="/scripts/clipboard.min.js?v=1701391813000"></script>
+<script type="text/javascript" src="/scripts/main.js?v=1701391813000"></script>
+<script type="text/javascript" src="/codemirror/codemirror.js?v=1701391813000"></script>
+<script type="text/javascript" src="/codemirror/mode/groovy/groovy.js?v=1701391813000"></script>
+<script type="text/javascript" src="/codemirror/mode/css/css.js?v=1701391813000"></script>
+<script type="text/javascript" src="/codemirror/addon/edit/matchbrackets.js?v=1701391813000"></script>
+<script type="text/javascript" src="/codemirror/addon/display/placeholder.js?v=1701391813000"></script>
+<script type="text/javascript" src="/ckeditor/ckeditor.js?v=1701391813000"></script>
+<script type="text/javascript" src="/jquery/plugins/jquery.truncate.js?v=1701391813000"></script>
+<link rel="stylesheet" type="text/css" href="wicket/resource/com.pmease.quickbuild.web.page.BasePage/custom-ver-1701391813000.css" />
+<style type="text/css"><!--
+/* Custom Header */
+.custom-header {
+    display: contents;
+}
+.custom-header .navbar {
+    overflow: hidden;
+    background-color: #333;
+    font-family: Sans-serif;
+}
+
+.custom-header .navbar a {
+    float: left;
+    font-size: 12px;
+    color: white;
+    text-align: center;
+    padding: 10px 12px;
+    text-decoration: none;
+}
+
+.custom-header .dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.custom-header .dropdown-sub {
+    float: left;
+    overflow: hidden;
+}
+
+.custom-header .dropdown-sub-x {
+    float: left;
+    overflow: hidden;
+}
+
+.custom-header .dropdown .dropbtn {
+    font-size: 12px;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 10px 12px;
+    background-color: #333;
+    font-family: inherit;
+    margin: 0;
+    cursor:pointer;
+}
+
+.custom-header .dropdown-sub .dropbtn-sub {
+    text-align: left;
+    font-size: 12px;    
+    border: none;
+    outline: none;
+    padding: 8px 8px;
+    background-color: #ffdead;
+    min-width: 180px;
+    font-family: inherit;
+    font-weight: bold;
+    margin: 0;
+    cursor:pointer;
+}
+
+.custom-header .dropdown-sub-x .dropbtn-sub-x {
+    text-align: left;
+    font-size: 12px;    
+    border: none;
+    outline: none;
+    padding: 8px 8px;
+    background-color: #CCF29D;
+    min-width: 180px;
+    font-family: inherit;
+    font-weight: bold;
+    margin: 0;
+    cursor:pointer;
+}
+
+.custom-header .navbar a:hover, .dropdown:hover .dropbtn {
+    background-color: red;
+}
+
+.custom-header .navbar a:hover, .dropdown-sub:hover .dropbtn-sub {
+    background-color: #ff8c66;
+}
+
+.custom-header .dropdown-sub-x:hover .dropbtn-sub-x {
+    background-color: #A9DF67;
+}
+
+.custom-header .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f3f3f3;
+    min-width: 160px;
+    z-index: 1;
+}
+
+.custom-header .dropdown-sub-content {
+    position: relative;
+    background-color: #f3f3f3;
+    min-width: 160px;
+    z-index: 1;
+    margin-left: 10px;
+}
+
+.custom-header .dropdown-content a {
+    float: none;
+    color: black;
+    padding: 8px 8px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    margin-left: 20px;
+    box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.1);
+    background-color: #ffffff;
+}
+
+.custom-header .dropdown-sub-content a {
+    float: none;
+    color: #4B0505;
+    font-size: 12px;
+    padding: 8px 8px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.1);
+}
+
+.custom-header .dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.custom-header .dropdown-sub-content a:hover {
+    background-color: #ddd;
+}
+
+.custom-header .dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown-sub:hover .dropdown-sub-content {
+    display: block;
+}
+
+
+.custom-header .shutdown-notice {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-family: Verdana,sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: bold;
+    color: #fff!important;
+    background-color: Tomato!important;
+    padding-left: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.tab-MyPage {
+display: none;
+}
+
+/* samsung plugins */
+.manifestview-top{
+	display: flex;
+}
+
+.manifestview-table .filter-controls {
+	display: none;
+}
+
+.manifestview-table .navigation {
+	display: none;
+}
+
+.recommended-build-gadget-datatable .filter-controls {
+	display: none;
+}
+
+.recommended-build-gadget-datatable .navigation {
+	display: none;
+}
+
+.submitrequest-buildrequest-field-wrapper {
+	color: rgb(var(--qb-color-border-default) /1));
+}
+
+.submitrequest-status-top .status-filter {
+	display: flex;
+}
+
+.submitrequest-status-table .build-info {
+	white-space: nowrap;
+}
+
+.submitrequest-status-table .filter-controls {
+	display: none;
+}
+
+.submitrequest-status-reject-btn > span {
+	color: rgb(var(--qb-color-danger) / var(--tw-text-opacity));
+}
+
+.submitrequest-full-packagelist-table td.name {
+	width: 25%;
+	max-width: 24rem;
+	text-align: right;
+
+    --table-td-font-weight: 500;
+    --table-td-bg: var(--qb-table-settings-td-name-bg);
+    --table-td-border-width: 0 1px 0 0;
+}
+
+.submitrequest-full-packagelist-table td.value {
+    --table-td-border-width: 0;
+    --table-td-padding-x: 20px;
+}
+
+.submitrequest-buildrequest-textarea, .submitrequest-full-packagelist-textarea {
+   	display: block;
+  	width: 100%;
+  	-webkit-appearance: none;
+		-moz-appearance: none;
+			appearance: none;
+	background-clip: padding-box;
+  	outline: 2px solid transparent;
+  	outline-offset: 2px;
+
+  	--tw-ring-color: rgb(var(--input-ring-color) / var(--tw-ring-opacity));
+	padding: var(--input-padding-y) var(--input-padding-x);
+  	font-size: var(--input-font-size);
+	  font-weight: var(--input-font-weight);
+	  font-family: var(--input-font-family);
+	  line-height: var(--input-line-height);
+	  background-color: rgb(var(--input-bg) / var(--tw-bg-opacity));
+	  color: rgb(var(--input-fg) / var(--tw-text-opacity));
+	  border-width: var(--input-border-width);
+	  border-style: var(--input-border-style);
+	  border-color: rgb(var(--input-border-color) / var(--tw-border-opacity));
+	  border-radius: var(--input-radius);
+	  min-height: calc(var(--input-line-height) + var(--input-padding-y) * 2 + var(--input-border-width) * 2);
+
+	  box-shadow: var(--input-box-shadow, 0 1px 2px 0 var(--input-shadow-color-rgb));
+	  transition: var(--input-transition);
+}
+
+.submitrequest-full-packagelist-textarea {
+	max-height: 150px;
+	width: 100%
+}
+
+.controls-wrapper {
+	float: inline-end;
+}
+
+.submitrequest-buildrequest-field-wrapper{
+	display: contents;
+}
+
+.submitrequest-status-table .navigation {
+	display: none;
+}
+.submitrequest-status-table .build-info .flex-wrap {
+	flex-wrap: nowrap !important;
+}
+
+.submitrequest-status-table p {
+	margin-bottom: unset;
+}
+
+.ui-dialog .submits {
+	display: flex;
+}
+
+.ui-dialog .submits button {
+	width: 50%
+}
+
+
+/* Build Overview */
+#build-dashboard table {
+	width : 100%
+}
+#build-dashboard table thead {
+	background-color: #c8c8c8	;
+}
+
+/* PII securty */
+#user-management table {
+	user-select: none
+}
+
+.error-wrapper .inline-block {
+	display: none !important;
+}
+
+input[name="editor:content:basicProperties:4:property:editor:editor:wrapper:input"] {
+	display: none;
+}--></style>
+<script type="text/javascript" src="wicket/resource/org.apache.wicket.markup.html.WicketEventReference/wicket-event-ver-1782798879210.js"></script>
+<script type="text/javascript" src="wicket/resource/org.apache.wicket.ajax.WicketAjaxReference/wicket-ajax-ver-1782798879210.js"></script>
+<script type="text/javascript" id="wicket-ajax-base-url">
+/*<![CDATA[*/
+Wicket.Ajax.baseUrl="signin?redirect-url-after-sign-in=https%3A//quickbuild.tizen.org/build/1178308/";
+/*]]>*/
+</script>
+<script type="text/javascript" >
+/*<![CDATA[*/
+function onDrop(dragFrom, dropTo) {var wcall=wicketAjaxGet('signin?0-1.IBehaviorListener.0-&redirect-url-after-sign-in=https%3A//quickbuild.tizen.org/build/1178308/&action=dragDrop&dragFrom=' + encodeURIComponent(dragFrom) + '&dropTo=' + encodeURIComponent(dropTo),function() { }.bind(this),function() { }.bind(this), function() {return true;}.bind(this));}
+/*]]>*/
+</script>
+<script type="text/javascript" >
+/*<![CDATA[*/
+function loadPopup(triggerPath) {var wcall=wicketAjaxGet('signin?0-1.IBehaviorListener.0-&redirect-url-after-sign-in=https%3A//quickbuild.tizen.org/build/1178308/&action=loadPopup&triggerPath=' + encodeURIComponent(triggerPath),function() { }.bind(this),function() { }.bind(this), function() {return true;}.bind(this));}
+/*]]>*/
+</script>
+<script type="text/javascript" >
+/*<![CDATA[*/
+function unloadPopup(triggerPath) {var wcall=wicketAjaxGet('signin?0-1.IBehaviorListener.0-&redirect-url-after-sign-in=https%3A//quickbuild.tizen.org/build/1178308/&action=unloadPopup&triggerPath=' + encodeURIComponent(triggerPath),function() { }.bind(this),function() { }.bind(this), function() {return true;}.bind(this));}
+/*]]>*/
+</script>
+<script type="text/javascript" >
+/*<![CDATA[*/
+function closeDialog(dialogPath) {var wcall=wicketAjaxGet('signin?0-1.IBehaviorListener.0-&redirect-url-after-sign-in=https%3A//quickbuild.tizen.org/build/1178308/&action=closeDialog&dialogPath=' + encodeURIComponent(dialogPath),function() { }.bind(this),function() { }.bind(this), function() {return true;}.bind(this));}
+/*]]>*/
+</script>
+</head>
+	<body id="sign-in-page" class="">
+		<noscript>
+			<div id="noscript-warning" class="w-full bg-red-800 text-white text-center px-5 py-2 font-semibold">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="svgicon mr-2 bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+				  <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+				</svg>
+				Please enable JavaScript in your browser.
+			</div>
+		</noscript>
+		<div id="page-load-mask"></div>
+		<div id="page-load-msg"><div>Please Wait...</div></div>
+		<div id="global-ajax-indicator" style="display:none;">Loading...</div>
+		<div id="empty-ajax-indicator" style="display:none;"></div>
+		<div></div>
+	    <script type="text/javascript"></script>
+		
+		<div id="global-feedback">
+  
+</div>
+		
+		
+		<div id="confirm-dlg"></div>
+		
+	<style>
+/*<![CDATA[*/
+
+		.table > :not(caption) > tr > td { background: transparent;}
+		.table .form-control { width: 85%; }
+	
+/*]]>*/
+</style>
+	<div id="container" class="dialog" style="max-width: 42rem; margin-top: 10%">
+		<div class="flex">
+			<div class="flex-0">
+				<svg style="width: 4rem; height: 4rem" class="svgicon misc misc-quickbuild" version="1.1" aria-hidden="true" viewBox="0 0 1024 731">
+    <g>
+            <path class='qb-q' d="M64,0.368983957 L960,0.368983957 C995.346224,0.368983957 1024,29.02276 1024,64.368984 L1024,666.037433 C1024,701.383657 995.346224,730.037433 960,730.037433 L64,730.037433 C28.653776,730.037433 4.32866401e-15,701.383657 0,666.037433 L0,64.368984 C-4.32866401e-15,29.02276 28.653776,0.368983957 64,0.368983957 Z" fill="#3274D0"></path>
+            <path class='qb-b' d="M605.669434,0.368983957 L960,0.368983957 C995.346224,0.368983957 1024,29.02276 1024,64.368984 L1024,666.037433 C1024,701.383657 995.346224,730.037433 960,730.037433 L445.513184,730.037433 L445.513184,391.22522 L605.669434,311.366943 L605.669434,0.368983957 Z" fill="#7CBA0F"></path>
+            <path class='qb-bg' d="M487.358289,292.098679 L536.641711,278.761529 L536.641711,0 L658.481283,0 L658.481283,486.445633 C658.481283,553.331907 713.309091,608.057041 780.320856,608.057041 C847.33262,608.057041 902.160428,553.331907 902.160428,486.445633 C902.160428,419.559358 847.33262,364.834225 780.320856,364.834225 C752.906952,364.834225 727.77754,373.95508 707.217112,389.156506 L707.97861,253.863815 C730.823529,247.023173 755.191444,243.222816 780.320856,243.222816 C915.105882,243.222816 1024,351.913012 1024,486.445633 C1024,620.978253 915.105882,729.668449 780.320856,729.668449 C645.535829,729.668449 536.641711,620.978253 536.641711,486.445633 L536.641711,423.797472 L487.358289,437.134621 L487.358289,729.668449 L365.518717,729.668449 L365.518717,243.222816 C365.518717,176.336542 310.690909,121.611408 243.679144,121.611408 C176.66738,121.611408 121.839572,176.336542 121.839572,243.222816 C121.839572,310.109091 176.66738,364.834225 243.679144,364.834225 C271.093048,364.834225 296.22246,355.713369 316.782888,340.511943 L316.02139,475.804635 C293.176471,482.645276 268.808556,486.445633 243.679144,486.445633 C108.894118,486.445633 0,377.755437 0,243.222816 C0,108.690196 108.894118,0 243.679144,0 C378.464171,0 487.358289,108.690196 487.358289,243.222816 L487.358289,292.098679 Z" fill="#FFFFFF" fill-rule="nonzero"></path>
+        </g>
+    
+    
+</svg>
+			</div>
+			<div class="flex-auto pl-5 h-16 flex flex-col justify-center">
+				<h1 class="text-2xl font-bold">Login to QuickBuild</h1>
+				<div class="text-xs text-muted">Version: (This system follows the Privacy Policy specified in https://tizen.org/about/privacy-policy) (Release date: January 29, 2022)</div>
+			</div>
+		</div>
+		<hr class="border-t border-b border-t-gray-300 border-b-white" />
+		<div class="pt-4">
+			
+			<form id="id1" method="post" action="signin?0-1.IFormSubmitListener-content-form&amp;redirect-url-after-sign-in=https%3A//quickbuild.tizen.org/build/1178308/"><div style="width:0px;height:0px;position:absolute;left:-100px;top:-100px;overflow:hidden"><input type="hidden" name="id1_hf_0" id="id1_hf_0" /></div>
+				<div class="body bean editor">
+					<table class="table table-sm table-settings">
+						<tr>
+							<td class="name text-right border-0"><label class="form-label">Username</label></td>
+							<td class="value">
+								<div class="field-wrapper">
+									<span class="required">*</span>
+									<input type="text" class="form-control form-control-sm auto-focus" value="" name="userName"></input>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="name text-right border-0"><label class="form-label">Password</label></td>
+							<td class="value">
+								<div class="field-wrapper">
+									<span class="required">*</span>
+									<input type="password" class="form-control form-control-sm" autocomplete="off" value="" name="password"></input>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="name border-0"></td>
+							<td class="value">
+								<label for="remember" class="form-check">
+									<input id="remember" type="checkbox" class="form-check-input mr-2" name="remember"/>
+									Remember me on this computer
+								</label>
+							</td>
+						</tr>
+					</table>
+				</div>
+
+				<hr class="border-t border-b border-t-gray-300 border-b-white mt-2" />
+
+				<div class="pt-4 flex items-center justify-center">
+					<button type="submit" class="btn btn-primary w-32">
+						<svg class="svgicon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M344.7 238.5l-144.1-136C193.7 95.97 183.4 94.17 174.6 97.95C165.8 101.8 160.1 110.4 160.1 120V192H32.02C14.33 192 0 206.3 0 224v64c0 17.68 14.33 32 32.02 32h128.1v72c0 9.578 5.707 18.25 14.51 22.05c8.803 3.781 19.03 1.984 26-4.594l144.1-136C354.3 264.4 354.3 247.6 344.7 238.5zM416 32h-64c-17.67 0-32 14.33-32 32s14.33 32 32 32h64c17.67 0 32 14.33 32 32v256c0 17.67-14.33 32-32 32h-64c-17.67 0-32 14.33-32 32s14.33 32 32 32h64c53.02 0 96-42.98 96-96V128C512 74.98 469 32 416 32z"/></svg>
+						 Login
+					</button>
+					
+				</div>
+			</form>
+		</div>
+
+		
+	</div>
+	
+	
+	
+	
+		
+
+	</body>
+</html>

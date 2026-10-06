@@ -1,0 +1,3 @@
+{"name": "mic", "url": "https://git.tizen.org/cgit/tools/mic", "error": "timeout 55s", "output": "b\"Cloning into '/home/linhao/Toolchain/development/llvm_image_analysis/downloads/src/mic'...\\n\"", "elapsed_s": 55.00408229800087}
+{"name": "mic", "url": "https://review.tizen.org/git/tools/mic", "rc": 128, "output": "fatal: destination path '/home/linhao/Toolchain/development/llvm_image_analysis/downloads/src/mic' already exists and is not an empty directory.\n", "elapsed_s": 0.0032993649947457016}
+{"name": "mic", "url": "git://review.tizen.org/tools/mic", "rc": 128, "output": "fatal: destination path '/home/linhao/Toolchain/development/llvm_image_analysis/downloads/src/mic' already exists and is not an empty directory.\n", "elapsed_s": 0.002063893996819388}

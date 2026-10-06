@@ -1,0 +1,19 @@
+{
+    "version": "2.1.3",
+    "created": "2026-09-17 19:13:05",
+    "format": "loop",
+    "log_file": "/data/workspace/gbsbuild-ROOT/IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.log",
+    "loop": {
+        "partitions": {
+            "/": "rootfs",
+            "/mnt/initrd": "ramdisk",
+            "/mnt/initrd-recovery": "ramdisk-recovery",
+            "/opt": "system-data",
+            "/opt/usr": "user"
+        },
+        "image_files": [
+            "tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.tar.gz"
+        ],
+        "pack": ".132101_tizen-headed-aarch64.tar.gz"
+    }
+}
