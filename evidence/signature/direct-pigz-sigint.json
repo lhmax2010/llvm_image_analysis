@@ -1,0 +1,20 @@
+{
+  "layer": "direct",
+  "compressor": "pigz",
+  "mode": "sigint",
+  "command": [
+    "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-sigint/bin/pigz",
+    "-f",
+    "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-sigint/input.tar"
+  ],
+  "pid_is_real_compressor_after_exec": true,
+  "rc": 4,
+  "shell_equivalent_rc": 4,
+  "elapsed_s": 0.09581868799432414,
+  "stdout": "",
+  "stderr": "",
+  "output_exists": false,
+  "output_bytes": null,
+  "input_exists": true,
+  "integrity": null
+}

@@ -1,0 +1,30 @@
+{
+  "input_throughput_bytes_per_s": 35353389.5890411,
+  "success_input_tar_bytes": 2580797440,
+  "success_gzip_seconds_used": 73,
+  "success_output_bytes": 696473433,
+  "estimated_ratio": 0.26986753094423405,
+  "output_throughput_bytes_per_s": 9540731.95890411,
+  "assumptions": [
+    "same average input speed and compression ratio as successful gzip",
+    "time to first traceback approximates compressor runtime",
+    "ENOSPC after partial output, no concurrent writes or extra cleanup delays",
+    "pigz speed has NOT been calibrated to QB: pigz number is a gzip-rate projection only"
+  ],
+  "failures": [
+    {
+      "build": "1187398-gzip",
+      "seconds_to_first_traceback": 42.433,
+      "input_equivalent_bytes": 1500150380.431781,
+      "output_estimate_bytes": 404841879.2121781,
+      "output_estimate_MiB": 386.0873024102956
+    },
+    {
+      "build": "1189686-pigz",
+      "seconds_to_first_traceback": 29.828,
+      "input_equivalent_bytes": 1054520904.6619179,
+      "output_estimate_bytes": 284580952.8701918,
+      "output_estimate_MiB": 271.3975456907194
+    }
+  ]
+}

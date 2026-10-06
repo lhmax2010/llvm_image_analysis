@@ -1,0 +1,48 @@
+{
+  "uid": 1000,
+  "image_bytes": 67108864,
+  "mkfs": {
+    "command": [
+      "/usr/sbin/mkfs.ext4",
+      "-F",
+      "-m",
+      "0",
+      "-L",
+      "mic-signature",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/enospc-loop.img"
+    ],
+    "rc": 0,
+    "stdout": "Discarding device blocks:     0/16384\b\b\b\b\b\b\b\b\b\b\b           \b\b\b\b\b\b\b\b\b\b\bdone                            \nCreating filesystem with 16384 4k blocks and 16384 inodes\n\nAllocating group tables: 0/1\b\b\b   \b\b\bdone                            \nWriting inode tables: 0/1\b\b\b   \b\b\bdone                            \nCreating journal (1024 blocks): done\nWriting superblocks and filesystem accounting information: 0/1\b\b\b   \b\b\bdone\n\n",
+    "stderr": "mke2fs 1.47.0 (5-Feb-2023)\n"
+  },
+  "loop_setup": {
+    "command": [
+      "/usr/bin/udisksctl",
+      "loop-setup",
+      "--no-user-interaction",
+      "--file",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/enospc-loop.img"
+    ],
+    "rc": 0,
+    "stdout": "Mapped file /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/enospc-loop.img as /dev/loop27.\n",
+    "stderr": ""
+  },
+  "mount_inside_workspace": {
+    "command": [
+      "mount",
+      "-t",
+      "ext4",
+      "/dev/loop27",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/enospc-mount"
+    ],
+    "rc": 32,
+    "stdout": "",
+    "stderr": "mount: /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/enospc-mount: must be superuser to use mount.\n       dmesg(1) may have more information after failed mount system call.\n"
+  },
+  "loop_delete": {
+    "rc": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "enospc_skipped": "Unprivileged mount at the required workspace path failed. udisksctl mount has no target-path option; do not create artifacts outside the workspace."
+}

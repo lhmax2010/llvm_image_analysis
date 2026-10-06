@@ -1,0 +1,28 @@
+{
+  "layer": "direct",
+  "compressor": "pigz",
+  "mode": "normal",
+  "command": [
+    "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-normal/bin/pigz",
+    "-f",
+    "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-normal/input.tar"
+  ],
+  "pid_is_real_compressor_after_exec": true,
+  "rc": 0,
+  "shell_equivalent_rc": 0,
+  "elapsed_s": 0.5373892770003295,
+  "stdout": "",
+  "stderr": "",
+  "output_exists": true,
+  "output_bytes": 300091807,
+  "input_exists": false,
+  "integrity": {
+    "argv": [
+      "/usr/bin/gzip",
+      "-t",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-normal/input.tar.gz"
+    ],
+    "rc": 0,
+    "stderr": ""
+  }
+}

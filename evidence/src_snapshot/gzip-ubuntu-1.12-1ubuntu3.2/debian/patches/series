@@ -1,0 +1,6 @@
+gzip_reproducible_build.diff
+disable-Werror.patch
+skip-out-of-range-timestamp-test-mips64el.patch
+0001-maint-fix-s390-buffer-flushes.patch
+CVE-2026-41991.patch
+CVE-2026-41992.patch

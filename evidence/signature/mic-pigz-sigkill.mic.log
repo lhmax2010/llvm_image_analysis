@@ -1,0 +1,2 @@
+[10/06 21:49:02 CST] Running command: tar -C /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/input -cf /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-sigkill/tmp7bz51oc3.tar payload.bin
+[10/06 21:49:03 CST] Running command: pigz -f /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-sigkill/tmp7bz51oc3.tar

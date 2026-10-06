@@ -1,0 +1,23 @@
+gzip normal 0 exists True
+gzip efbig 1 exists False
+gzip fsize-signal -25 exists False
+gzip sigkill -9 exists True
+gzip sigint -2 exists False
+gzip sigterm -15 exists False
+gzip sighup -1 exists False
+mic gzip normal True
+mic gzip efbig FileNotFoundError
+mic gzip fsize-signal FileNotFoundError
+mic gzip sigkill True
+pigz normal 0 exists True
+pigz efbig 27 exists False
+pigz fsize-signal -25 exists True
+pigz sigkill -9 exists True
+pigz sigint 4 exists False
+pigz sigterm -15 exists True
+pigz sighup -1 exists True
+mic pigz normal True
+mic pigz efbig FileNotFoundError
+mic pigz fsize-signal True
+mic pigz sigkill True
+Completed 22 real-compressor cases

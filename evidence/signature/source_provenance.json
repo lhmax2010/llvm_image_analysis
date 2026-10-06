@@ -1,0 +1,28 @@
+{
+  "recorded_utc": "2026-10-06T13:51:14.999050+00:00",
+  "upstream_version": "1.12",
+  "installed_debian_version": "1.12-1ubuntu3.2",
+  "canonical_release_url": "https://ftp.gnu.org/gnu/gzip/gzip-1.12.tar.xz",
+  "canonical_attempt": "connection did not complete within curl --max-time 90; mirror and Ubuntu archive used",
+  "downloads": [
+    {
+      "path": "downloads/src/gzip-1.12-mirror.tar.xz",
+      "url": "https://mirrors.kernel.org/gnu/gzip/gzip-1.12.tar.xz",
+      "bytes": 825548,
+      "sha256": "ce5e03e519f637e1f814011ace35c4f87b33c0bbabeec35baf5fbd3479e91956"
+    },
+    {
+      "path": "downloads/src/gzip_1.12.orig.tar.xz",
+      "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/gzip/gzip_1.12.orig.tar.xz",
+      "bytes": 825548,
+      "sha256": "ce5e03e519f637e1f814011ace35c4f87b33c0bbabeec35baf5fbd3479e91956"
+    },
+    {
+      "path": "downloads/src/gzip_1.12-1ubuntu3.2.debian.tar.xz",
+      "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/gzip/gzip_1.12-1ubuntu3.2.debian.tar.xz",
+      "bytes": 22820,
+      "sha256": "13008977038dcf4058301a96006e994a5c3c48877d2bc39ee4c29d234ba21832"
+    }
+  ],
+  "snapshot_entries_added": 12
+}

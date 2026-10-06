@@ -1,0 +1,28 @@
+{
+  "layer": "direct",
+  "compressor": "pigz",
+  "mode": "sigkill",
+  "command": [
+    "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-sigkill/bin/pigz",
+    "-f",
+    "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-sigkill/input.tar"
+  ],
+  "pid_is_real_compressor_after_exec": true,
+  "rc": -9,
+  "shell_equivalent_rc": 137,
+  "elapsed_s": 0.28170249599497765,
+  "stdout": "",
+  "stderr": "",
+  "output_exists": true,
+  "output_bytes": 150732800,
+  "input_exists": true,
+  "integrity": {
+    "argv": [
+      "/usr/bin/gzip",
+      "-t",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-sigkill/input.tar.gz"
+    ],
+    "rc": 1,
+    "stderr": "\ngzip: /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-sigkill/input.tar.gz: unexpected end of file\n"
+  }
+}

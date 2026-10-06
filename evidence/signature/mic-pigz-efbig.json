@@ -1,0 +1,41 @@
+{
+  "compressor": "pigz",
+  "mode": "efbig",
+  "layer": "mic",
+  "calls": [
+    {
+      "argv": [
+        "tar",
+        "-C",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/input",
+        "-cf",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-efbig/tmpwtoeflre.tar",
+        "payload.bin"
+      ],
+      "rc": 0,
+      "combined_stdout_stderr": "",
+      "separate_stderr": null,
+      "elapsed_s": 0.8400123989995336
+    },
+    {
+      "argv": [
+        "pigz",
+        "-f",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-efbig/tmpwtoeflre.tar"
+      ],
+      "rc": 27,
+      "combined_stdout_stderr": "pigz: abort: write error on /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-efbig/tmpwtoeflre.tar.gz (File too large)\n",
+      "separate_stderr": null,
+      "elapsed_s": 0.29392194600222865,
+      "output_before_move_exists": false,
+      "output_before_move_bytes": null
+    }
+  ],
+  "exception_type": "FileNotFoundError",
+  "exception": "[Errno 2] No such file or directory: '/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-efbig/tmpwtoeflre.tar.gz'",
+  "traceback": "Traceback (most recent call last):\n  File \"/usr/lib/python3.12/shutil.py\", line 886, in move\n    os.rename(src, real_dst)\nFileNotFoundError: [Errno 2] No such file or directory: '/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-efbig/tmpwtoeflre.tar.gz' -> '/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-efbig/final.tar.gz'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/home/linhao/Toolchain/development/llvm_image_analysis/evidence/signature/run_experiment.py\", line 36, in <module>\n    result['make_tarball_return']=archive._make_tarball(str(output),str(W/'input'),archive._do_gzip)\n                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/linhao/Toolchain/development/llvm_image_analysis/downloads/src/mic/mic/archive.py\", line 346, in _make_tarball\n    shutil.move(tarball_name, archive_name)\n  File \"/usr/lib/python3.12/shutil.py\", line 906, in move\n    copy_function(src, real_dst)\n  File \"/usr/lib/python3.12/shutil.py\", line 475, in copy2\n    copyfile(src, dst, follow_symlinks=follow_symlinks)\n  File \"/usr/lib/python3.12/shutil.py\", line 260, in copyfile\n    with open(src, 'rb') as fsrc:\n         ^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-efbig/tmpwtoeflre.tar.gz'\n",
+  "elapsed_s": 1.1362740980039234,
+  "output_exists": false,
+  "output_bytes": null,
+  "integrity": null
+}

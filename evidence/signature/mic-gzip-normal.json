@@ -1,0 +1,47 @@
+{
+  "compressor": "gzip",
+  "mode": "normal",
+  "layer": "mic",
+  "calls": [
+    {
+      "argv": [
+        "tar",
+        "-C",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/input",
+        "-cf",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-normal/tmprciwpflc.tar",
+        "payload.bin"
+      ],
+      "rc": 0,
+      "combined_stdout_stderr": "",
+      "separate_stderr": null,
+      "elapsed_s": 0.5176719440059969
+    },
+    {
+      "argv": [
+        "gzip",
+        "-f",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-normal/tmprciwpflc.tar"
+      ],
+      "rc": 0,
+      "combined_stdout_stderr": "",
+      "separate_stderr": null,
+      "elapsed_s": 6.196841832002974,
+      "output_before_move_exists": true,
+      "output_before_move_bytes": 300048496
+    }
+  ],
+  "make_tarball_return": true,
+  "elapsed_s": 6.714799398003379,
+  "output_exists": true,
+  "output_bytes": 300048496,
+  "integrity": {
+    "argv": [
+      "/usr/bin/gzip",
+      "-t",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-normal/final.tar.gz"
+    ],
+    "rc": 0,
+    "stderr": ""
+  }
+}

@@ -1,0 +1,2 @@
+INFO: Running command: tar -C /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/input -cf /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-fsize-signal/tmpzu8r1599.tar payload.bin
+INFO: Running command: pigz -f /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-fsize-signal/tmpzu8r1599.tar

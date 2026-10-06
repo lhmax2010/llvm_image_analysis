@@ -1,0 +1,28 @@
+{
+  "layer": "direct",
+  "compressor": "pigz",
+  "mode": "fsize-signal",
+  "command": [
+    "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-fsize-signal/bin/pigz",
+    "-f",
+    "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-fsize-signal/input.tar"
+  ],
+  "pid_is_real_compressor_after_exec": true,
+  "rc": -25,
+  "shell_equivalent_rc": 153,
+  "elapsed_s": 1.28554135900049,
+  "stdout": "",
+  "stderr": "",
+  "output_exists": true,
+  "output_bytes": 102400000,
+  "input_exists": true,
+  "integrity": {
+    "argv": [
+      "/usr/bin/gzip",
+      "-t",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-fsize-signal/input.tar.gz"
+    ],
+    "rc": 1,
+    "stderr": "\ngzip: /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-fsize-signal/input.tar.gz: unexpected end of file\n"
+  }
+}

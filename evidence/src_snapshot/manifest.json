@@ -232,5 +232,77 @@
     "snapshot": "evidence/probe_scripts/compressor_probe.py",
     "bytes": 1260,
     "sha256": "eb82fb44b95c24374b7c2bdd235062f650b5aad295a267e9373661c703dbd4b9"
+  },
+  {
+    "local_source": "downloads/src/gzip-1.12-release/gzip.c",
+    "snapshot": "evidence/src_snapshot/gzip-1.12/gzip.c",
+    "bytes": 66072,
+    "sha256": "e05a8509a307311cd55540023b72d59f8b99c8ccd2680c8f3fe3e9dcc4aab21c"
+  },
+  {
+    "local_source": "downloads/src/gzip-1.12-release/gzip.h",
+    "snapshot": "evidence/src_snapshot/gzip-1.12/gzip.h",
+    "bytes": 11340,
+    "sha256": "6424a1d514036ea410fba4da05875d6034a11037ec341f975fe0295772fa453c"
+  },
+  {
+    "local_source": "downloads/src/gzip-1.12-release/util.c",
+    "snapshot": "evidence/src_snapshot/gzip-1.12/util.c",
+    "bytes": 15376,
+    "sha256": "fa941cb72af73e641a7fc3f22912b06513b99c76e5b61d58567f9e45cdc598c9"
+  },
+  {
+    "local_source": "downloads/src/gzip-1.12-release/COPYING",
+    "snapshot": "evidence/src_snapshot/gzip-1.12/COPYING",
+    "bytes": 35147,
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+  },
+  {
+    "local_source": "downloads/src/gzip-ubuntu-packaging/debian/changelog",
+    "snapshot": "evidence/src_snapshot/gzip-ubuntu-1.12-1ubuntu3.2/debian/changelog",
+    "bytes": 32324,
+    "sha256": "81f2a8c91c36118c4253534902b212d0ec9e51d301dab8af62fb648744f406e1"
+  },
+  {
+    "local_source": "downloads/src/gzip-ubuntu-packaging/debian/patches/skip-out-of-range-timestamp-test-mips64el.patch",
+    "snapshot": "evidence/src_snapshot/gzip-ubuntu-1.12-1ubuntu3.2/debian/patches/skip-out-of-range-timestamp-test-mips64el.patch",
+    "bytes": 414,
+    "sha256": "e42739abd999a6fd328df846cce3dc0647c4eb2c6650ff2e5fbfc28ccad446d4"
+  },
+  {
+    "local_source": "downloads/src/gzip-ubuntu-packaging/debian/patches/disable-Werror.patch",
+    "snapshot": "evidence/src_snapshot/gzip-ubuntu-1.12-1ubuntu3.2/debian/patches/disable-Werror.patch",
+    "bytes": 220,
+    "sha256": "d25831b5a8ea7866df37bc7eaf266914b604047758c41ba2e52ace27ffe4518a"
+  },
+  {
+    "local_source": "downloads/src/gzip-ubuntu-packaging/debian/patches/CVE-2026-41991.patch",
+    "snapshot": "evidence/src_snapshot/gzip-ubuntu-1.12-1ubuntu3.2/debian/patches/CVE-2026-41991.patch",
+    "bytes": 2212,
+    "sha256": "12ad64b8773591ca475bd5effd4a6c6557af259b1584af151e09a97f9d0f48f7"
+  },
+  {
+    "local_source": "downloads/src/gzip-ubuntu-packaging/debian/patches/CVE-2026-41992.patch",
+    "snapshot": "evidence/src_snapshot/gzip-ubuntu-1.12-1ubuntu3.2/debian/patches/CVE-2026-41992.patch",
+    "bytes": 2048,
+    "sha256": "519f28813e313ba6994f1075aad2bfa2debf6e80a74d2e5e154038352d20fe69"
+  },
+  {
+    "local_source": "downloads/src/gzip-ubuntu-packaging/debian/patches/0001-maint-fix-s390-buffer-flushes.patch",
+    "snapshot": "evidence/src_snapshot/gzip-ubuntu-1.12-1ubuntu3.2/debian/patches/0001-maint-fix-s390-buffer-flushes.patch",
+    "bytes": 1889,
+    "sha256": "53ed582605f6e9805b375e1f8487fff0d3685f0e9b811cbf2af50e1d56c56f65"
+  },
+  {
+    "local_source": "downloads/src/gzip-ubuntu-packaging/debian/patches/series",
+    "snapshot": "evidence/src_snapshot/gzip-ubuntu-1.12-1ubuntu3.2/debian/patches/series",
+    "bytes": 181,
+    "sha256": "e2791d12ba9f4732f63effa433ea7c333989c1d20b749bf776f0b7c877c1b4c8"
+  },
+  {
+    "local_source": "downloads/src/gzip-ubuntu-packaging/debian/patches/gzip_reproducible_build.diff",
+    "snapshot": "evidence/src_snapshot/gzip-ubuntu-1.12-1ubuntu3.2/debian/patches/gzip_reproducible_build.diff",
+    "bytes": 331,
+    "sha256": "f72714e4078a5850fbd8e410b13d05f6f6dd74459ac0f36f6ef22579c5bcdd55"
   }
 ]

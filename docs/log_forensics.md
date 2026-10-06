@@ -2,7 +2,7 @@
 
 ## 材料与证据边界
 
-stage1 部分据三份公开 mic.log；stage2a 新增用户提供的五份QB控制台，完整分析见 [qb_console_forensics.md](qb_console_forensics.md)。两类日志保留独立证据边界；下面打包原文仍是旧 mic.log，具体判定已按控制台更新。原始文件未改动；下载 URL、字节数和 sha256 见 `docs/downloads.md`。完整逐行 diff：`evidence/20260917.132101-vs-20260930.105301.diff`、`evidence/20260930.105301-vs-20261003.102419.diff`。文件尾字节与关键词扫描见 `evidence/log_metadata.json`。公开mic.log时间带UTC；QB控制台只有时分秒，重叠段可与mic.log对应，但不补造未打印的时区。
+stage1 部分据三份公开 mic.log；stage2a 新增用户提供的五份QB控制台，stage2b新增真gzip/pigz失败签名实验，完整分析见 [qb_console_forensics.md](qb_console_forensics.md)。两类日志保留独立证据边界；下面打包原文仍是旧 mic.log，具体判定已按控制台更新。原始文件未改动；下载 URL、字节数和 sha256 见 `docs/downloads.md`。完整逐行 diff：`evidence/20260917.132101-vs-20260930.105301.diff`、`evidence/20260930.105301-vs-20261003.102419.diff`。文件尾字节与关键词扫描见 `evidence/log_metadata.json`。公开mic.log时间带UTC；QB控制台只有时分秒，重叠段可与mic.log对应，但不补造未打印的时区。
 
 ## 开头、选项与目录
 
@@ -92,26 +92,35 @@ stage1 部分据三份公开 mic.log；stage2a 新增用户提供的五份QB控�
 
 以上QB原文件均在downloads/logs/；每条完整命令、全部打包尾段、所有关键词命中行见 [QB控制台取证](qb_console_forensics.md)。原mic.log末条与启动相差0秒的历史观察仍正确，但它只表示mic.log没记录后续，不再代表控制台/进程运行时长未知。
 
-## OOM 与 ENOSPC 证据对照（更新）
+## OOM 与 ENOSPC 证据对照（stage2b更新）
 
-|证据|构建机 / cgroup OOM|工作目录 ENOSPC|现在的区分能力|
+完整实验、源码行号、原始rc/stderr、输出存在性及gzip -t见 [signature_experiment.md](signature_experiment.md) 和 [summary.csv](../evidence/signature/summary.csv)。实验UID1000，无sudo、无整镜像；EFBIG由真实内核文件大小限制触发，并非伪造错误。ENOSPC未真实复现，只有同一源码处理路径的依据。
+
+|证据|SIGKILL / 构建机或cgroup OOM|写失败 / 工作盘ENOSPC|现在的区分能力|
 |---|---|---|---|
-|两份控制台均move traceback、mic返回1、QB正常failed链（两份L8879–8955）|排除mic自己被直接杀死作为此次终止方式；不能排除压缩子进程被杀|相容：外部失败之后缺文件|此前“mic死了或异常只写控制台”现在确定为后者|
-|两份没有压缩器stderr/rc，只有mic rc1（两份L8936；archive.py L66–110）|看不到-9，不能确认子进程OOM|看不到1+ENOSPC，不能确认磁盘满|压缩器SIGKILL与写失败仍不可区分|
-|gzip单线程，镜像逻辑大小约2.40GiB；tar全量暂存（两份L8877；磁盘模型）|gzip本体消耗1GiB的解释弱；cgroup页缓存/其他进程仍未知|tar和gz额外空间机制成立|ENOSPC仍是优先资源假设，非直接证据|
-|1003使用默认线程pigz（1189686 L8878）|线程/缓冲可能增内存；没有实际RSS/限额|中间tar没有消除|更换压缩器未解决缺输出形状，不证明同一资源触发|
-|父任务failed/cancelled/timed out模板（1189639 L22536）|不代表OOM/worker lost|不代表磁盘满|子日志已证明普通失败传播，不是超时/取消实证|
-|五份全文无ENOSPC/Killed/OOM事件，df/free子串全为包名/hash/路径等（QB报告第四节）|没有内核或memory.events|没有工作盘空闲块/ENOSPC|无法唯一判定真实资源原因|
-|原始代码fake exit1和SIGKILL探针（original_archive_probe.json）|rc=-9也折叠成缺文件异常|模拟ENOSPC exit1同样折叠|与两次QB真实traceback形状相符，但不是资源实验|
+|QB均FileNotFoundError、mic返回1、普通failed链（两份full-log L8879–8955）|不支持mic自己被直接杀死|相容于外部失败后缺输出|已确认mic异常退出，原始压缩器rc仍未知|
+|真gzip在约50%输出时SIGKILL（direct/mic-gzip-sigkill.json）|rc=-9/137，留150,208,512B坏.gz；mic move True、gzip -t=1|与主动删除输出不同|不吻合1187398的缺文件签名|
+|真pigz2.8在约50%输出时SIGKILL（direct/mic-pigz-sigkill.json）|rc=-9/137，直测留150,732,800B，mic留150,122,883B；move True、gzip -t=1|与主动删除输出不同|不吻合1189686的缺文件签名|
+|真gzip EFBIG，忽略SIGXFSZ（direct/mic-gzip-efbig.json）|不是信号杀死，rc=1|输出被unlink，真实File too large；mic FileNotFoundError；ENOSPC同cleanup路径|缺文件形状吻合1187398，但不能证明QB errno|
+|真pigz EFBIG，忽略SIGXFSZ（direct/mic-pigz-efbig.json）|不是信号杀死，rc=27|throw(errno)→cut_short→unlink；mic FileNotFoundError；ENOSPC按源码应rc28|缺文件形状吻合1189686，但不能证明QB errno|
+|普通ulimit -f默认SIGXFSZ（两份fsize-signal.json）|gzip handler删除后rc=-25；pigz默认终止留102,400,000B|并非同一EFBIG错误分支|gzip仍可缺文件；pigz会被mic错误地move为成功，不能把所有ulimit现象说成写失败|
+|其他可捕获信号（direct-*-sigint/sigterm/sighup.json）|gzip INT/TERM/HUP清理；pigz只INT清理，TERM/HUP留半成品|可能形成同样缺文件，不唯一等于ENOSPC|主动cleanup机制高置信，特定errno仍需rc/stderr|
+|完整中间tar与额外.gz写盘（两份QB L8877；磁盘模型）|gzip本体GiB内存假说弱；其他内存因素未知|工作盘额外空间需求未被pigz消除|结合缺文件形状，ENOSPC升为中等置信首选资源假设|
+|没有历史df/quota/ulimit/cgroup/kernel和压缩器rc|不能彻底排除打开输出前SIGKILL或后续外部清理|没有直接ENOSPC证据，也可EFBIG/配额/tar失败等|已区分典型中途SIGKILL与写错误，仍不能唯一锁定真实触发|
+|stage1 fake self-SIGKILL（original_archive_probe.json）|包装程序在尚无输出时自杀才形成缺文件|假exit1也没创建输出|仅证明mic忽略rc；不等价于本阶段真压缩器已写一半的SIGKILL|
+
+### 由成功吞吐估算失败时的写出量
+
+用户指定的2,580,797,440B/73s是**输入tar速率**35,353,389.589B/s；用成功目录输出696,473,433B（images.html L14）换算平均压缩比0.269868，得到输出速率约9,540,731.959B/s。1187398的42.433秒对应约**404.842MB / 386.087MiB**输出，1189686的29.828秒对应约**284.581MB / 271.398MiB**输出。这些仅是同速度/同压缩比且确实ENOSPC时，tar已形成后的工作盘可用空间粗估；pigz速度未经QB校准，第二个数只是假用gzip速率的投影，不是测量。条件、公式与不确定性见签名报告第五节及 [估算JSON](../evidence/signature/qb_space_estimate.json)。
 
 ### 不可照单接受的推理起点
 
 - `rc=-9` 只表示直接子进程被 SIGKILL，**不证明 OOM**；必须配合内核或 cgroup 证据。其他负返回码也代表信号。若通过 shell 运行，可能变成 137，而本路径传列表、无 shell。
 - gzip 常驻内存很小使全机 OOM 直接选 gzip 的解释较弱，但 OOM 的选择还受 cgroup 范围、oom_score_adj、其他存活进程影响，不能说“绝不会选它”；文件页缓存和 tmpfs 也可能计入 cgroup。
-- gzip 写失败可能删除半成品 `.gz`，仅文件缺失并不能区分写失败和终止；SIGKILL 的真实 gzip 也可能留下半成品，不能把文件缺失当作 SIGKILL 的必要特征。
-- **公开 mic 日志戛然而止不证明 mic 自己或整个步骤死了。** `archive._call_external` 捕获 stderr 后丢弃，未捕获 Python traceback 可只写控制台。已运行原始代码探针，fake exit1 和 sigkill 都得到 `FileNotFoundError` 控制台 traceback，而 mic.log 只保留启动行：`evidence/original_archive_probe.json`、`evidence/original-exit1-console.log`、`evidence/original-sigkill-console.log`、`evidence/original-exit1-mic.log`、`evidence/original-sigkill-mic.log`。
+- 真gzip/pigz中途SIGKILL在本实验都留下坏半成品，mic直接move；真EFBIG都删除输出并触发缺文件。可捕获信号也可cleanup、打开输出前被杀也可能无文件，所以签名提升相对优先级，不唯一证明ENOSPC。
+- **公开 mic 日志戛然而止不证明 mic 自己或整个步骤死了。** `archive._call_external` 捕获 stderr 后丢弃，未捕获 Python traceback 可只写控制台。已运行原始代码探针，stage1 fake exit1和尚未创建输出就self-SIGKILL均得到FileNotFoundError（仅证诊断丢失）；stage2b真中途SIGKILL留半成品而move成功，见签名报告。历史fake探针：`evidence/original_archive_probe.json`、`evidence/original-exit1-console.log`、`evidence/original-sigkill-console.log`、`evidence/original-exit1-mic.log`、`evidence/original-sigkill-mic.log`。
 
-结论：对“外部打包/压缩失败诊断被丢弃，最终由缺压缩输出触发move异常”的判断置信度高；两次mic返回1和QB正常失败均已确认。“mic自己被杀/步骤突然终止”不符合控制台证据。外部资源原因仍未闭合，ENOSPC是优先假设（低至中置信），压缩器子进程OOM/SIGKILL或tar先失败仍待直接rc/stderr、磁盘/cgroup/内核证据。仅有FileNotFoundError不足以证明哪种触发。
+结论：对“外部打包/压缩失败诊断被丢弃，最终由缺压缩输出触发move异常”的判断置信度高；两次mic返回1和QB正常失败均已确认。“mic自己被杀/步骤突然终止”不符合控制台证据。真压缩器签名使“写失败后主动cleanup”比“已压缩一段后SIGKILL”更吻合两次QB；ENOSPC提高为首选资源假设（中等置信），而非已证实根因。典型中途SIGKILL与QB签名不吻合；可捕获信号、EFBIG/配额、tar先失败、打开输出前被杀/别人清理等仍需原始rc/stderr及资源证据排查。
 
 ## 发布校验补充
 

@@ -1,0 +1,18 @@
+{
+  "uid": 1000,
+  "payload_bytes": 300000000,
+  "payload_sha256": "b89f0030a2b1bbb25415f9113fbc727ede226a7c37fbb585512a88dd3311d2cd",
+  "tar_bytes": 300011520,
+  "tar_sha256": "942b542b1e0f6a7664daa5119e3f393b98bdbb2854e49eeb08a0296b8a61fe98",
+  "file_limit_bytes": 102400000,
+  "versions": {
+    "gzip": "gzip 1.12",
+    "pigz": "pigz 2.8"
+  },
+  "binary_sha256": {
+    "gzip": "afea077ce127d4fa9ad410d3066ba2b54dea19c0b44f04adf56c72d5f7b7a9bb",
+    "pigz": "0d7a4b1a88d798089e86507a5fda30b2c301454f65ac8e59c2a2de44068a435a"
+  },
+  "cases": [],
+  "ulimit_equivalent": "100000\n(102400000, 102400000)\n"
+}

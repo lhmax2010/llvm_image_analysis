@@ -1,0 +1,696 @@
+[
+  {
+    "layer": "direct",
+    "compressor": "gzip",
+    "mode": "normal",
+    "command": [
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-normal/bin/gzip",
+      "-f",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-normal/input.tar"
+    ],
+    "pid_is_real_compressor_after_exec": true,
+    "rc": 0,
+    "shell_equivalent_rc": 0,
+    "elapsed_s": 5.381265003998124,
+    "stdout": "",
+    "stderr": "",
+    "output_exists": true,
+    "output_bytes": 300048490,
+    "input_exists": false,
+    "integrity": {
+      "argv": [
+        "/usr/bin/gzip",
+        "-t",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-normal/input.tar.gz"
+      ],
+      "rc": 0,
+      "stderr": ""
+    }
+  },
+  {
+    "layer": "direct",
+    "compressor": "gzip",
+    "mode": "efbig",
+    "command": [
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-efbig/bin/gzip",
+      "-f",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-efbig/input.tar"
+    ],
+    "pid_is_real_compressor_after_exec": true,
+    "rc": 1,
+    "shell_equivalent_rc": 1,
+    "elapsed_s": 1.8076220740040299,
+    "stdout": "",
+    "stderr": "\ngzip: /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-efbig/input.tar.gz: File too large\n",
+    "output_exists": false,
+    "output_bytes": null,
+    "input_exists": true,
+    "integrity": null
+  },
+  {
+    "layer": "direct",
+    "compressor": "gzip",
+    "mode": "fsize-signal",
+    "command": [
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-fsize-signal/bin/gzip",
+      "-f",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-fsize-signal/input.tar"
+    ],
+    "pid_is_real_compressor_after_exec": true,
+    "rc": -25,
+    "shell_equivalent_rc": 153,
+    "elapsed_s": 2.9561175260023447,
+    "stdout": "",
+    "stderr": "",
+    "output_exists": false,
+    "output_bytes": null,
+    "input_exists": true,
+    "integrity": null
+  },
+  {
+    "layer": "direct",
+    "compressor": "gzip",
+    "mode": "sigkill",
+    "command": [
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-sigkill/bin/gzip",
+      "-f",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-sigkill/input.tar"
+    ],
+    "pid_is_real_compressor_after_exec": true,
+    "rc": -9,
+    "shell_equivalent_rc": 137,
+    "elapsed_s": 2.6446919160007383,
+    "stdout": "",
+    "stderr": "",
+    "output_exists": true,
+    "output_bytes": 150208512,
+    "input_exists": true,
+    "integrity": {
+      "argv": [
+        "/usr/bin/gzip",
+        "-t",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-sigkill/input.tar.gz"
+      ],
+      "rc": 1,
+      "stderr": "\ngzip: /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-sigkill/input.tar.gz: unexpected end of file\n"
+    }
+  },
+  {
+    "layer": "direct",
+    "compressor": "gzip",
+    "mode": "sigint",
+    "command": [
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-sigint/bin/gzip",
+      "-f",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-sigint/input.tar"
+    ],
+    "pid_is_real_compressor_after_exec": true,
+    "rc": -2,
+    "shell_equivalent_rc": 130,
+    "elapsed_s": 0.5901270149988704,
+    "stdout": "",
+    "stderr": "",
+    "output_exists": false,
+    "output_bytes": null,
+    "input_exists": true,
+    "integrity": null
+  },
+  {
+    "layer": "direct",
+    "compressor": "gzip",
+    "mode": "sigterm",
+    "command": [
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-sigterm/bin/gzip",
+      "-f",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-sigterm/input.tar"
+    ],
+    "pid_is_real_compressor_after_exec": true,
+    "rc": -15,
+    "shell_equivalent_rc": 143,
+    "elapsed_s": 0.5977940199954901,
+    "stdout": "",
+    "stderr": "",
+    "output_exists": false,
+    "output_bytes": null,
+    "input_exists": true,
+    "integrity": null
+  },
+  {
+    "layer": "direct",
+    "compressor": "gzip",
+    "mode": "sighup",
+    "command": [
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-sighup/bin/gzip",
+      "-f",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-sighup/input.tar"
+    ],
+    "pid_is_real_compressor_after_exec": true,
+    "rc": -1,
+    "shell_equivalent_rc": 129,
+    "elapsed_s": 0.597853513994778,
+    "stdout": "",
+    "stderr": "",
+    "output_exists": false,
+    "output_bytes": null,
+    "input_exists": true,
+    "integrity": null
+  },
+  {
+    "compressor": "gzip",
+    "mode": "normal",
+    "layer": "mic",
+    "calls": [
+      {
+        "argv": [
+          "tar",
+          "-C",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/input",
+          "-cf",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-normal/tmprciwpflc.tar",
+          "payload.bin"
+        ],
+        "rc": 0,
+        "combined_stdout_stderr": "",
+        "separate_stderr": null,
+        "elapsed_s": 0.5176719440059969
+      },
+      {
+        "argv": [
+          "gzip",
+          "-f",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-normal/tmprciwpflc.tar"
+        ],
+        "rc": 0,
+        "combined_stdout_stderr": "",
+        "separate_stderr": null,
+        "elapsed_s": 6.196841832002974,
+        "output_before_move_exists": true,
+        "output_before_move_bytes": 300048496
+      }
+    ],
+    "make_tarball_return": true,
+    "elapsed_s": 6.714799398003379,
+    "output_exists": true,
+    "output_bytes": 300048496,
+    "integrity": {
+      "argv": [
+        "/usr/bin/gzip",
+        "-t",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-normal/final.tar.gz"
+      ],
+      "rc": 0,
+      "stderr": ""
+    }
+  },
+  {
+    "compressor": "gzip",
+    "mode": "efbig",
+    "layer": "mic",
+    "calls": [
+      {
+        "argv": [
+          "tar",
+          "-C",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/input",
+          "-cf",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-efbig/tmplnwi_rs7.tar",
+          "payload.bin"
+        ],
+        "rc": 0,
+        "combined_stdout_stderr": "",
+        "separate_stderr": null,
+        "elapsed_s": 0.39345398399746045
+      },
+      {
+        "argv": [
+          "gzip",
+          "-f",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-efbig/tmplnwi_rs7.tar"
+        ],
+        "rc": 1,
+        "combined_stdout_stderr": "\ngzip: /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-efbig/tmplnwi_rs7.tar.gz: File too large\n",
+        "separate_stderr": null,
+        "elapsed_s": 1.825050804996863,
+        "output_before_move_exists": false,
+        "output_before_move_bytes": null
+      }
+    ],
+    "exception_type": "FileNotFoundError",
+    "exception": "[Errno 2] No such file or directory: '/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-efbig/tmplnwi_rs7.tar.gz'",
+    "traceback": "Traceback (most recent call last):\n  File \"/usr/lib/python3.12/shutil.py\", line 886, in move\n    os.rename(src, real_dst)\nFileNotFoundError: [Errno 2] No such file or directory: '/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-efbig/tmplnwi_rs7.tar.gz' -> '/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-efbig/final.tar.gz'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/home/linhao/Toolchain/development/llvm_image_analysis/evidence/signature/run_experiment.py\", line 36, in <module>\n    result['make_tarball_return']=archive._make_tarball(str(output),str(W/'input'),archive._do_gzip)\n                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/linhao/Toolchain/development/llvm_image_analysis/downloads/src/mic/mic/archive.py\", line 346, in _make_tarball\n    shutil.move(tarball_name, archive_name)\n  File \"/usr/lib/python3.12/shutil.py\", line 906, in move\n    copy_function(src, real_dst)\n  File \"/usr/lib/python3.12/shutil.py\", line 475, in copy2\n    copyfile(src, dst, follow_symlinks=follow_symlinks)\n  File \"/usr/lib/python3.12/shutil.py\", line 260, in copyfile\n    with open(src, 'rb') as fsrc:\n         ^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-efbig/tmplnwi_rs7.tar.gz'\n",
+    "elapsed_s": 2.230684898000618,
+    "output_exists": false,
+    "output_bytes": null,
+    "integrity": null
+  },
+  {
+    "compressor": "gzip",
+    "mode": "fsize-signal",
+    "layer": "mic",
+    "calls": [
+      {
+        "argv": [
+          "tar",
+          "-C",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/input",
+          "-cf",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-fsize-signal/tmpu1nsoxpw.tar",
+          "payload.bin"
+        ],
+        "rc": 0,
+        "combined_stdout_stderr": "",
+        "separate_stderr": null,
+        "elapsed_s": 0.5463110239943489
+      },
+      {
+        "argv": [
+          "gzip",
+          "-f",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-fsize-signal/tmpu1nsoxpw.tar"
+        ],
+        "rc": -25,
+        "combined_stdout_stderr": "",
+        "separate_stderr": null,
+        "elapsed_s": 2.912740881998616,
+        "output_before_move_exists": false,
+        "output_before_move_bytes": null
+      }
+    ],
+    "exception_type": "FileNotFoundError",
+    "exception": "[Errno 2] No such file or directory: '/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-fsize-signal/tmpu1nsoxpw.tar.gz'",
+    "traceback": "Traceback (most recent call last):\n  File \"/usr/lib/python3.12/shutil.py\", line 886, in move\n    os.rename(src, real_dst)\nFileNotFoundError: [Errno 2] No such file or directory: '/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-fsize-signal/tmpu1nsoxpw.tar.gz' -> '/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-fsize-signal/final.tar.gz'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/home/linhao/Toolchain/development/llvm_image_analysis/evidence/signature/run_experiment.py\", line 36, in <module>\n    result['make_tarball_return']=archive._make_tarball(str(output),str(W/'input'),archive._do_gzip)\n                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/linhao/Toolchain/development/llvm_image_analysis/downloads/src/mic/mic/archive.py\", line 346, in _make_tarball\n    shutil.move(tarball_name, archive_name)\n  File \"/usr/lib/python3.12/shutil.py\", line 906, in move\n    copy_function(src, real_dst)\n  File \"/usr/lib/python3.12/shutil.py\", line 475, in copy2\n    copyfile(src, dst, follow_symlinks=follow_symlinks)\n  File \"/usr/lib/python3.12/shutil.py\", line 260, in copyfile\n    with open(src, 'rb') as fsrc:\n         ^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-fsize-signal/tmpu1nsoxpw.tar.gz'\n",
+    "elapsed_s": 3.4656892310013063,
+    "output_exists": false,
+    "output_bytes": null,
+    "integrity": null
+  },
+  {
+    "compressor": "gzip",
+    "mode": "sigkill",
+    "layer": "mic",
+    "calls": [
+      {
+        "argv": [
+          "tar",
+          "-C",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/input",
+          "-cf",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-sigkill/tmporjt16a_.tar",
+          "payload.bin"
+        ],
+        "rc": 0,
+        "combined_stdout_stderr": "",
+        "separate_stderr": null,
+        "elapsed_s": 0.39811910800199257
+      },
+      {
+        "argv": [
+          "gzip",
+          "-f",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-sigkill/tmporjt16a_.tar"
+        ],
+        "rc": -9,
+        "combined_stdout_stderr": "",
+        "separate_stderr": null,
+        "elapsed_s": 2.939271994000592,
+        "output_before_move_exists": true,
+        "output_before_move_bytes": 150208512
+      }
+    ],
+    "make_tarball_return": true,
+    "elapsed_s": 3.337696873997629,
+    "output_exists": true,
+    "output_bytes": 150208512,
+    "integrity": {
+      "argv": [
+        "/usr/bin/gzip",
+        "-t",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-sigkill/final.tar.gz"
+      ],
+      "rc": 1,
+      "stderr": "\ngzip: /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-sigkill/final.tar.gz: unexpected end of file\n"
+    }
+  },
+  {
+    "layer": "direct",
+    "compressor": "pigz",
+    "mode": "normal",
+    "command": [
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-normal/bin/pigz",
+      "-f",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-normal/input.tar"
+    ],
+    "pid_is_real_compressor_after_exec": true,
+    "rc": 0,
+    "shell_equivalent_rc": 0,
+    "elapsed_s": 0.5373892770003295,
+    "stdout": "",
+    "stderr": "",
+    "output_exists": true,
+    "output_bytes": 300091807,
+    "input_exists": false,
+    "integrity": {
+      "argv": [
+        "/usr/bin/gzip",
+        "-t",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-normal/input.tar.gz"
+      ],
+      "rc": 0,
+      "stderr": ""
+    }
+  },
+  {
+    "layer": "direct",
+    "compressor": "pigz",
+    "mode": "efbig",
+    "command": [
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-efbig/bin/pigz",
+      "-f",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-efbig/input.tar"
+    ],
+    "pid_is_real_compressor_after_exec": true,
+    "rc": 27,
+    "shell_equivalent_rc": 27,
+    "elapsed_s": 0.2007096849993104,
+    "stdout": "",
+    "stderr": "pigz: abort: write error on /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-efbig/input.tar.gz (File too large)\n",
+    "output_exists": false,
+    "output_bytes": null,
+    "input_exists": true,
+    "integrity": null
+  },
+  {
+    "layer": "direct",
+    "compressor": "pigz",
+    "mode": "fsize-signal",
+    "command": [
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-fsize-signal/bin/pigz",
+      "-f",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-fsize-signal/input.tar"
+    ],
+    "pid_is_real_compressor_after_exec": true,
+    "rc": -25,
+    "shell_equivalent_rc": 153,
+    "elapsed_s": 1.28554135900049,
+    "stdout": "",
+    "stderr": "",
+    "output_exists": true,
+    "output_bytes": 102400000,
+    "input_exists": true,
+    "integrity": {
+      "argv": [
+        "/usr/bin/gzip",
+        "-t",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-fsize-signal/input.tar.gz"
+      ],
+      "rc": 1,
+      "stderr": "\ngzip: /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-fsize-signal/input.tar.gz: unexpected end of file\n"
+    }
+  },
+  {
+    "layer": "direct",
+    "compressor": "pigz",
+    "mode": "sigkill",
+    "command": [
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-sigkill/bin/pigz",
+      "-f",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-sigkill/input.tar"
+    ],
+    "pid_is_real_compressor_after_exec": true,
+    "rc": -9,
+    "shell_equivalent_rc": 137,
+    "elapsed_s": 0.28170249599497765,
+    "stdout": "",
+    "stderr": "",
+    "output_exists": true,
+    "output_bytes": 150732800,
+    "input_exists": true,
+    "integrity": {
+      "argv": [
+        "/usr/bin/gzip",
+        "-t",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-sigkill/input.tar.gz"
+      ],
+      "rc": 1,
+      "stderr": "\ngzip: /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-sigkill/input.tar.gz: unexpected end of file\n"
+    }
+  },
+  {
+    "layer": "direct",
+    "compressor": "pigz",
+    "mode": "sigint",
+    "command": [
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-sigint/bin/pigz",
+      "-f",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-sigint/input.tar"
+    ],
+    "pid_is_real_compressor_after_exec": true,
+    "rc": 4,
+    "shell_equivalent_rc": 4,
+    "elapsed_s": 0.09581868799432414,
+    "stdout": "",
+    "stderr": "",
+    "output_exists": false,
+    "output_bytes": null,
+    "input_exists": true,
+    "integrity": null
+  },
+  {
+    "layer": "direct",
+    "compressor": "pigz",
+    "mode": "sigterm",
+    "command": [
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-sigterm/bin/pigz",
+      "-f",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-sigterm/input.tar"
+    ],
+    "pid_is_real_compressor_after_exec": true,
+    "rc": -15,
+    "shell_equivalent_rc": 143,
+    "elapsed_s": 0.11628937599743949,
+    "stdout": "",
+    "stderr": "",
+    "output_exists": true,
+    "output_bytes": 34349056,
+    "input_exists": true,
+    "integrity": {
+      "argv": [
+        "/usr/bin/gzip",
+        "-t",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-sigterm/input.tar.gz"
+      ],
+      "rc": 1,
+      "stderr": "\ngzip: /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-sigterm/input.tar.gz: unexpected end of file\n"
+    }
+  },
+  {
+    "layer": "direct",
+    "compressor": "pigz",
+    "mode": "sighup",
+    "command": [
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-sighup/bin/pigz",
+      "-f",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-sighup/input.tar"
+    ],
+    "pid_is_real_compressor_after_exec": true,
+    "rc": -1,
+    "shell_equivalent_rc": 129,
+    "elapsed_s": 0.21636334600043483,
+    "stdout": "",
+    "stderr": "",
+    "output_exists": true,
+    "output_bytes": 33161216,
+    "input_exists": true,
+    "integrity": {
+      "argv": [
+        "/usr/bin/gzip",
+        "-t",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-sighup/input.tar.gz"
+      ],
+      "rc": 1,
+      "stderr": "\ngzip: /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-sighup/input.tar.gz: unexpected end of file\n"
+    }
+  },
+  {
+    "compressor": "pigz",
+    "mode": "normal",
+    "layer": "mic",
+    "calls": [
+      {
+        "argv": [
+          "tar",
+          "-C",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/input",
+          "-cf",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-normal/tmpzk1njxiw.tar",
+          "payload.bin"
+        ],
+        "rc": 0,
+        "combined_stdout_stderr": "",
+        "separate_stderr": null,
+        "elapsed_s": 2.1438361199980136
+      },
+      {
+        "argv": [
+          "pigz",
+          "-f",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-normal/tmpzk1njxiw.tar"
+        ],
+        "rc": 0,
+        "combined_stdout_stderr": "",
+        "separate_stderr": null,
+        "elapsed_s": 2.072417048002535,
+        "output_before_move_exists": true,
+        "output_before_move_bytes": 300091813
+      }
+    ],
+    "make_tarball_return": true,
+    "elapsed_s": 4.216560844004562,
+    "output_exists": true,
+    "output_bytes": 300091813,
+    "integrity": {
+      "argv": [
+        "/usr/bin/gzip",
+        "-t",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-normal/final.tar.gz"
+      ],
+      "rc": 0,
+      "stderr": ""
+    }
+  },
+  {
+    "compressor": "pigz",
+    "mode": "efbig",
+    "layer": "mic",
+    "calls": [
+      {
+        "argv": [
+          "tar",
+          "-C",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/input",
+          "-cf",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-efbig/tmpwtoeflre.tar",
+          "payload.bin"
+        ],
+        "rc": 0,
+        "combined_stdout_stderr": "",
+        "separate_stderr": null,
+        "elapsed_s": 0.8400123989995336
+      },
+      {
+        "argv": [
+          "pigz",
+          "-f",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-efbig/tmpwtoeflre.tar"
+        ],
+        "rc": 27,
+        "combined_stdout_stderr": "pigz: abort: write error on /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-efbig/tmpwtoeflre.tar.gz (File too large)\n",
+        "separate_stderr": null,
+        "elapsed_s": 0.29392194600222865,
+        "output_before_move_exists": false,
+        "output_before_move_bytes": null
+      }
+    ],
+    "exception_type": "FileNotFoundError",
+    "exception": "[Errno 2] No such file or directory: '/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-efbig/tmpwtoeflre.tar.gz'",
+    "traceback": "Traceback (most recent call last):\n  File \"/usr/lib/python3.12/shutil.py\", line 886, in move\n    os.rename(src, real_dst)\nFileNotFoundError: [Errno 2] No such file or directory: '/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-efbig/tmpwtoeflre.tar.gz' -> '/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-efbig/final.tar.gz'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/home/linhao/Toolchain/development/llvm_image_analysis/evidence/signature/run_experiment.py\", line 36, in <module>\n    result['make_tarball_return']=archive._make_tarball(str(output),str(W/'input'),archive._do_gzip)\n                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/linhao/Toolchain/development/llvm_image_analysis/downloads/src/mic/mic/archive.py\", line 346, in _make_tarball\n    shutil.move(tarball_name, archive_name)\n  File \"/usr/lib/python3.12/shutil.py\", line 906, in move\n    copy_function(src, real_dst)\n  File \"/usr/lib/python3.12/shutil.py\", line 475, in copy2\n    copyfile(src, dst, follow_symlinks=follow_symlinks)\n  File \"/usr/lib/python3.12/shutil.py\", line 260, in copyfile\n    with open(src, 'rb') as fsrc:\n         ^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-efbig/tmpwtoeflre.tar.gz'\n",
+    "elapsed_s": 1.1362740980039234,
+    "output_exists": false,
+    "output_bytes": null,
+    "integrity": null
+  },
+  {
+    "compressor": "pigz",
+    "mode": "fsize-signal",
+    "layer": "mic",
+    "calls": [
+      {
+        "argv": [
+          "tar",
+          "-C",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/input",
+          "-cf",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-fsize-signal/tmpzu8r1599.tar",
+          "payload.bin"
+        ],
+        "rc": 0,
+        "combined_stdout_stderr": "",
+        "separate_stderr": null,
+        "elapsed_s": 0.8667729769949801
+      },
+      {
+        "argv": [
+          "pigz",
+          "-f",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-fsize-signal/tmpzu8r1599.tar"
+        ],
+        "rc": -25,
+        "combined_stdout_stderr": "",
+        "separate_stderr": null,
+        "elapsed_s": 1.4772199759972864,
+        "output_before_move_exists": true,
+        "output_before_move_bytes": 102400000
+      }
+    ],
+    "make_tarball_return": true,
+    "elapsed_s": 2.3442826950049493,
+    "output_exists": true,
+    "output_bytes": 102400000,
+    "integrity": {
+      "argv": [
+        "/usr/bin/gzip",
+        "-t",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-fsize-signal/final.tar.gz"
+      ],
+      "rc": 1,
+      "stderr": "\ngzip: /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-fsize-signal/final.tar.gz: unexpected end of file\n"
+    }
+  },
+  {
+    "compressor": "pigz",
+    "mode": "sigkill",
+    "layer": "mic",
+    "calls": [
+      {
+        "argv": [
+          "tar",
+          "-C",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/input",
+          "-cf",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-sigkill/tmp7bz51oc3.tar",
+          "payload.bin"
+        ],
+        "rc": 0,
+        "combined_stdout_stderr": "",
+        "separate_stderr": null,
+        "elapsed_s": 0.48277854100160766
+      },
+      {
+        "argv": [
+          "pigz",
+          "-f",
+          "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-sigkill/tmp7bz51oc3.tar"
+        ],
+        "rc": -9,
+        "combined_stdout_stderr": "",
+        "separate_stderr": null,
+        "elapsed_s": 0.5504705790008302,
+        "output_before_move_exists": true,
+        "output_before_move_bytes": 150122883
+      }
+    ],
+    "make_tarball_return": true,
+    "elapsed_s": 1.0334671739983605,
+    "output_exists": true,
+    "output_bytes": 150122883,
+    "integrity": {
+      "argv": [
+        "/usr/bin/gzip",
+        "-t",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-sigkill/final.tar.gz"
+      ],
+      "rc": 1,
+      "stderr": "\ngzip: /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-sigkill/final.tar.gz: unexpected end of file\n"
+    }
+  }
+]

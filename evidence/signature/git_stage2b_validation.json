@@ -1,0 +1,13 @@
+{
+  "files": 270,
+  "tracked_bytes": 15884749,
+  "largest_staged_file_bytes": 1884792,
+  "snapshot_entries_verified": 51,
+  "problems": [],
+  "credential_pattern_findings": [],
+  "shell_and_sampler_syntax": "通过；未执行sudo复现",
+  "scope": "stage2b index before adding this record",
+  "stage": "stage2b: compressor failure signatures",
+  "experiment_verification": "evidence/signature/verification.json",
+  "no_sudo_or_full_image_build": true
+}

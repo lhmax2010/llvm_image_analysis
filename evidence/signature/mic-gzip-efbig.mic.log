@@ -1,0 +1,2 @@
+[10/06 21:48:36 CST] Running command: tar -C /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/input -cf /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-efbig/tmplnwi_rs7.tar payload.bin
+[10/06 21:48:37 CST] Running command: gzip -f /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-efbig/tmplnwi_rs7.tar

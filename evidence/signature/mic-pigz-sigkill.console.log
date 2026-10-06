@@ -1,0 +1,2 @@
+INFO: Running command: tar -C /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/input -cf /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-sigkill/tmp7bz51oc3.tar payload.bin
+INFO: Running command: pigz -f /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-sigkill/tmp7bz51oc3.tar

@@ -1,0 +1,47 @@
+{
+  "compressor": "pigz",
+  "mode": "normal",
+  "layer": "mic",
+  "calls": [
+    {
+      "argv": [
+        "tar",
+        "-C",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/input",
+        "-cf",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-normal/tmpzk1njxiw.tar",
+        "payload.bin"
+      ],
+      "rc": 0,
+      "combined_stdout_stderr": "",
+      "separate_stderr": null,
+      "elapsed_s": 2.1438361199980136
+    },
+    {
+      "argv": [
+        "pigz",
+        "-f",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-normal/tmpzk1njxiw.tar"
+      ],
+      "rc": 0,
+      "combined_stdout_stderr": "",
+      "separate_stderr": null,
+      "elapsed_s": 2.072417048002535,
+      "output_before_move_exists": true,
+      "output_before_move_bytes": 300091813
+    }
+  ],
+  "make_tarball_return": true,
+  "elapsed_s": 4.216560844004562,
+  "output_exists": true,
+  "output_bytes": 300091813,
+  "integrity": {
+    "argv": [
+      "/usr/bin/gzip",
+      "-t",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-normal/final.tar.gz"
+    ],
+    "rc": 0,
+    "stderr": ""
+  }
+}

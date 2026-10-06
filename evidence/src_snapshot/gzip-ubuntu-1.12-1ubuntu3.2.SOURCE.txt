@@ -1,0 +1,7 @@
+Source: Ubuntu Noble gzip Debian packaging 1.12-1ubuntu3.2
+Remote URL: https://archive.ubuntu.com/ubuntu/pool/main/g/gzip/gzip_1.12-1ubuntu3.2.debian.tar.xz
+Branch: not applicable (Debian source archive)
+Commit hash: unknown, not a Git checkout
+Snapshot/checkout recorded UTC: 2026-10-06T13:51:14.999050+00:00
+Archive SHA256: 13008977038dcf4058301a96006e994a5c3c48877d2bc39ee4c29d234ba21832
+Unmodified debian/changelog and debian/patches snapshot; patch series does not modify gzip.c/util.c write-error cleanup or signal handlers.

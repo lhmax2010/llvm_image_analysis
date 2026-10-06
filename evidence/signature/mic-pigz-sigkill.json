@@ -1,0 +1,47 @@
+{
+  "compressor": "pigz",
+  "mode": "sigkill",
+  "layer": "mic",
+  "calls": [
+    {
+      "argv": [
+        "tar",
+        "-C",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/input",
+        "-cf",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-sigkill/tmp7bz51oc3.tar",
+        "payload.bin"
+      ],
+      "rc": 0,
+      "combined_stdout_stderr": "",
+      "separate_stderr": null,
+      "elapsed_s": 0.48277854100160766
+    },
+    {
+      "argv": [
+        "pigz",
+        "-f",
+        "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-sigkill/tmp7bz51oc3.tar"
+      ],
+      "rc": -9,
+      "combined_stdout_stderr": "",
+      "separate_stderr": null,
+      "elapsed_s": 0.5504705790008302,
+      "output_before_move_exists": true,
+      "output_before_move_bytes": 150122883
+    }
+  ],
+  "make_tarball_return": true,
+  "elapsed_s": 1.0334671739983605,
+  "output_exists": true,
+  "output_bytes": 150122883,
+  "integrity": {
+    "argv": [
+      "/usr/bin/gzip",
+      "-t",
+      "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-sigkill/final.tar.gz"
+    ],
+    "rc": 1,
+    "stderr": "\ngzip: /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-pigz-sigkill/final.tar.gz: unexpected end of file\n"
+  }
+}

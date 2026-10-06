@@ -1,0 +1,20 @@
+{
+  "layer": "direct",
+  "compressor": "gzip",
+  "mode": "sigterm",
+  "command": [
+    "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-sigterm/bin/gzip",
+    "-f",
+    "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-sigterm/input.tar"
+  ],
+  "pid_is_real_compressor_after_exec": true,
+  "rc": -15,
+  "shell_equivalent_rc": 143,
+  "elapsed_s": 0.5977940199954901,
+  "stdout": "",
+  "stderr": "",
+  "output_exists": false,
+  "output_bytes": null,
+  "input_exists": true,
+  "integrity": null
+}

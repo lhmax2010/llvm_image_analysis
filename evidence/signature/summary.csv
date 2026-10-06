@@ -1,0 +1,9 @@
+compressor,mode,direct_rc,shell_equivalent_rc,direct_elapsed_s,direct_output_exists,direct_output_bytes,direct_gzip_test_rc,mic_compressor_rc,mic_output_before_move_exists,mic_make_tarball_return,mic_exception_type,mic_final_output_bytes,mic_gzip_test_rc
+gzip,normal,0,0,5.381265003998124,True,300048490,0,0,True,True,,300048496,0
+gzip,efbig,1,1,1.8076220740040299,False,,,1,False,,FileNotFoundError,,
+gzip,fsize-signal,-25,153,2.9561175260023447,False,,,-25,False,,FileNotFoundError,,
+gzip,sigkill,-9,137,2.6446919160007383,True,150208512,1,-9,True,True,,150208512,1
+pigz,normal,0,0,0.5373892770003295,True,300091807,0,0,True,True,,300091813,0
+pigz,efbig,27,27,0.2007096849993104,False,,,27,False,,FileNotFoundError,,
+pigz,fsize-signal,-25,153,1.28554135900049,True,102400000,1,-25,True,True,,102400000,1
+pigz,sigkill,-9,137,0.28170249599497765,True,150732800,1,-9,True,True,,150122883,1

@@ -1,0 +1,2 @@
+[10/06 21:48:29 CST] Running command: tar -C /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/input -cf /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-normal/tmprciwpflc.tar payload.bin
+[10/06 21:48:29 CST] Running command: gzip -f /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-normal/tmprciwpflc.tar

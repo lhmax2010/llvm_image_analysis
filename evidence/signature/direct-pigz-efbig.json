@@ -1,0 +1,20 @@
+{
+  "layer": "direct",
+  "compressor": "pigz",
+  "mode": "efbig",
+  "command": [
+    "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-efbig/bin/pigz",
+    "-f",
+    "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-efbig/input.tar"
+  ],
+  "pid_is_real_compressor_after_exec": true,
+  "rc": 27,
+  "shell_equivalent_rc": 27,
+  "elapsed_s": 0.2007096849993104,
+  "stdout": "",
+  "stderr": "pigz: abort: write error on /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-pigz-efbig/input.tar.gz (File too large)\n",
+  "output_exists": false,
+  "output_bytes": null,
+  "input_exists": true,
+  "integrity": null
+}

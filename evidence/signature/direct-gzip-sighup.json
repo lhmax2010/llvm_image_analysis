@@ -1,0 +1,20 @@
+{
+  "layer": "direct",
+  "compressor": "gzip",
+  "mode": "sighup",
+  "command": [
+    "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-sighup/bin/gzip",
+    "-f",
+    "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-sighup/input.tar"
+  ],
+  "pid_is_real_compressor_after_exec": true,
+  "rc": -1,
+  "shell_equivalent_rc": 129,
+  "elapsed_s": 0.597853513994778,
+  "stdout": "",
+  "stderr": "",
+  "output_exists": false,
+  "output_bytes": null,
+  "input_exists": true,
+  "integrity": null
+}

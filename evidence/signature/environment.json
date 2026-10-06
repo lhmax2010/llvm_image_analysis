@@ -1,0 +1,18 @@
+{
+  "uid": 1000,
+  "euid": 1000,
+  "uname": {
+    "system": "Linux",
+    "node": "linhao-linux",
+    "release": "6.17.0-1032-oem",
+    "version": "#32-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 24 05:46:26 UTC 2026",
+    "machine": "x86_64",
+    "processor": "x86_64"
+  },
+  "cpu_count": 20,
+  "affinity_cpus": 20,
+  "gzip_package": "1.12-1ubuntu3.2",
+  "no_sudo": true,
+  "no_full_image_build": true,
+  "kill_target": "only compressor PID after output threshold; watcher is forked then compressor wrapper execs real binary"
+}

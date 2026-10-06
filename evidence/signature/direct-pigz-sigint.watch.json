@@ -1,0 +1,8 @@
+{
+  "pid": 28676,
+  "signal": 2,
+  "threshold_bytes": 32000000,
+  "observed_bytes_before_signal": 33456128,
+  "elapsed_since_watcher_s": 0.07257674699940253,
+  "signal_sent": true
+}

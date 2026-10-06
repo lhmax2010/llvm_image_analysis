@@ -1,0 +1,68 @@
+{
+  "signature_cases": 22,
+  "mic_primary_cases": [
+    {
+      "compressor": "gzip",
+      "mode": "normal",
+      "compressor_rc": 0,
+      "result_verified": true
+    },
+    {
+      "compressor": "gzip",
+      "mode": "efbig",
+      "compressor_rc": 1,
+      "result_verified": true
+    },
+    {
+      "compressor": "gzip",
+      "mode": "fsize-signal",
+      "compressor_rc": -25,
+      "result_verified": true
+    },
+    {
+      "compressor": "gzip",
+      "mode": "sigkill",
+      "compressor_rc": -9,
+      "result_verified": true
+    },
+    {
+      "compressor": "pigz",
+      "mode": "normal",
+      "compressor_rc": 0,
+      "result_verified": true
+    },
+    {
+      "compressor": "pigz",
+      "mode": "efbig",
+      "compressor_rc": 27,
+      "result_verified": true
+    },
+    {
+      "compressor": "pigz",
+      "mode": "fsize-signal",
+      "compressor_rc": -25,
+      "result_verified": true
+    },
+    {
+      "compressor": "pigz",
+      "mode": "sigkill",
+      "compressor_rc": -9,
+      "result_verified": true
+    }
+  ],
+  "mic_input_tar_hashes_match_original": true,
+  "sigkill_injected_after_about_half_output": true,
+  "loop_device_released": true,
+  "no_sudo_or_full_image_build_in_signature_driver": true,
+  "additional_baseline_records_not_created_by_signature_driver": [
+    "evidence/baseline-20261006-214442-command.txt",
+    "evidence/baseline-20261006-214442-console.log",
+    "evidence/baseline-20261006-214442-driver.log",
+    "evidence/baseline-20261006-214442-final-df.txt",
+    "evidence/baseline-20261006-214442-final-free.txt",
+    "evidence/baseline-20261006-214442-mic.log",
+    "evidence/baseline-20261006-214442-result.txt",
+    "evidence/baseline-20261006-214442-time.txt",
+    "evidence/baseline-20261006-214442_sampler.csv"
+  ]
+}

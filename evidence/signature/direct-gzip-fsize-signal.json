@@ -1,0 +1,20 @@
+{
+  "layer": "direct",
+  "compressor": "gzip",
+  "mode": "fsize-signal",
+  "command": [
+    "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-fsize-signal/bin/gzip",
+    "-f",
+    "/home/linhao/Toolchain/development/llvm_image_analysis/work/signature/direct-gzip-fsize-signal/input.tar"
+  ],
+  "pid_is_real_compressor_after_exec": true,
+  "rc": -25,
+  "shell_equivalent_rc": 153,
+  "elapsed_s": 2.9561175260023447,
+  "stdout": "",
+  "stderr": "",
+  "output_exists": false,
+  "output_bytes": null,
+  "input_exists": true,
+  "integrity": null
+}

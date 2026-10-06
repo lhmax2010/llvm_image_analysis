@@ -1,21 +1,21 @@
 # tizen-headed-aarch64 mic 打包失败分析报告
 
-日期：2026-10-06（Asia/Shanghai）。**stage2a阶段报告：用户补齐五份QB控制台及首次基线parser错误证据；已完成控制台取证和基线命令只读修正验证。真实镜像复现与源码patch未完成，资源触发原因尚未唯一确定。**
+日期：2026-10-06（Asia/Shanghai）。**stage2b阶段报告：在stage2a控制台/基线参数取证基础上，完成真gzip/pigz正常、EFBIG、SIGKILL及默认SIGXFSZ现场签名与原mic打包函数实验。真实镜像复现与源码patch未完成，资源触发原因尚未唯一确定。**
 
 ## 结论与置信度
 
-1. **已确认，置信度高：mic 2.1.3 的打包错误处理丢失原始失败原因。** `archive._call_external` 捕获压缩进程 rc 和输出，gzip/pigz 等调用者丢弃；随后直接移动预期压缩文件。假 gzip 返回1（注入ENOSPC文本）与SIGKILL返回-9，都会变成相同的 `shutil.move` / `FileNotFoundError`。这是源码与实际探针共同闭合的代码缺陷，不等于已经查明真实worker资源失败原因。证据：[原始代码探针](../evidence/original_archive_probe.json)、[源码](../evidence/src_snapshot/mic/mic/archive.py) L66–110、327–348。
+1. **已确认，置信度高：mic 2.1.3 的打包错误处理丢失原始失败原因。** `archive._call_external` 捕获压缩进程 rc 和输出，gzip/pigz 等调用者丢弃；随后直接移动预期压缩文件。尚未创建输出的假gzip返回1（注入ENOSPC文本）与self-SIGKILL返回-9，都会变成相同的 `shutil.move` / `FileNotFoundError`。这是源码与实际探针共同闭合的代码缺陷，不等于已经查明真实worker资源失败原因。证据：[原始代码探针](../evidence/original_archive_probe.json)、[源码](../evidence/src_snapshot/mic/mic/archive.py) L66–110、327–348。
 2. **已确认，置信度高：两份QB失败控制台均有FileNotFoundError traceback。** gzip启动到首traceback42.433秒，pigz29.828秒；两者均定位archive.py:346的shutil.move，随后mic返回1。公开mic.log仍只到压缩启动行，两个输出渠道不同。证据：1187398full-log.txt和1189686full-log.txt均L8878–8926、8936；[完整控制台取证](qb_console_forensics.md)。
 3. **已确认，置信度高：“pigz几秒就被杀、mic死了”被否定。** mic在约30秒后抛异常并返回1，外层继续同步日志，再由QB标记普通失败；父1189639只传播这个子失败。不能把mic.log停止误判成进程停止；压缩器自身是否受SIGKILL仍无rc支持。证据：1189686full-log.txt L8878–8955、36–45；1189639full-log.txt L22536–22544。
 4. **已确认，置信度高：旧流程额外保存完整 `.tar`，改用pigz没有消除这项磁盘压力。** `.tar`位于工作tmpdir的 `build/imgcreate-*/out`，不是最终CLI outdir。成功镜像逻辑量模型：旧约5.46GiB，流式约3.05GiB，差2.40GiB（不含缓存/bootstrap等，非实测）。证据：[磁盘模型](../evidence/disk_model.json)、[成功原始日志](../downloads/logs/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.log) L7420–7427、[源码路径追踪](code_reading.md)。
-5. **真实外部触发原因尚未闭合，置信度不足。** ENOSPC仍是优先资源假设（低至中置信）；压缩器OOM/cgroup限额或其他外部打包失败尚未排除。mic被直接杀死/步骤突然超时不符合真实控制台的异常与正常收尾。没有直接证据足以唯一判定资源触发，更不能据 `FileNotFoundError` 认定gzip被OOM杀。`rc=-9`即使拿到也只证明SIGKILL，还需内核/cgroup记录确定OOM来源。
+5. **真实外部触发原因尚未闭合，置信度不足。** ENOSPC升为首选资源假设（中等置信）：真EFBIG写失败清理输出并得到QB同形FileNotFoundError；真中途SIGKILL留坏.gz，被mic直接move为成功，与QB不同。可捕获信号/配额/tar先失败等仍可能，打开输出前SIGKILL或外部删文件也未彻底排除。见 [现场签名实验](signature_experiment.md)。mic被直接杀死/步骤突然超时不符合真实控制台的异常与正常收尾。没有直接证据足以唯一判定资源触发，更不能据 `FileNotFoundError` 认定gzip被OOM杀。`rc=-9`即使拿到也只证明SIGKILL，还需内核/cgroup记录确定OOM来源。
 
 ## 证据对照表
 
 |事实|构建机/cgroup OOM假设|工作目录ENOSPC假设|目前能否区分|
 |---|---|---|---|
 |两份QB控制台均traceback、mic返回1、QB普通failed链|不支持mic自己被直接杀死；子压缩器OOM仍未知|相容但没有资源实证|已区分mic异常退出与整步骤突然死亡；压缩器原因仍未知|
-|原始代码丢弃rc/stdout|掩盖负rc|掩盖rc1和No space left|不能；是已确认诊断缺陷|
+|真中途SIGKILL vs 真EFBIG写失败|两种真压缩器SIGKILL留坏.gz，被mic直接move|两种写失败都删除.gz并报FileNotFoundError|典型现场现在可区分；QB更吻合主动cleanup，ENOSPC中等置信，仍无直接errno|
 |gzip通常数MiB RSS；本机探针1,804KiB|gzip自身占GiB的解释弱；cgroup页缓存/其他进程仍可能触发|先tar后gzip需要额外完整tar和gz空间|ENOSPC值得优先试验，未定性|
 |0917、0930镜像体积相近，0930稍小|不足以说明worker内存充足|不足以说明当时工作盘剩余空间充足|须实际df/cgroup记录|
 |0917、0930bootstrap源RPM完全相同|不支持bootstrap代码变化必然致OOM|也不支持bootstrap变化必然致ENOSPC|worker和包/宿主环境仍有差别|
@@ -45,13 +45,14 @@
 |gzip/pigz2.8资源量级|已执行，无需root|64MiB随机数据，20CPU；gzip1,804KiB，pigz默认17,392KiB，p2为3,800KiB；p2节省13,592KiB；不是mic峰值|[量级探针](../evidence/compressor_probe.json)、[编译记录](../evidence/pigz-build.log)、[gzip time](../evidence/compressor-gzip.time.txt)、[默认pigz time](../evidence/compressor-pigz-default.time.txt)、[p2 time](../evidence/compressor-pigz-p2.time.txt)|
 |sudo前置检查|失败，按指令停止|`sudo -n true`输出“sudo: a password is required”；没有尝试密码|[sudo输出](../evidence/sudo_check.txt)|
 |首次aarch64基线|parser退出2；已修命令|此前-c与--non-interactive位置错误；新增release、对齐-o/-k；仅只读parser和help验证，未重跑镜像|[基线修正](baseline.md)、[验证](../evidence/baseline-command-validation.json)|
-|loop文件系统ENOSPC|未执行|需要root；小盘容量应依据真实基线峰值×0.8计算，不能拿模型当实测|—|
+|真EFBIG/SIGKILL签名|已完成，无root|两种真压缩器22组含8组原mic函数；写失败删除输出，SIGKILL留坏输出且move True|[签名报告](signature_experiment.md)、[结果](../evidence/signature/results.json)|
+|loop文件系统ENOSPC|未执行压缩|udisks免交互loop成功，但普通用户mount到工作目录失败；loop已删除；未用sudo/外部挂载目录|[尝试](../evidence/signature/udisks-enospc-attempt.json)|
 |MemoryMax=1G/512M OOM|未执行|需要root；尚无谁被杀、kernel日志或形状匹配结论|—|
 |新补丁fake gzip测试|未执行|新补丁尚未实施，不能把旧行为探针当作新补丁验证|—|
 
 原始探针命令/输出/耗时保存在 [完整探针输出](../evidence/original_archive_probe.log) 及JSON，压缩器探针JSON内记录每条命令和耗时。最初两次探针测试驱动对mic日志handler重复设置失败，原输出分别保留在`evidence/original_archive_probe-first-attempt.log`、`evidence/original_archive_probe-second-attempt.log`；最终改为每种模式独立进程，最终探针成功。它们不属于真实mic失败证据。
 
-由于没有真实ENOSPC/OOM试验，仍不能判定资源触发。stage2a已确认旧代码probe的缺文件异常形状与两次真实QB调用栈一致；真实资源复现尚未成立。
+由于没有真实ENOSPC/OOM试验，仍不能判定资源触发。stage2b已用真EFBIG重现缺文件形状，真中途SIGKILL反而留坏.gz并move成功；stage1 fake未创建输出便被杀，不能冒充真实中途SIGKILL签名。ENOSPC/OOM整镜像资源复现尚未成立。
 
 ## 代码问题与补丁方案
 
@@ -86,4 +87,4 @@ sudo -- bash docs/need_sudo.sh oom 512M
 - 实际worker宿主和bootstrap的archive.py sha256、mic包版本/来源、pigz版本/CPU数；现代Git准确commit及sandbox补丁应用时机。
 - 成功ks发布后为何与MD5SUMS不符，是否能从QB取得原始输入副本。
 
-状态为“stage2a控制台取证、基线命令修正与只读参数验证完成；完整复现/资源触发/补丁待后续阶段”。当前已确认的代码缺陷足以解释诊断丢失；真实触发原因待上述材料或真实资源实验闭合。
+状态为“stage2b真压缩器与原mic函数的现场签名实验完成；完整镜像/ENOSPC/OOM/补丁待后续阶段”。当前已确认的代码缺陷足以解释诊断丢失；真实触发原因待上述材料或真实资源实验闭合。

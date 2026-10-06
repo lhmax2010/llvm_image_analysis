@@ -1,0 +1,2 @@
+[10/06 21:48:39 CST] Running command: tar -C /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/input -cf /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-fsize-signal/tmpu1nsoxpw.tar payload.bin
+[10/06 21:48:39 CST] Running command: gzip -f /home/linhao/Toolchain/development/llvm_image_analysis/work/signature/mic-gzip-fsize-signal/tmpu1nsoxpw.tar
