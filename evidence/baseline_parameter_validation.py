@@ -14,8 +14,9 @@ MIC = ROOT / 'work/tools/usr/bin/mic'
 SOURCE = ROOT / 'downloads/src/mic/tools/mic'
 assert MIC.read_bytes() == SOURCE.read_bytes(), 'installed/source parser differs'
 old = shlex.split((ROOT / 'evidence/baseline-20261006-211839-command.txt').read_text())
-# Expand only the CMD assignment, with fixed local variables; never run the sudo script.
-cmd_line = next(s for s in (ROOT / 'docs/need_sudo.sh').read_text().splitlines() if s.startswith('CMD=('))
+# Replay the preserved stage2a assignment; the current script now uses a
+# different launcher with early global-config handling (stage2a2).
+cmd_line = json.loads((ROOT / 'evidence/baseline-command-validation.json').read_text())['cmd_assignment']
 variables = dict(ROOT=str(ROOT), MIC_PY='/usr/bin/python3', MIC_BIN=str(MIC),
     KS=str(ROOT/'downloads/logs/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.ks'),
     CONF=str(ROOT/'work/mic-baseline-20261006-211839.conf'),

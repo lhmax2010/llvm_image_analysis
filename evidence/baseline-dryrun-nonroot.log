@@ -1,0 +1,10 @@
+WARNING: cannot find config file: /etc/mic/mic.conf
+=================================================================================================================================
+MIC Notification since v2.0.1:
+mic version has been upgraded from python2 to python3. Due to compatibility problem between python2 and python3.
+OS of Image creation server for projects using python2 : have to be equal or lower than ubuntu 20.04 and openuse 42.3.
+OS of Image creation server for projects using python3 : have to be equal or higher than ubuntu 22.04 and openuse 15.2.
+=================================================================================================================================
+
+mic 2.1.3 (linhao-linux ubuntu 24.04 Noble Numbat)
+ERROR: Root permission is required, abort

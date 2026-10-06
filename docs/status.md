@@ -1,4 +1,4 @@
-# 阶段状态（2026-10-06，stage2b compressor failure signatures）
+# 阶段状态（2026-10-06，stage2a2 fix -c position）
 
 ## 计划
 1. 下载材料和逐行取证。
@@ -16,10 +16,12 @@
 - 用户首次执行baseline在parser层退出2，原始evidence/baseline-20261006-211839-*完整保留。stage2a修正need_sudo.sh：-c移入cr auto参数，--non-interactive移至全局位置，补--release并对齐QB的-o/-k；只读完整参数解析与--help通过。未调用sudo、未重新建镜像。见docs/baseline.md。
 - docs/sampler.py保留；docs/patch_proposal.md仍为未实施设计稿，源码补丁未生成。
 - 按用户新要求整理Git归档：.gitignore排除大文件/二进制/完整源码；直接依赖源码原样快照到evidence/src_snapshot，报告证据链接指向快照。
-- 仓库目标：https://github.com/lhmax2010/llvm_image_analysis.git；本地main已初始化；stage1已提交推送；本阶段提交信息为stage2b: compressor failure signatures。暂存区大小/文本/快照/链接校验通过（evidence/git_stage1_validation.json）；推送状态以本地HEAD与远端main实际引用核验，后续阶段规则见docs/repository_workflow.md。
+- 仓库目标：https://github.com/lhmax2010/llvm_image_analysis.git；本地main已初始化；stage1已提交推送；stage2b已提交推送；本阶段提交信息为stage2a2: fix -c position。暂存区大小/文本/快照/链接校验通过（evidence/git_stage1_validation.json）；推送状态以本地HEAD与远端main实际引用核验，后续阶段规则见docs/repository_workflow.md。
 
 - stage2b完成：真gzip1.12/pigz2.8共22组实验，含正常/EFBIG/SIGKILL/默认SIGXFSZ及原mic打包函数8组；只用普通用户，无sudo/整镜像。详见docs/signature_experiment.md、evidence/signature/summary.csv。
 - GNUgzip1.12官方release与Ubuntu1.12原档字节相同，源码/Ubuntu补丁原样追加快照；大文件均留work/signature且find扫描显式忽略，哈希/来源已登记。
+
+- stage2a2完成：本地mic_local.py接受全局-c并在PluginMgr导入前加载配置，原始mic源码/入口未修改。完整普通用户试跑已到Root permission is required，实际loop插件导入另行验证；CONF各键名/值与真实ConfigMgr一致。见docs/baseline.md和evidence/baseline-dryrun-nonroot-result.json。
 
 ## 已闭合结论
 - 两份公开mic.log仍止于压缩启动行，但新增1187398/1189686控制台都含shutil.move的FileNotFoundError、mic returned 1、QB正常failed链；gzip到首traceback42.433秒，pigz29.828秒。“pigz几秒就被杀、mic死了”被否定，子压缩器是否受SIGKILL仍未知（两份full-log L8878–8955）。
@@ -41,4 +43,4 @@
 
 ## 独立出现的基线记录补充
 
-本轮签名实验期间，evidence/中新增baseline-20261006-214442-*文本。它们不是本轮signature驱动生成，本轮未运行sudo/基线。仅原样归档：console.log显示参数已解析，随后Plugin dir不存在、Can't support subcommand loop，返回2；没有完成整镜像。此问题留待后续基线阶段处理，本阶段未改need_sudo.sh或插件代码。
+本轮签名实验期间，evidence/中新增baseline-20261006-214442-*文本。它们不是本轮signature驱动生成，本轮未运行sudo/基线。仅原样归档：console.log显示参数已解析，随后Plugin dir不存在、Can't support subcommand loop，返回2；没有完成整镜像。stage2a2已修本地入口及need_sudo.sh的配置加载时序；普通用户试跑和实际插件导入验证通过，完整root基线仍待后续。

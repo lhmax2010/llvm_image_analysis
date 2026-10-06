@@ -1,0 +1,85 @@
+{
+  "uid": 1000,
+  "euid": 1000,
+  "command": [
+    "/usr/bin/python3",
+    "/home/linhao/Toolchain/development/llvm_image_analysis/docs/mic_local.py",
+    "-c",
+    "/home/linhao/Toolchain/development/llvm_image_analysis/work/mic-baseline-dryrun-nonroot.conf",
+    "--non-interactive",
+    "cr",
+    "auto",
+    "/home/linhao/Toolchain/development/llvm_image_analysis/downloads/logs/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.ks",
+    "--release",
+    "tizen-unified-toolchain_20260917.132101",
+    "-o",
+    "/home/linhao/Toolchain/development/llvm_image_analysis/work/base",
+    "-k",
+    "/home/linhao/Toolchain/development/llvm_image_analysis/work/cache",
+    "-A",
+    "aarch64",
+    "--pack-to=@NAME@.tar.gz",
+    "--record-pkgs=name,content,license",
+    "--runtime",
+    "bootstrap",
+    "--logfile",
+    "/home/linhao/Toolchain/development/llvm_image_analysis/evidence/baseline-dryrun-nonroot-mic.log"
+  ],
+  "forwarded_original_argv": [
+    "--non-interactive",
+    "cr",
+    "auto",
+    "-c",
+    "/home/linhao/Toolchain/development/llvm_image_analysis/work/mic-baseline-dryrun-nonroot.conf",
+    "/home/linhao/Toolchain/development/llvm_image_analysis/downloads/logs/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.ks",
+    "--release",
+    "tizen-unified-toolchain_20260917.132101",
+    "-o",
+    "/home/linhao/Toolchain/development/llvm_image_analysis/work/base",
+    "-k",
+    "/home/linhao/Toolchain/development/llvm_image_analysis/work/cache",
+    "-A",
+    "aarch64",
+    "--pack-to=@NAME@.tar.gz",
+    "--record-pkgs=name,content,license",
+    "--runtime",
+    "bootstrap",
+    "--logfile",
+    "/home/linhao/Toolchain/development/llvm_image_analysis/evidence/baseline-dryrun-nonroot-mic.log"
+  ],
+  "original_global_c_rc": 2,
+  "nonroot_trial_rc": 2,
+  "nonroot_guard_reached": true,
+  "plugin_directory_warning": false,
+  "unsupported_subcommand": false,
+  "separate_actual_loop_plugin_load": true,
+  "loaded_imager_plugins": [
+    "fs",
+    "loop",
+    "qcow",
+    "raw"
+  ],
+  "pluginmgr_plugin_dir": "/home/linhao/Toolchain/development/llvm_image_analysis/work/tools/usr/lib/mic/plugins",
+  "config_sections": {
+    "common": {
+      "distro_name": "Tizen",
+      "plugin_dir": "/home/linhao/Toolchain/development/llvm_image_analysis/work/tools/usr/lib/mic/plugins"
+    },
+    "create": {
+      "tmpdir": "/home/linhao/Toolchain/development/llvm_image_analysis/work/base-tmp",
+      "cachedir": "/home/linhao/Toolchain/development/llvm_image_analysis/work/cache",
+      "outdir": "/home/linhao/Toolchain/development/llvm_image_analysis/work/base",
+      "runtime": "bootstrap",
+      "pkgmgr": "auto"
+    },
+    "bootstrap": {
+      "rootdir": "/home/linhao/Toolchain/development/llvm_image_analysis/work/bootstrap",
+      "packages": "mic-bootstrap-x86-arm"
+    }
+  },
+  "config_keys_match_real_ConfigMgr_DEFAULTS": true,
+  "upstream_entry_sha256": "8150d5f5f6c3c2edf45e6e3c245f3bd15820cd842e9b78b71dd93a5ea376babe",
+  "upstream_entry_unchanged": true,
+  "no_sudo_or_full_image": true,
+  "root_guard_not_bypassed": true
+}

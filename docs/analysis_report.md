@@ -34,6 +34,8 @@
 - 额外取得三个snapshot的bootstrap源码RPM。0917/0930相同commit且RPM字节相同；1003加入pigz2.8。spec只写无版本约束的`BuildRequires: mic`，不能仅据spec确认内嵌mic版本。三次日志L16都写复制宿主mic，L19均打印2.1.3。详见 [源码阅读](code_reading.md) 和 [三个bootstrap下载摘要](../evidence/more_downloads.json)。
 - `sandbox/dkson95/clang`匿名未取得；GitHub旧镜像fetch返回missing remote ref。[尝试记录](../evidence/prepare_sources.json)。没有得到`packaging/patch_archive.py`，无法完成逐项实际评审。
 
+stage2a2补充：第二次baseline的插件路径失败已通过本地入口早读全局-c修正，普通用户完整命令到root guard，另行确认loop导入和全部CONF键值，见 [基线修正](baseline.md)。官方mic入口/打包源码未修改，完整root基线仍未完成。
+
 ## 复现结果
 
 |实验|状态|结果/限制|证据|

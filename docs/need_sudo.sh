@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 待用户执行的复现脚本；stage2a 仅验证参数解析，未重新建镜像。
+# 待用户执行的复现脚本；stage2a2已做普通用户完整命令试跑，未建整镜像。
 # 用户自行认证后运行：sudo -- bash docs/need_sudo.sh baseline
 # 磁盘实验：sudo -- bash docs/need_sudo.sh space <基线工作目录峰值字节数的80%>
 # 内存实验：sudo -- bash docs/need_sudo.sh oom 1G （之后可试 512M）
@@ -19,12 +19,13 @@ case "$MODE" in baseline|space|oom) ;; *) echo '模式：baseline / space <字�
 # 不更改系统 apt 源、不向系统安装包。官方 mic .deb 已解压至工作目录。
 # 若后续发现依赖缺失，停止并记录，另行在本目录下载/解压依赖。
 MIC_PY=${MIC_PY:-/usr/bin/python3}
-MIC_BIN="$ROOT/work/tools/usr/bin/mic"
+MIC_BIN="$ROOT/docs/mic_local.py"
+MIC_ORIGINAL="$ROOT/work/tools/usr/bin/mic"
 export PYTHONDONTWRITEBYTECODE=1
 export PYTHONPATH="$ROOT/work/tools/usr/lib/python3/dist-packages${PYTHONPATH:+:$PYTHONPATH}"
 export TMPDIR="$ROOT/work/tmp"
 mkdir -p "$TMPDIR" "$ROOT/work/cache" "$ROOT/work/bootstrap" "$ROOT/evidence"
-if [[ ! -f "$MIC_BIN" ]]; then
+if [[ ! -f "$MIC_ORIGINAL" ]]; then
   echo '缺少本地 mic；请先 dpkg-deb -x downloads/mic_2.1.3_all.deb work/tools。' >&2
   exit 2
 fi
@@ -103,9 +104,14 @@ pkgmgr = auto
 rootdir = $ROOT/work/bootstrap
 packages = mic-bootstrap-x86-arm
 EOF
-# 根据.deb实际插件布局调整本地路径；不会修改目录外配置。
-if [[ ! -d "$ROOT/work/tools/usr/lib/mic/plugins" ]]; then
-  sed -i "s|^plugin_dir = .*|plugin_dir = $ROOT/downloads/src/mic/plugins|" "$CONF"
+# 验证实际imager子目录；plugin_dir指向其父目录（属于[common]）。
+if [[ ! -d "$ROOT/work/tools/usr/lib/mic/plugins/imager" ]]; then
+  if [[ -d "$ROOT/downloads/src/mic/plugins/imager" ]]; then
+    sed -i "s|^plugin_dir = .*|plugin_dir = $ROOT/downloads/src/mic/plugins|" "$CONF"
+  else
+    echo "本地imager插件目录不存在，停止。" >&2
+    exit 2
+  fi
 fi
 CSV="$ROOT/evidence/${MODE}_sampler.csv"
 # 多次执行保留旧采样，避免覆盖证据。
@@ -113,9 +119,11 @@ if [[ -e "$CSV" ]]; then CSV="$ROOT/evidence/${MODE}-${STAMP}_sampler.csv"; fi
 "$MIC_PY" "$ROOT/docs/sampler.py" --workdir "$MIC_TMP" --outdir "$OUT" --csv "$CSV" &
 SAMPLER_PID=$!
 # 对照1178308full-log.txt L8968：cr auto、--release、-o、-k、--logfile。
-# -c属于create auto参数；--non-interactive属于全局参数（必须位于cr之前）。
+# 本地mic_local入口先处理全局-c，读取配置后才导入插件管理器，
+# 再把-c转到原始create auto parser所需位置；原始mic源码/入口保持不变。
+# --non-interactive仍属于全局参数，位于cr之前。
 # 目录改为本地配置；arch/pack-to/record-pkgs显式重复ks头部的同值选项。
-CMD=("$MIC_PY" "$MIC_BIN" --non-interactive cr auto "$KS" -c "$CONF" --release "$RELEASE" -o "$OUT" -k "$ROOT/work/cache" -A aarch64 --pack-to=@NAME@.tar.gz --record-pkgs=name,content,license --runtime bootstrap --logfile "$PREFIX-mic.log")
+CMD=("$MIC_PY" "$MIC_BIN" -c "$CONF" --non-interactive cr auto "$KS" --release "$RELEASE" -o "$OUT" -k "$ROOT/work/cache" -A aarch64 --pack-to=@NAME@.tar.gz --record-pkgs=name,content,license --runtime bootstrap --logfile "$PREFIX-mic.log")
 printf '%q ' "${CMD[@]}" > "$PREFIX-command.txt"
 printf '\n' >> "$PREFIX-command.txt"
 KERNEL_SINCE=$(date --iso-8601=seconds)

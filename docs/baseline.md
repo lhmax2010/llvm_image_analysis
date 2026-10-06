@@ -1,62 +1,85 @@
-# 基线命令修正（stage2a，2026-10-06）
+# 基线启动命令修正（stage2a2，2026-10-06）
 
-首次运行的 [console.log](../evidence/baseline-20261006-211839-console.log) L19 报：
+当前 `docs/need_sudo.sh` 使用 [mic_local.py](mic_local.py) 本地入口，`-c "$CONF"` 紧跟入口文件、在cr之前。入口先读取配置，再导入原始mic的插件管理器；转发给未修改的官方mic parser时，把-c放到其支持的create子命令参数位置。普通用户完整命令已执行到 `Root permission is required, abort`（rc2），没有插件目录或不支持loop警告；实际loop插件加载另行验证通过。所有验证都没有sudo、没有整镜像、没有绕过root检查。
+
+## 当前命令
+
+```bash
+"$MIC_PY" "$MIC_BIN" -c "$CONF" --non-interactive cr auto "$KS" --release "$RELEASE" -o "$OUT" -k "$ROOT/work/cache" -A aarch64 --pack-to=@NAME@.tar.gz --record-pkgs=name,content,license --runtime bootstrap --logfile "$PREFIX-mic.log"
+```
+
+`ROOT=/home/linhao/Toolchain/development/llvm_image_analysis`；`MIC_PY=/usr/bin/python3`；**`MIC_BIN=$ROOT/docs/mic_local.py`**；它调用的原始入口是 `$ROOT/work/tools/usr/bin/mic`。`KS=$ROOT/downloads/logs/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.ks`；`RELEASE=tizen-unified-toolchain_20260917.132101`；baseline `OUT=$ROOT/work/base`。正式脚本仍按STAMP新建CONF和PREFIX；本次非root试跑使用独立的 `work/mic-baseline-dryrun-nonroot.conf` 和 `evidence/baseline-dryrun-nonroot` 前缀，不覆盖两次历史记录。[完整展开命令](../evidence/baseline-dryrun-nonroot-command.txt)。
+
+## 第一次尝试：全局-c在原始parser中不受支持（历史）
+
+[211839-console.log](../evidence/baseline-20261006-211839-console.log) L19 的invalid choice指向CONF路径；[首次命令](../evidence/baseline-20261006-211839-command.txt) 把-c直接传到原始mic全局位置。官方 [tools/mic](../evidence/src_snapshot/mic/tools/mic) L70–71只在create子解析器定义-c；全局L236–250没有-c。首次返回2、0.22秒、RSS44,156KiB仅为parser启动，不是镜像基线（[time](../evidence/baseline-20261006-211839-time.txt) L1、6、11、24）。
+
+stage2a把-c移到cr auto之后，另把全局 `--non-interactive` 移到cr之前，新增release并对齐-o/-k。其完整参数解析和help通过，证据 [历史解析结果](../evidence/baseline-command-validation.json)，但解析哨兵在parse_args后就停了，没有覆盖插件初始化。那次校验的范围不足以确认完整启动流程；这些材料保留作为历史，不当作当前入口的验证。
+
+## 第二次尝试：-c位置错误，原因与修正，非root试跑结果
+
+### 失败原因是加载时序，不能只把-c移回原始入口全局
+
+[214442-console.log](../evidence/baseline-20261006-214442-console.log) L10–11：
 
 ```text
-mic: error: argument {chroot,create}: invalid choice: '/home/linhao/Toolchain/development/llvm_image_analysis/work/mic-baseline-20261006-211839.conf' (choose from 'chroot', 'create')
+WARNING: Plugin dir is not a directory or does not exist: /usr/lib/mic/plugins/imager
+ERROR: Can't support subcommand loop
 ```
 
-[原始命令](../evidence/baseline-20261006-211839-command.txt) 把 `-c <CONF>` 放在 `cr auto` 之前。实际 [tools/mic parser 快照](../evidence/src_snapshot/mic/tools/mic) L70–71 把 `-c/--config` 定义在 create 的 auto/loop 等子解析器；全局参数 L236–250 没有 `-c`。因此 argparse 在开始 create 之前返回2，与磁盘、压缩器、aarch64/%post 或 sudo 是否可用无关。不能把 L1 的 `/etc/mic/mic.conf` 缺失警告当作本次 fatal 错误，明确的错误在 L19。
+[214442-command.txt](../evidence/baseline-20261006-214442-command.txt) 的-c位置在parser看来有效，却来不及影响插件选择：
 
-另一个会在修正 `-c` 后暴露的问题是原命令末尾的 `--non-interactive`：它只定义在全局 parser（L248–250），应移到 `cr` 之前。create 子解析器有 `-i/--interactive`，没有 `--non-interactive`；main 在解析后检查 argv 并强制 `args.interactive=False`（L298–300），因此验证 JSON 中子解析器原始默认值 True 不表示实际执行会交互。
+1. `tools/mic` L38–39在入口导入configmgr/pluginmgr。[plugin.py](../evidence/src_snapshot/mic/mic/plugin.py) L42–43在PluginMgr构造时固定 `configmgr.common['plugin_dir']`；L98在模块导入时创建单例。
+2. [cmd_create.py](../evidence/src_snapshot/mic/mic/cmd_create.py) L85–93先查找/加载imager，找不到loop就报错；L95–97才reset并读取 `args.config`。所以错误发生时配置仍为默认插件目录，而不是本地目录。[conf.py](../evidence/src_snapshot/mic/mic/conf.py) L43–45的默认路径就是 `/usr/lib/mic/plugins`。
+3. 本机 `work/tools/usr/lib/mic/plugins/imager/loop_plugin.py` **真实存在**。第二次CONF的section/键名原本正确，无需把路径改到源码目录；配置的问题是读取太晚。
 
-[首次 time 输出](../evidence/baseline-20261006-211839-time.txt) L1、6、11、24 是退出2、0.22秒、最大RSS44,156 KiB、exit status2；这些只描述 Python/parser 启动，**没有镜像基线、打包峰值、压缩时间或镜像内存测量**。首次所有原始材料和 sampler 保留，没有覆盖或重新执行。
+本次也用普通用户验证“直接把-c移到未修改原始mic前面”，仍得到parser invalid choice与rc2，见 [原始全局-c验证输出](../evidence/baseline-original-global-c.log)。因此本次修正包含必要的本地入口，而非声称官方2.1.3已经支持全局-c。
 
-## 修正前后
+[mic_local.py](mic_local.py) 在导入任何mic模块前消费全局-c，检查CONF和imager子目录，设置conf.py支持的 `MIC_PLUGIN_DIR`（conf.py L150–151），随后调用 `configmgr._siteconf=CONF`；最后执行原始mic入口。它只把-c重新放到原始parser合法位置；不改变archive/插件实现、root检查、KS包列表或官方源码快照。need_sudo.sh验证的是 **plugins/imager子目录**；若不存在才选择 `downloads/src/mic/plugins`，两者都没有时停止。
 
-以下引用 shell 变量保持脚本原有含义：`ROOT=/home/linhao/Toolchain/development/llvm_image_analysis`；`MIC_PY=/usr/bin/python3`；`MIC_BIN=$ROOT/work/tools/usr/bin/mic`；`KS=$ROOT/downloads/logs/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.ks`；`CONF=$ROOT/work/mic-baseline-<STAMP>.conf`；`OUT=$ROOT/work/base`；`PREFIX=$ROOT/evidence/baseline-<STAMP>`；`RELEASE=tizen-unified-toolchain_20260917.132101`。每次未来正式运行仍生成新的 STAMP；验证用第一次的 STAMP 20261006-211839，只解析参数，不读写其 mic 日志。
+### 配置section与键名核验
 
-修正前：
+本次 [配置文本](../evidence/baseline-dryrun-nonroot.conf.txt) 与 [核验JSON](../evidence/baseline-dryrun-nonroot-result.json) 记录所有读取值；用实际ConfigMgr.DEFAULTS逐键检查，不依赖猜测的拼法。
 
-```bash
-"$MIC_PY" "$MIC_BIN" -c "$CONF" cr auto "$KS" -A aarch64 --pack-to=@NAME@.tar.gz --record-pkgs=name,content,license --cachedir "$ROOT/work/cache" --outdir "$OUT" --runtime bootstrap --non-interactive --logfile "$PREFIX-mic.log"
+|section|键及本地值|读取逻辑|
+|---|---|---|
+|common|`distro_name=Tizen`；`plugin_dir=$ROOT/work/tools/usr/lib/mic/plugins`|conf.py L43–45定义；L169–176读section并把common合并到其余section。plugin_dir是imager父目录，插件管理器再拼 `/imager`（plugin.py L93）|
+|create|`tmpdir=$ROOT/work/base-tmp`；`cachedir=$ROOT/work/cache`；`outdir=$ROOT/work/base`；`runtime=bootstrap`；`pkgmgr=auto`|conf.py L47–53、L75、L169–171；不是tmp_dir/cache_dir/outputdir。命令-o/-k后续按cmd_create.py L99–102覆盖相同值|
+|bootstrap|`rootdir=$ROOT/work/bootstrap`；`packages=mic-bootstrap-x86-arm`|conf.py L92–95；L194–201把packages字符串转成列表，实际读到 `['mic-bootstrap-x86-arm']`|
+
+### 普通用户完整试跑
+
+[验证驱动](../evidence/baseline_nonroot_validation.py)只从need_sudo.sh提取CMD赋值，固定本地变量后**运行完整命令**；没有解析哨兵、没有sudo、没有mock UID。UID/EUID均1000，结果存到用户指定的 [baseline-dryrun-nonroot.log](../evidence/baseline-dryrun-nonroot.log)。
+
+- 结果rc=2，现在原因是明确的 `Root permission is required, abort`（L10），而不是“不支持loop”。没有 `Plugin dir is not a directory` 或 `Can't support subcommand`。
+- 原始非root检查位于cmd_create.py L41–42，**早于真正get_plugins**。因此“非root输出没有插件警告”本身不足以证明插件能导入；另以同样配置、普通用户调用 `pluginmgr.get_plugins('imager')`，确认loop类和do_create存在，并实际加载fs/loop/qcow/raw（[JSON](../evidence/baseline-dryrun-nonroot-result.json)、[探针输出](../evidence/baseline-local-plugin-probe.log)）。没有调用do_create。
+- 仍有一次 `/etc/mic/mic.conf` 不存在的初始化警告（L1），因为ConfigMgr第一次导入读取默认站点文件，随后显式配置已加载。未屏蔽该警告；JSON证明实际pluginmgr目录和配置各键值已指向本地。
+- 完整整镜像基线、挂载、bootstrap依赖、网络仓库、aarch64/%post和打包峰值仍未验证。本轮root guard未被绕过，因而没有创建整镜像或访问镜像仓库。
+
+日志最后5行原文：
+
+```text
+OS of Image creation server for projects using python3 : have to be equal or higher than ubuntu 22.04 and openuse 15.2.
+=================================================================================================================================
+
+mic 2.1.3 (linhao-linux ubuntu 24.04 Noble Numbat)
+ERROR: Root permission is required, abort
 ```
-
-修正后（[need_sudo.sh](need_sudo.sh) 的 CMD）：
-
-```bash
-"$MIC_PY" "$MIC_BIN" --non-interactive cr auto "$KS" -c "$CONF" --release "$RELEASE" -o "$OUT" -k "$ROOT/work/cache" -A aarch64 --pack-to=@NAME@.tar.gz --record-pkgs=name,content,license --runtime bootstrap --logfile "$PREFIX-mic.log"
-```
-
-[展开后的完整修正命令](../evidence/baseline-command-fixed.txt) 与 [原始完整命令](../evidence/baseline-20261006-211839-command.txt) 可直接比较。新增 `--release` 对齐0917成功QB命令；输出因此使用 release 子目录，采样 `OUT` 的递归占用仍覆盖它。
 
 ## 与 QB 实际命令的逐项差异
 
-对照对象是 `1178308full-log.txt` L8968 的0917 clang/gzip成功 image 命令；L24选中KS的头部选项、L73 TMPDIR、L147–148实际bootstrap行为。失败QB命令只在release ID等运行路径值上变化：1187398/1189686 L8935。完整QB取证见 [控制台报告](qb_console_forensics.md)。
+对照 `1178308full-log.txt` L8968：`sudo /usr/bin/mic cr auto KS --release RID -o OUT -k CACHE --logfile=LOG`；KS头部提供-A/pack-to/record-pkgs（L24），bootstrap由执行行为确认（L147–148）。控制台完整分析见 [qb_console_forensics.md](qb_console_forensics.md)。
 
-|项目|QB 1178308|修正的本机基线|原因 / 影响|
-|---|---|---|---|
-|启动器|`sudo /usr/bin/mic`|未来由用户以root运行脚本，使用 `/usr/bin/python3 $ROOT/work/tools/usr/bin/mic`|本地解压官方deb；当前验证完全未调用sudo；实际宿主/依赖/内核仍不同|
-|子命令|`cr auto`|相同|保持通过KS头部自动选择loop|
-|KS|`/data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-headed-aarch64.ks`|本地已下载0917 KS|其MD5与发布MD5SUMS不符，不能保证逐字节同原输入，见log_forensics.md发布校验|
-|release|`tizen-unified-toolchain_20260917.132101`|相同（本次新增）|匹配宏替换与发布目录命名|
-|outdir|`-o .../mic/out`|`-o $ROOT/work/base`|仅换本地路径；正式运行可能产生release子目录|
-|cachedir|`-k .../mic/cache`|`-k $ROOT/work/cache`|同一选项；由旧长拼法改成QB短拼法，语义不变|
-|logfile|`--logfile=.../<release>_tizen-headed-aarch64.log`|`--logfile $PREFIX-mic.log`|本地按运行时间分开保存，完整控制台另存console.log|
-|config|没有显式 `-c`，五份全文没有mic.conf内容|`-c $CONF` 位于 `cr auto KS` 之后|明确本地plugin_dir、tmpdir、bootstrap rootdir，保证产物在工作目录；不声称配置与QB逐项相同|
-|tmpdir|命令无 `--tmpdir`；外层TMPDIR=/home/tizenbuild/tmp；实际tar在/var/tmp/mic/build|环境TMPDIR=$ROOT/work/tmp；配置create.tmpdir=$ROOT/work/base-tmp|分清Python外层临时目录与mic配置；该版本parser没有 `--tmpdir` 选项，不补造它|
-|runtime|无显式参数；执行日志证实bootstrap|显式 `--runtime bootstrap`|保证相同模式；实际bootstrap包/宿主仍可能不同|
-|architecture|无显式参数；KS头部 `-A aarch64`|显式 `-A aarch64`，KS同值|保留已有复现选择，值与选中KS一致|
-|pack-to|无显式参数；KS头部 `--pack-to=@NAME@.tar.gz`|同值显式参数|保留旧打包路径，未改流式实现|
-|record-pkgs|无显式参数；选中KS头部name,content,license|同值显式参数|保留已有复现选择|
-|non-interactive|没有显式参数|全局 `--non-interactive` 位于cr之前|避免未来自动实验等待交互；差异明确保留|
-|compressor|实际gzip；失败1003实际pigz|无额外压缩器参数|源码按bootstrap PATH有无pigz选择，未运行镜像不能声称本地一定使用gzip|
-|tmpfs / memory limit|没有直接资源配置证据|baseline不启用tmpfs/MemoryMax；后续模式另行配置|本轮不执行资源实验，不拿默认值推断QB真实配置|
+|项目|QB|本机当前选择及差异|
+|---|---|---|
+|入口及config|sudo /usr/bin/mic，未显式-c|本地mic_local.py全局-c预加载配置，转发未修改的本地解包入口；本轮仅以普通用户验证|
+|子命令/发行ID|cr auto，0917 release|相同|
+|KS|QB工作目录的生成KS|本地下载的0917 KS；MD5与发布MD5SUMS不符，仍不能保证原始输入逐字节一致|
+|outdir/cachedir/logfile|QB工作目录|全部换本地路径；输出baseline为work/base，正式log按STAMP保存|
+|tmpdir|外层TMPDIR=/home/tizenbuild/tmp，实际tar在/var/tmp/mic/build|外层work/tmp、create.tmpdir=work/base-tmp；原parser没有--tmpdir选项|
+|runtime|命令无显式参数，实际bootstrap|显式--runtime bootstrap|
+|arch/pack-to/record-pkgs|命令无显式参数，选中KS头部提供|显式重复KS同值，维持已有复现选择|
+|non-interactive|未显式设置|全局--non-interactive在cr之前；官方main L298–300强制关闭交互|
+|压缩器/资源配置|PATH选择gzip或pigz，worker资源未知|未改变压缩器选择；未做root基线或资源实验|
 
-## 只读验证
-
-[验证脚本](../evidence/baseline_parameter_validation.py) 从 need_sudo.sh **只提取 CMD 赋值**，固定本地变量展开argv；不运行整个脚本。确认本地deb的mic入口与 downloads/src/mic/tools/mic 逐字节相同后，调用真实 `main`，在真实 `ArgumentParser.parse_args` 返回的下一瞬间抛停止哨兵，禁止进入 `cmd_create` 导入/镜像创建。旧命令重现退出2，修正命令完整argv被接受；另外对修正命令追加 `--help` 得到退出0。
-
-证据：[参数解析结果](../evidence/baseline-command-validation.json)、[解析控制台](../evidence/baseline-command-parser-console.txt)、[实际子命令help](../evidence/baseline-command-help.txt)。`cmd_create_imported=false`，没有sudo调用、镜像运行或网络仓库访问。`bash -n docs/need_sudo.sh` 仅做shell语法检查。
-
-这只验证参数层级/拼写/值可被parser接受，不代表bootstrap依赖、挂载、跨架构执行、KS所有语义或真实基线已通过。下一阶段才重新执行完整基线并重新测峰值。
+本阶段修正配置生效时序，仍不是archive打包补丁交付。

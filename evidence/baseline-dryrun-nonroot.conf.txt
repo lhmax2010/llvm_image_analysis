@@ -1,0 +1,12 @@
+[common]
+distro_name = Tizen
+plugin_dir = /home/linhao/Toolchain/development/llvm_image_analysis/work/tools/usr/lib/mic/plugins
+[create]
+tmpdir = /home/linhao/Toolchain/development/llvm_image_analysis/work/base-tmp
+cachedir = /home/linhao/Toolchain/development/llvm_image_analysis/work/cache
+outdir = /home/linhao/Toolchain/development/llvm_image_analysis/work/base
+runtime = bootstrap
+pkgmgr = auto
+[bootstrap]
+rootdir = /home/linhao/Toolchain/development/llvm_image_analysis/work/bootstrap
+packages = mic-bootstrap-x86-arm

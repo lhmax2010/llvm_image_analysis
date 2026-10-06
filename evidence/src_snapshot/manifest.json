@@ -304,5 +304,11 @@
     "snapshot": "evidence/src_snapshot/gzip-ubuntu-1.12-1ubuntu3.2/debian/patches/gzip_reproducible_build.diff",
     "bytes": 331,
     "sha256": "f72714e4078a5850fbd8e410b13d05f6f6dd74459ac0f36f6ef22579c5bcdd55"
+  },
+  {
+    "local_source": "downloads/src/mic/mic/plugin.py",
+    "snapshot": "evidence/src_snapshot/mic/mic/plugin.py",
+    "bytes": 3268,
+    "sha256": "7a19c638e925d8653e091a1fea4e6c49b7b5c8ccfac5dd8dbe9410fdad6dbb58"
   }
 ]
