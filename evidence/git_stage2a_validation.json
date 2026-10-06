@@ -1,0 +1,21 @@
+{
+  "files": 170,
+  "tracked_bytes": 15573505,
+  "largest_staged_file_bytes": 1884792,
+  "snapshot_entries_verified": 39,
+  "problems": [],
+  "credential_pattern_findings": [],
+  "shell_and_sampler_syntax": "通过；未执行sudo复现",
+  "scope": "stage2a index before adding this validation record; raw user logs preserved",
+  "stage": "stage2a: qb console forensics + baseline command fix",
+  "checks": [
+    "all staged files UTF-8 text, no NUL, <=5,000,000 bytes",
+    "39 source snapshot entries unchanged",
+    "credential-format scan: zero findings",
+    "docs links resolve to tracked files",
+    "four complete packing excerpts byte-for-byte after removing line prefixes",
+    "all five keyword line indexes include every case-insensitive substring hit",
+    "actual mic parser accepts fixed argv; original argv returns2; help returns0; cmd_create not imported",
+    "bash -n docs/need_sudo.sh; no sudo/image build invoked"
+  ]
+}

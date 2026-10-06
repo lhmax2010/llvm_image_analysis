@@ -1,0 +1,46 @@
+8903: 09:48:43,863 INFO  - INFO: Pack all loop images together to tizen-unified_20260923.050314_tizen-headed-aarch64.tar.gz
+8904: 09:48:43,863 INFO  - INFO: Running command: tar -C /var/tmp/mic/build/imgcreate-txe2d1d2/tmp-31fc67my -cf /var/tmp/mic/build/imgcreate-txe2d1d2/out/tmpca32pvfm.tar system-data.img user.img rootfs.img ramdisk-recovery.img ramdisk.img
+8905: 09:48:58,938 INFO  - INFO: Running command: gzip -f /var/tmp/mic/build/imgcreate-txe2d1d2/out/tmpca32pvfm.tar
+8906: 09:50:17,856 INFO  - INFO: Creating manifest file...
+8907: 09:50:20,155 INFO  - INFO: The new image can be found here:
+8908: 09:50:20,155 INFO  -   /data/workspace/gbsbuild-ROOT/IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified_20260923.050314/images/tizen-headed-aarch64/MD5SUMS
+8909: 09:50:20,155 INFO  -   /data/workspace/gbsbuild-ROOT/IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified_20260923.050314/images/tizen-headed-aarch64/SHA1SUMS
+8910: 09:50:20,155 INFO  -   /data/workspace/gbsbuild-ROOT/IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified_20260923.050314/images/tizen-headed-aarch64/SHA256SUMS
+8911: 09:50:20,155 INFO  -   /data/workspace/gbsbuild-ROOT/IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified_20260923.050314/images/tizen-headed-aarch64/manifest.json
+8912: 09:50:20,155 INFO  -   /data/workspace/gbsbuild-ROOT/IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified_20260923.050314/images/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.files
+8913: 09:50:20,155 INFO  -   /data/workspace/gbsbuild-ROOT/IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified_20260923.050314/images/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.ks
+8914: 09:50:20,155 INFO  -   /data/workspace/gbsbuild-ROOT/IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified_20260923.050314/images/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.license
+8915: 09:50:20,155 INFO  -   /data/workspace/gbsbuild-ROOT/IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified_20260923.050314/images/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.packages
+8916: 09:50:20,155 INFO  -   /data/workspace/gbsbuild-ROOT/IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified_20260923.050314/images/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.tar.gz
+8917: 09:50:20,155 INFO  -   /data/workspace/gbsbuild-ROOT/IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified_20260923.050314/images/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.xml
+8918: 09:50:20,155 INFO  - 
+8919: 09:50:20,177 INFO  - INFO: Finished.
+8920: 09:50:20,682 INFO  - building file list ... done
+8921: 09:50:20,683 INFO  - images/
+8922: 09:50:20,683 INFO  - images/standard/
+8923: 09:50:20,683 INFO  - images/standard/tizen-headed-aarch64/
+8924: 09:50:20,683 INFO  - images/standard/tizen-headed-aarch64/MD5SUMS
+8925: 09:50:20,683 INFO  - images/standard/tizen-headed-aarch64/SHA1SUMS
+8926: 09:50:20,683 INFO  - images/standard/tizen-headed-aarch64/SHA256SUMS
+8927: 09:50:20,683 INFO  - images/standard/tizen-headed-aarch64/manifest.json
+8928: 09:50:20,683 INFO  - images/standard/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.files
+8929: 09:50:20,685 INFO  - images/standard/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.ks
+8930: 09:50:20,685 INFO  - images/standard/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.license
+8931: 09:50:20,685 INFO  - images/standard/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.log
+8932: 09:50:20,687 INFO  - images/standard/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.packages
+8933: 09:50:20,687 INFO  - images/standard/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.tar.gz
+8934: 09:50:22,297 INFO  - images/standard/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.xml
+8935: 09:50:22,346 INFO  - 
+8936: 09:50:22,346 INFO  - sent 722,004,533 bytes  received 242 bytes  288,801,910.00 bytes/sec
+8937: 09:50:22,346 INFO  - total size is 721,827,243  speedup is 1.00
+8938: 09:50:22,347 INFO  - starting mic to create image: sudo /usr/bin/mic cr auto /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-headed-aarch64.ks --release tizen-unified_20260923.050314 -o /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out -k /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/cache --logfile=/data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified_20260923.050314_tizen-headed-aarch64.log
+8939: 09:50:22,347 INFO  - sync_src:/data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified_20260923.050314, sync_dest:rsync://download.prod.infra.tizen.org/_quickbuild_RW_/RBS/TIZEN/Tizen/Tizen-Unified/tizen-unified_20260923.050314
+8940: 09:50:22,347 INFO  - os.getcwd() is : /home/tizenbuild/ci_tizen_workspace/ip-192-168-56-118_8812
+8941: 09:50:22,347 INFO  - current working directory is : /home/tizenbuild/ci_tizen_workspace/ip-192-168-56-118_8812
+8942: 09:50:22,347 INFO  - rsync -av --delay-updates  /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified_20260923.050314/* rsync://download.prod.infra.tizen.org/_quickbuild_RW_/RBS/TIZEN/Tizen/Tizen-Unified/tizen-unified_20260923.050314
+8943: 09:50:22,347 INFO  - Success sync /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified_20260923.050314 to rsync://download.prod.infra.tizen.org/_quickbuild_RW_/RBS/TIZEN/Tizen/Tizen-Unified/tizen-unified_20260923.050314
+8944: 09:50:22,347 INFO  - The build was successful.
+8945: 09:50:22,380 INFO  - Remove /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812
+8946: 09:50:22,437 INFO  - Executing post-execute action...
+8947: 09:50:22,499 INFO  - Executing post-execute action...
+8948: 09:50:22,644 INFO  - Executing post-execute action...

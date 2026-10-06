@@ -1,0 +1,66 @@
+1: 09:24:15,216 INFO  - Executing pre-execute action...
+2: 09:24:15,299 INFO  - Running step...
+3: 09:24:15,300 DEBUG - Child step names of step 'master': [TRIGGER, BUILD_ABS, BUILD, SNAPSHOT, IMAGE]
+4: 09:24:15,345 DEBUG - Child steps to trigger sequentially: [master>TRIGGER, master>BUILD_ABS, master>BUILD, master>SNAPSHOT, master>IMAGE]
+5: 09:24:15,396 INFO  - Checking step execute condition...
+6: 09:24:15,497 INFO  - Step execute condition not satisfied, step will be skipped.
+7: 09:24:15,628 INFO  - Checking step execute condition...
+8: 09:24:15,629 INFO  - Step execute condition not satisfied, step will be skipped.
+9: 09:24:15,760 INFO  - Checking step execute condition...
+10: 09:24:15,761 INFO  - Step execute condition not satisfied, step will be skipped.
+11: 09:24:15,879 INFO  - Checking step execute condition...
+12: 09:24:15,883 INFO  - Step execute condition not satisfied, step will be skipped.
+13: 09:24:15,999 INFO  - Checking step execute condition...
+14: 09:24:16,000 INFO  - Step execute condition satisfied, executing...
+15: 09:24:16,137 INFO  - Executing pre-execute action...
+16: 09:24:16,196 INFO  - cmd:git clone ssh://review.tizen.org:29418/scm/meta/qb -b master /home/tizenbuild/build_meta
+17: 09:24:16,646 INFO  - cmd result: 
+18: 09:24:23,689 WARN  - img_data_file_name :img_data_file
+38: 09:24:23,746 INFO  - Running step...
+44: 09:24:23,939 INFO  - Running step...
+45: 09:24:23,969 WARN  - trigger.getId() : 1182232
+46: 09:24:23,970 WARN  - build_url : https://quickbuild.tizen.org/build/1182527
+52: 09:24:24,248 INFO  - Running step...
+96: 09:24:24,515 DEBUG - Command working directory: /home/tizenbuild/ci_tizen_workspace/ip-192-168-56-118_8812
+148: 09:24:26,816 INFO  - mic 2.1.3 (ip-192-168-56-118 ubuntu 24.04 Noble Numbat)
+163: 09:24:46,095 INFO  - INFO: Copy host mic to bootstrap
+164: 09:24:46,203 INFO  - INFO: Start mic in bootstrap: /var/tmp/mic-bootstrap/tizenbt29ybny/bootstrap
+173: 09:24:47,243 INFO  - mic 2.1.3 (ip-192-168-56-118 tizen)
+8903: 09:48:43,863 INFO  - INFO: Pack all loop images together to tizen-unified_20260923.050314_tizen-headed-aarch64.tar.gz
+8904: 09:48:43,863 INFO  - INFO: Running command: tar -C /var/tmp/mic/build/imgcreate-txe2d1d2/tmp-31fc67my -cf /var/tmp/mic/build/imgcreate-txe2d1d2/out/tmpca32pvfm.tar system-data.img user.img rootfs.img ramdisk-recovery.img ramdisk.img
+8905: 09:48:58,938 INFO  - INFO: Running command: gzip -f /var/tmp/mic/build/imgcreate-txe2d1d2/out/tmpca32pvfm.tar
+8914: 09:50:20,155 INFO  -   /data/workspace/gbsbuild-ROOT/IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified_20260923.050314/images/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.license
+8915: 09:50:20,155 INFO  -   /data/workspace/gbsbuild-ROOT/IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified_20260923.050314/images/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.packages
+8916: 09:50:20,155 INFO  -   /data/workspace/gbsbuild-ROOT/IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified_20260923.050314/images/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.tar.gz
+8917: 09:50:20,155 INFO  -   /data/workspace/gbsbuild-ROOT/IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified_20260923.050314/images/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.xml
+8918: 09:50:20,155 INFO  - 
+8919: 09:50:20,177 INFO  - INFO: Finished.
+8920: 09:50:20,682 INFO  - building file list ... done
+8921: 09:50:20,683 INFO  - images/
+8922: 09:50:20,683 INFO  - images/standard/
+8923: 09:50:20,683 INFO  - images/standard/tizen-headed-aarch64/
+8924: 09:50:20,683 INFO  - images/standard/tizen-headed-aarch64/MD5SUMS
+8925: 09:50:20,683 INFO  - images/standard/tizen-headed-aarch64/SHA1SUMS
+8926: 09:50:20,683 INFO  - images/standard/tizen-headed-aarch64/SHA256SUMS
+8927: 09:50:20,683 INFO  - images/standard/tizen-headed-aarch64/manifest.json
+8928: 09:50:20,683 INFO  - images/standard/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.files
+8929: 09:50:20,685 INFO  - images/standard/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.ks
+8930: 09:50:20,685 INFO  - images/standard/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.license
+8931: 09:50:20,685 INFO  - images/standard/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.log
+8932: 09:50:20,687 INFO  - images/standard/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.packages
+8933: 09:50:20,687 INFO  - images/standard/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.tar.gz
+8934: 09:50:22,297 INFO  - images/standard/tizen-headed-aarch64/tizen-unified_20260923.050314_tizen-headed-aarch64.xml
+8935: 09:50:22,346 INFO  - 
+8936: 09:50:22,346 INFO  - sent 722,004,533 bytes  received 242 bytes  288,801,910.00 bytes/sec
+8937: 09:50:22,346 INFO  - total size is 721,827,243  speedup is 1.00
+8938: 09:50:22,347 INFO  - starting mic to create image: sudo /usr/bin/mic cr auto /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-headed-aarch64.ks --release tizen-unified_20260923.050314 -o /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out -k /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/cache --logfile=/data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified_20260923.050314_tizen-headed-aarch64.log
+8939: 09:50:22,347 INFO  - sync_src:/data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified_20260923.050314, sync_dest:rsync://download.prod.infra.tizen.org/_quickbuild_RW_/RBS/TIZEN/Tizen/Tizen-Unified/tizen-unified_20260923.050314
+8940: 09:50:22,347 INFO  - os.getcwd() is : /home/tizenbuild/ci_tizen_workspace/ip-192-168-56-118_8812
+8941: 09:50:22,347 INFO  - current working directory is : /home/tizenbuild/ci_tizen_workspace/ip-192-168-56-118_8812
+8942: 09:50:22,347 INFO  - rsync -av --delay-updates  /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified_20260923.050314/* rsync://download.prod.infra.tizen.org/_quickbuild_RW_/RBS/TIZEN/Tizen/Tizen-Unified/tizen-unified_20260923.050314
+8943: 09:50:22,347 INFO  - Success sync /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified_20260923.050314 to rsync://download.prod.infra.tizen.org/_quickbuild_RW_/RBS/TIZEN/Tizen/Tizen-Unified/tizen-unified_20260923.050314
+8944: 09:50:22,347 INFO  - The build was successful.
+8945: 09:50:22,380 INFO  - Remove /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812
+8946: 09:50:22,437 INFO  - Executing post-execute action...
+8947: 09:50:22,499 INFO  - Executing post-execute action...
+8948: 09:50:22,644 INFO  - Executing post-execute action...

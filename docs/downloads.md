@@ -60,3 +60,17 @@
 |work/compressor-probe/pigz-p2.gz|67129373|3870880f505219dcfef47c3a6a4646fb03a7e0859b6d14521b61b1f5b80f2451|无；本机work/compressor_probe.py生成；随机输入或其压缩输出，未从网络下载|
 
 `downloads/src/`、下载包与镜像不进Git；仓库内原样源码快照和来源元数据在`evidence/src_snapshot/`，逐文件sha256/大小在`evidence/src_snapshot/manifest.json`。原始下载路径保持在上面的清单中便于本机重建。
+
+## stage2a 用户提供的QB控制台（2026-10-06）
+
+这些文件由用户放入downloads/logs/，不是本轮匿名HTTP抓取的登录HTML；来源为对应QB构建的控制台导出，具体导出端点URL和用户下载时间未知。以下URL标识关联构建页面，不冒充实际下载端点；原始字节保持不变。
+
+|本地路径|字节数|sha256|来源/关联URL|
+|---|---:|---|---|
+|downloads/logs/1178308full-log.txt|1105304|32dacd97d06801691ac1bfc47235add53d119641c2a5916b53050530e543d74a|用户提供；https://quickbuild.tizen.org/build/1178308|
+|downloads/logs/1182527full-log.txt|1265714|fc923a217401bb166e1d08543302bd16ae66d8e0cba6ee44edef117ad803045a|用户提供；https://quickbuild.tizen.org/build/1182527|
+|downloads/logs/1187398full-log.txt|1100060|3d38abb72a12c9cf5690fd012fe135b9bd4cc6bf556c928e04b5353b5cd9ecf5|用户提供；https://quickbuild.tizen.org/build/1187398|
+|downloads/logs/1189639full-log.txt|1884792|cdf1b6577894cf3b07eb6e6c31b8add523be3cdb73a8651b90545ff54f79e942|用户提供；https://quickbuild.tizen.org/build/1189639|
+|downloads/logs/1189686full-log.txt|1100027|62dcf5f261d9ff1418817b3ba637a4fdd605b67060a3960212e87c5909ba75be|用户提供；https://quickbuild.tizen.org/build/1189686|
+
+首次baseline的baseline-20261006-211839-*与baseline_sampler.csv亦由用户运行产生，无来源下载URL。stage2a参数验证和QB摘录可分别由evidence/baseline_parameter_validation.py、evidence/qb_console_extract.py再生成；本轮只归档分析所需文本，未重新执行基线。

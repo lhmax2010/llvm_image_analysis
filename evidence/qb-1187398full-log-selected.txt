@@ -1,0 +1,69 @@
+1: 16:27:26,735 INFO  - Executing pre-execute action...
+2: 16:27:26,818 INFO  - Running step...
+3: 16:27:26,818 DEBUG - Child step names of step 'master': [TRIGGER, BUILD_ABS, BUILD, SNAPSHOT, IMAGE]
+4: 16:27:26,846 DEBUG - Child steps to trigger sequentially: [master>TRIGGER, master>BUILD_ABS, master>BUILD, master>SNAPSHOT, master>IMAGE]
+5: 16:27:26,883 INFO  - Checking step execute condition...
+6: 16:27:27,036 INFO  - Step execute condition not satisfied, step will be skipped.
+7: 16:27:27,136 INFO  - Checking step execute condition...
+8: 16:27:27,137 INFO  - Step execute condition not satisfied, step will be skipped.
+9: 16:27:27,262 INFO  - Checking step execute condition...
+10: 16:27:27,265 INFO  - Step execute condition not satisfied, step will be skipped.
+11: 16:27:27,375 INFO  - Checking step execute condition...
+12: 16:27:27,378 INFO  - Step execute condition not satisfied, step will be skipped.
+13: 16:27:27,499 INFO  - Checking step execute condition...
+14: 16:27:27,500 INFO  - Step execute condition satisfied, executing...
+15: 16:27:27,641 INFO  - Executing pre-execute action...
+16: 16:27:27,711 INFO  - cmd:git clone ssh://review.tizen.org:29418/scm/meta/qb -b master /home/tizenbuild/build_meta
+17: 16:27:28,142 INFO  - cmd result: 
+18: 16:27:35,185 WARN  - img_data_file_name :img_data_file
+29: 16:27:35,226 INFO  - Running step...
+35: 16:27:35,432 INFO  - Running step...
+36: 16:27:35,455 WARN  - trigger.getId() : 1187162
+37: 16:27:35,455 WARN  - build_url : https://quickbuild.tizen.org/build/1187398
+43: 16:27:35,733 INFO  - Running step...
+87: 16:27:36,036 DEBUG - Command working directory: /home/tizenbuild/ci_tizen_workspace/ip-192-168-56-91_8812
+130: 16:27:38,455 INFO  - mic 2.1.3 (ip-192-168-56-91 ubuntu 24.04 Noble Numbat)
+145: 16:30:00,368 INFO  - INFO: Copy host mic to bootstrap
+146: 16:30:00,557 INFO  - INFO: Start mic in bootstrap: /var/tmp/mic-bootstrap/tizen7m7k8ses/bootstrap
+155: 16:30:01,787 INFO  - mic 2.1.3 (ip-192-168-56-91 tizen)
+8876: 16:54:10,781 INFO  - INFO: Pack all loop images together to tizen-unified-toolchain_20260930.105301_tizen-headed-aarch64.tar.gz
+8877: 16:54:10,782 INFO  - INFO: Running command: tar -C /var/tmp/mic/build/imgcreate-b62wua5u/tmp-7zn1w9sc -cf /var/tmp/mic/build/imgcreate-b62wua5u/out/tmplxoqzh3o.tar system-data.img user.img rootfs.img ramdisk-recovery.img ramdisk.img
+8878: 16:54:24,928 INFO  - INFO: Running command: gzip -f /var/tmp/mic/build/imgcreate-b62wua5u/out/tmplxoqzh3o.tar
+8879: 16:55:07,361 INFO  - Traceback (most recent call last):
+8883: 16:55:07,367 INFO  - FileNotFoundError: [Errno 2] No such file or directory: '/var/tmp/mic/build/imgcreate-b62wua5u/out/tmplxoqzh3o.tar.gz' -> '/var/tmp/mic/build/imgcreate-b62wua5u/out/tizen-unified-toolchain_20260930.105301_tizen-headed-aarch64.tar.gz'
+8887: 16:55:07,367 INFO  - Traceback (most recent call last):
+8921: 16:55:07,370 INFO  -     copyfile(src, dst, follow_symlinks=follow_symlinks)
+8922: 16:55:07,370 INFO  -     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+8923: 16:55:07,370 INFO  -   File "/usr/lib64/python3.14/shutil.py", line 313, in copyfile
+8924: 16:55:07,370 INFO  -     with open(src, 'rb') as fsrc:
+8925: 16:55:07,370 INFO  -          ~~~~^^^^^^^^^^^
+8926: 16:55:07,370 INFO  - FileNotFoundError: [Errno 2] No such file or directory: '/var/tmp/mic/build/imgcreate-b62wua5u/out/tmplxoqzh3o.tar.gz'
+8927: 16:55:08,210 INFO  - building file list ... done
+8928: 16:55:08,211 INFO  - images/
+8929: 16:55:08,211 INFO  - images/standard/
+8930: 16:55:08,211 INFO  - images/standard/tizen-headed-aarch64/
+8931: 16:55:08,211 INFO  - images/standard/tizen-headed-aarch64/tizen-unified-toolchain_20260930.105301_tizen-headed-aarch64.log
+8932: 16:55:08,254 INFO  - 
+8933: 16:55:08,254 INFO  - sent 743,753 bytes  received 52 bytes  1,487,610.00 bytes/sec
+8934: 16:55:08,254 INFO  - total size is 743,317  speedup is 1.00
+8935: 16:55:08,254 INFO  - starting mic to create image: sudo /usr/bin/mic cr auto /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-headed-aarch64.ks --release tizen-unified-toolchain_20260930.105301 -o /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out -k /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/cache --logfile=/data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified-toolchain_20260930.105301_tizen-headed-aarch64.log
+8936: 16:55:08,254 INFO  - Error: mic returned 1
+8937: 16:55:08,254 INFO  - sync_src:/data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified-toolchain_20260930.105301, sync_dest:rsync://download.prod.infra.tizen.org/_quickbuild_RW_/RBS/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260930.105301
+8938: 16:55:08,255 INFO  - os.getcwd() is : /home/tizenbuild/ci_tizen_workspace/ip-192-168-56-91_8812
+8939: 16:55:08,255 INFO  - current working directory is : /home/tizenbuild/ci_tizen_workspace/ip-192-168-56-91_8812
+8940: 16:55:08,255 INFO  - rsync -av --delay-updates  /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified-toolchain_20260930.105301/* rsync://download.prod.infra.tizen.org/_quickbuild_RW_/RBS/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260930.105301
+8941: 16:55:08,255 INFO  - Success sync /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified-toolchain_20260930.105301 to rsync://download.prod.infra.tizen.org/_quickbuild_RW_/RBS/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260930.105301
+8942: 16:55:08,329 INFO  - Traceback (most recent call last):
+8943: 16:55:08,329 INFO  -   File "/data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/QB_SCRIPTS_5cFtEA/exec_image_creation.py", line 440, in <module>
+8944: 16:55:08,330 INFO  -     sys.exit(main())
+8945: 16:55:08,330 INFO  -              ^^^^^^
+8946: 16:55:08,330 INFO  -   File "/data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/QB_SCRIPTS_5cFtEA/exec_image_creation.py", line 436, in main
+8947: 16:55:08,331 ERROR -     raise LocalError('Error: Image Creation Failed')
+8948: 16:55:08,331 INFO  - LocalError: Error: Image Creation Failed
+8949: 16:55:08,382 INFO  - Remove /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812
+8950: 16:55:08,423 INFO  - Executing post-execute action...
+8951: 16:55:08,423 ERROR - Step 'master>IMAGE>Image_Create' is failed:     raise LocalError('Error: Image Creation Failed')
+8952: 16:55:08,588 INFO  - Executing post-execute action...
+8953: 16:55:08,588 ERROR - Step 'master>IMAGE' is failed: Composite step 'IMAGE' failed due to unsatisfied success condition.
+8954: 16:55:08,695 INFO  - Executing post-execute action...
+8955: 16:55:08,716 ERROR - Step 'master' is failed: Composite step 'master' failed due to unsatisfied success condition.

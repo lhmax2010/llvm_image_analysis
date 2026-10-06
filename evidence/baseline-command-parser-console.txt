@@ -1,0 +1,34 @@
+WARNING: cannot find config file: /etc/mic/mic.conf
+=================================================================================================================================
+MIC Notification since v2.0.1:
+mic version has been upgraded from python2 to python3. Due to compatibility problem between python2 and python3.
+OS of Image creation server for projects using python2 : have to be equal or lower than ubuntu 20.04 and openuse 42.3.
+OS of Image creation server for projects using python3 : have to be equal or higher than ubuntu 22.04 and openuse 15.2.
+=================================================================================================================================
+
+Usage: mic [GLOBAL-OPTS] SUBCOMMAND [OPTS]
+                                        [--non-interactive]
+
+mic - the Image Creation tool
+
+options:
+  -h, --help         show this help message and exit
+  -V, --version      show program's version number and exit
+  -d, --debug        debug output
+  -v, --verbose      verbose output
+  -i, --interactive  interactive output
+  --non-interactive  non-interactive output
+
+Subcommands:
+  chroot (ch)           chroot into an image
+  create (cr)           create an image
+
+Try 'mic SUBCOMMAND --help' for help on a specific subcommand.
+baseline_parameter_validation.py: error: argument {chroot,create}: invalid choice: '/home/linhao/Toolchain/development/llvm_image_analysis/work/mic-baseline-20261006-211839.conf' (choose from 'chroot', 'create')
+=================================================================================================================================
+MIC Notification since v2.0.1:
+mic version has been upgraded from python2 to python3. Due to compatibility problem between python2 and python3.
+OS of Image creation server for projects using python2 : have to be equal or lower than ubuntu 20.04 and openuse 42.3.
+OS of Image creation server for projects using python3 : have to be equal or higher than ubuntu 22.04 and openuse 15.2.
+=================================================================================================================================
+

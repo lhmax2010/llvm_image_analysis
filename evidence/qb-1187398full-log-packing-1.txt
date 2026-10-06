@@ -1,0 +1,80 @@
+8876: 16:54:10,781 INFO  - INFO: Pack all loop images together to tizen-unified-toolchain_20260930.105301_tizen-headed-aarch64.tar.gz
+8877: 16:54:10,782 INFO  - INFO: Running command: tar -C /var/tmp/mic/build/imgcreate-b62wua5u/tmp-7zn1w9sc -cf /var/tmp/mic/build/imgcreate-b62wua5u/out/tmplxoqzh3o.tar system-data.img user.img rootfs.img ramdisk-recovery.img ramdisk.img
+8878: 16:54:24,928 INFO  - INFO: Running command: gzip -f /var/tmp/mic/build/imgcreate-b62wua5u/out/tmplxoqzh3o.tar
+8879: 16:55:07,361 INFO  - Traceback (most recent call last):
+8880: 16:55:07,367 INFO  -   File "/usr/lib64/python3.14/shutil.py", line 918, in move
+8881: 16:55:07,367 INFO  -     os.rename(src, real_dst)
+8882: 16:55:07,367 INFO  -     ~~~~~~~~~^^^^^^^^^^^^^^^
+8883: 16:55:07,367 INFO  - FileNotFoundError: [Errno 2] No such file or directory: '/var/tmp/mic/build/imgcreate-b62wua5u/out/tmplxoqzh3o.tar.gz' -> '/var/tmp/mic/build/imgcreate-b62wua5u/out/tizen-unified-toolchain_20260930.105301_tizen-headed-aarch64.tar.gz'
+8884: 16:55:07,367 INFO  - 
+8885: 16:55:07,367 INFO  - During handling of the above exception, another exception occurred:
+8886: 16:55:07,367 INFO  - 
+8887: 16:55:07,367 INFO  - Traceback (most recent call last):
+8888: 16:55:07,370 INFO  -   File "/usr/bin/mic", line 327, in <module>
+8889: 16:55:07,370 INFO  -     sys.exit(main(sys.argv))
+8890: 16:55:07,370 INFO  -              ~~~~^^^^^^^^^^
+8891: 16:55:07,370 INFO  -   File "/usr/bin/mic", line 323, in main
+8892: 16:55:07,370 INFO  -     return module.main(parser, args, argv[1:])
+8893: 16:55:07,370 INFO  -            ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+8894: 16:55:07,370 INFO  -   File "/usr/lib/python3.14/site-packages/mic/cmd_create.py", line 59, in main
+8895: 16:55:07,370 INFO  -     do_auto(parser, args.ksfile, argv)
+8896: 16:55:07,370 INFO  -     ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+8897: 16:55:07,370 INFO  -   File "/usr/lib/python3.14/site-packages/mic/cmd_create.py", line 272, in do_auto
+8898: 16:55:07,370 INFO  -     main(parser, args, options)
+8899: 16:55:07,370 INFO  -     ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+8900: 16:55:07,370 INFO  -   File "/usr/lib/python3.14/site-packages/mic/cmd_create.py", line 216, in main
+8901: 16:55:07,370 INFO  -     creater.do_create(args)
+8902: 16:55:07,370 INFO  -     ~~~~~~~~~~~~~~~~~^^^^^^
+8903: 16:55:07,370 INFO  -   File "/usr/lib/mic/plugins/imager/loop_plugin.py", line 64, in do_create
+8904: 16:55:07,370 INFO  -     creator.package(creatoropts["destdir"])
+8905: 16:55:07,370 INFO  -     ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+8906: 16:55:07,370 INFO  -   File "/usr/lib/python3.14/site-packages/mic/imager/baseimager.py", line 1499, in package
+8907: 16:55:07,370 INFO  -     self._stage_final_image()
+8908: 16:55:07,370 INFO  -     ~~~~~~~~~~~~~~~~~~~~~~~^^
+8909: 16:55:07,370 INFO  -   File "/usr/lib/python3.14/site-packages/mic/imager/loop.py", line 533, in _stage_final_image
+8910: 16:55:07,370 INFO  -     packing(dstfile, self._imgdir)
+8911: 16:55:07,370 INFO  -     ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+8912: 16:55:07,370 INFO  -   File "/usr/lib/python3.14/site-packages/mic/archive.py", line 453, in make_archive
+8913: 16:55:07,370 INFO  -     return func(archive_name, target_name, **kwargs)
+8914: 16:55:07,370 INFO  -   File "/usr/lib/python3.14/site-packages/mic/archive.py", line 346, in _make_tarball
+8915: 16:55:07,370 INFO  -     shutil.move(tarball_name, archive_name)
+8916: 16:55:07,370 INFO  -     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+8917: 16:55:07,370 INFO  -   File "/usr/lib64/python3.14/shutil.py", line 938, in move
+8918: 16:55:07,370 INFO  -     copy_function(src, real_dst)
+8919: 16:55:07,370 INFO  -     ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+8920: 16:55:07,370 INFO  -   File "/usr/lib64/python3.14/shutil.py", line 529, in copy2
+8921: 16:55:07,370 INFO  -     copyfile(src, dst, follow_symlinks=follow_symlinks)
+8922: 16:55:07,370 INFO  -     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+8923: 16:55:07,370 INFO  -   File "/usr/lib64/python3.14/shutil.py", line 313, in copyfile
+8924: 16:55:07,370 INFO  -     with open(src, 'rb') as fsrc:
+8925: 16:55:07,370 INFO  -          ~~~~^^^^^^^^^^^
+8926: 16:55:07,370 INFO  - FileNotFoundError: [Errno 2] No such file or directory: '/var/tmp/mic/build/imgcreate-b62wua5u/out/tmplxoqzh3o.tar.gz'
+8927: 16:55:08,210 INFO  - building file list ... done
+8928: 16:55:08,211 INFO  - images/
+8929: 16:55:08,211 INFO  - images/standard/
+8930: 16:55:08,211 INFO  - images/standard/tizen-headed-aarch64/
+8931: 16:55:08,211 INFO  - images/standard/tizen-headed-aarch64/tizen-unified-toolchain_20260930.105301_tizen-headed-aarch64.log
+8932: 16:55:08,254 INFO  - 
+8933: 16:55:08,254 INFO  - sent 743,753 bytes  received 52 bytes  1,487,610.00 bytes/sec
+8934: 16:55:08,254 INFO  - total size is 743,317  speedup is 1.00
+8935: 16:55:08,254 INFO  - starting mic to create image: sudo /usr/bin/mic cr auto /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-headed-aarch64.ks --release tizen-unified-toolchain_20260930.105301 -o /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out -k /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/cache --logfile=/data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified-toolchain_20260930.105301_tizen-headed-aarch64.log
+8936: 16:55:08,254 INFO  - Error: mic returned 1
+8937: 16:55:08,254 INFO  - sync_src:/data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified-toolchain_20260930.105301, sync_dest:rsync://download.prod.infra.tizen.org/_quickbuild_RW_/RBS/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260930.105301
+8938: 16:55:08,255 INFO  - os.getcwd() is : /home/tizenbuild/ci_tizen_workspace/ip-192-168-56-91_8812
+8939: 16:55:08,255 INFO  - current working directory is : /home/tizenbuild/ci_tizen_workspace/ip-192-168-56-91_8812
+8940: 16:55:08,255 INFO  - rsync -av --delay-updates  /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified-toolchain_20260930.105301/* rsync://download.prod.infra.tizen.org/_quickbuild_RW_/RBS/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260930.105301
+8941: 16:55:08,255 INFO  - Success sync /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/WORKSPACE/mic/out/tizen-unified-toolchain_20260930.105301 to rsync://download.prod.infra.tizen.org/_quickbuild_RW_/RBS/TIZEN/Tizen/Tizen-Unified-Toolchain/tizen-unified-toolchain_20260930.105301
+8942: 16:55:08,329 INFO  - Traceback (most recent call last):
+8943: 16:55:08,329 INFO  -   File "/data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/QB_SCRIPTS_5cFtEA/exec_image_creation.py", line 440, in <module>
+8944: 16:55:08,330 INFO  -     sys.exit(main())
+8945: 16:55:08,330 INFO  -              ^^^^^^
+8946: 16:55:08,330 INFO  -   File "/data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812/QB_SCRIPTS_5cFtEA/exec_image_creation.py", line 436, in main
+8947: 16:55:08,331 ERROR -     raise LocalError('Error: Image Creation Failed')
+8948: 16:55:08,331 INFO  - LocalError: Error: Image Creation Failed
+8949: 16:55:08,382 INFO  - Remove /data/workspace/gbsbuild-ROOT//IMG_WORKSPACE/8812
+8950: 16:55:08,423 INFO  - Executing post-execute action...
+8951: 16:55:08,423 ERROR - Step 'master>IMAGE>Image_Create' is failed:     raise LocalError('Error: Image Creation Failed')
+8952: 16:55:08,588 INFO  - Executing post-execute action...
+8953: 16:55:08,588 ERROR - Step 'master>IMAGE' is failed: Composite step 'IMAGE' failed due to unsatisfied success condition.
+8954: 16:55:08,695 INFO  - Executing post-execute action...
+8955: 16:55:08,716 ERROR - Step 'master' is failed: Composite step 'master' failed due to unsatisfied success condition.

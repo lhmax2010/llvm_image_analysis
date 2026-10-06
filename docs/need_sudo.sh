@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 待用户执行的复现脚本；本轮 sudo 失败后未运行，不能视为已验证。
+# 待用户执行的复现脚本；stage2a 仅验证参数解析，未重新建镜像。
 # 用户自行认证后运行：sudo -- bash docs/need_sudo.sh baseline
 # 磁盘实验：sudo -- bash docs/need_sudo.sh space <基线工作目录峰值字节数的80%>
 # 内存实验：sudo -- bash docs/need_sudo.sh oom 1G （之后可试 512M）
@@ -42,6 +42,7 @@ if (( AVAIL < 15000000000 )); then
 fi
 KS="$ROOT/downloads/logs/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.ks"
 # 注意：当前 ks 与发布 MD5SUMS 不符，仍按用户要求作为0917公开 ks复现，不能声称逐字节等同原输入。
+RELEASE=tizen-unified-toolchain_20260917.132101
 OUT="$ROOT/work/base"
 MIC_TMP="$ROOT/work/base-tmp"
 MOUNT_CREATED=0
@@ -111,8 +112,10 @@ CSV="$ROOT/evidence/${MODE}_sampler.csv"
 if [[ -e "$CSV" ]]; then CSV="$ROOT/evidence/${MODE}-${STAMP}_sampler.csv"; fi
 "$MIC_PY" "$ROOT/docs/sampler.py" --workdir "$MIC_TMP" --outdir "$OUT" --csv "$CSV" &
 SAMPLER_PID=$!
-# 公开日志未提供完整QB命令。下面保留已证实选项，其余目录选项为本机复现选择。
-CMD=("$MIC_PY" "$MIC_BIN" -c "$CONF" cr auto "$KS" -A aarch64 --pack-to=@NAME@.tar.gz --record-pkgs=name,content,license --cachedir "$ROOT/work/cache" --outdir "$OUT" --runtime bootstrap --non-interactive --logfile "$PREFIX-mic.log")
+# 对照1178308full-log.txt L8968：cr auto、--release、-o、-k、--logfile。
+# -c属于create auto参数；--non-interactive属于全局参数（必须位于cr之前）。
+# 目录改为本地配置；arch/pack-to/record-pkgs显式重复ks头部的同值选项。
+CMD=("$MIC_PY" "$MIC_BIN" --non-interactive cr auto "$KS" -c "$CONF" --release "$RELEASE" -o "$OUT" -k "$ROOT/work/cache" -A aarch64 --pack-to=@NAME@.tar.gz --record-pkgs=name,content,license --runtime bootstrap --logfile "$PREFIX-mic.log")
 printf '%q ' "${CMD[@]}" > "$PREFIX-command.txt"
 printf '\n' >> "$PREFIX-command.txt"
 KERNEL_SINCE=$(date --iso-8601=seconds)

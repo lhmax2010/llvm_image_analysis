@@ -2,7 +2,7 @@
 
 ## 材料与证据边界
 
-本报告只据实际下载内容判断，不将任务中提及的 traceback 当成已经拿到的证据。原始文件未改动；下载 URL、字节数和 sha256 见 `docs/downloads.md`。完整逐行 diff：`evidence/20260917.132101-vs-20260930.105301.diff`、`evidence/20260930.105301-vs-20261003.102419.diff`。文件尾字节与关键词扫描见 `evidence/log_metadata.json`。所有时间沿用日志的 UTC。
+stage1 部分据三份公开 mic.log；stage2a 新增用户提供的五份QB控制台，完整分析见 [qb_console_forensics.md](qb_console_forensics.md)。两类日志保留独立证据边界；下面打包原文仍是旧 mic.log，具体判定已按控制台更新。原始文件未改动；下载 URL、字节数和 sha256 见 `docs/downloads.md`。完整逐行 diff：`evidence/20260917.132101-vs-20260930.105301.diff`、`evidence/20260930.105301-vs-20261003.102419.diff`。文件尾字节与关键词扫描见 `evidence/log_metadata.json`。公开mic.log时间带UTC；QB控制台只有时分秒，重叠段可与mic.log对应，但不补造未打印的时区。
 
 ## 开头、选项与目录
 
@@ -11,21 +11,21 @@
 - mic 宿主与 bootstrap 都打印 2.1.3：`downloads/logs/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.log` L1、19；机器分别为 `.202`、`.91`、`.168`，不是同一 worker。
 - runtime=bootstrap 的实际行为由创建 bootstrap、复制宿主 mic、启动 chroot 证实：`downloads/logs/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.log` L11–19。不是仅依据默认配置。
 - ks 路径见 `downloads/logs/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.log` L2、20，构建工作目录由打包命令得到：`downloads/logs/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.log` L7426。
-- 完整 mic 启动命令、显式 `--tmpdir/--cachedir/--outdir/--compress-image` 没有出现在公开日志；不能声称掌握同一整条命令。无 tmpfs 挂载输出也不能排除环境本身将 `/var/tmp` 放在 tmpfs。
+- stage1公开mic.log没有完整启动命令；stage2a控制台已取得实际 `cr auto ... --release ... -o ... -k ... --logfile=...`，详见QB报告逐日志章节。该命令没有显式runtime、pack-to、tmpdir或-c。无tmpfs挂载输出仍不能排除/确认环境将 `/var/tmp` 放在tmpfs。
 
 ### 20260930.105301
 
 - mic 宿主与 bootstrap 都打印 2.1.3：`downloads/logs/tizen-unified-toolchain_20260930.105301_tizen-headed-aarch64.log` L1、19；机器分别为 `.202`、`.91`、`.168`，不是同一 worker。
 - runtime=bootstrap 的实际行为由创建 bootstrap、复制宿主 mic、启动 chroot 证实：`downloads/logs/tizen-unified-toolchain_20260930.105301_tizen-headed-aarch64.log` L11–19。不是仅依据默认配置。
 - ks 路径见 `downloads/logs/tizen-unified-toolchain_20260930.105301_tizen-headed-aarch64.log` L2、20，构建工作目录由打包命令得到：`downloads/logs/tizen-unified-toolchain_20260930.105301_tizen-headed-aarch64.log` L7366。
-- 完整 mic 启动命令、显式 `--tmpdir/--cachedir/--outdir/--compress-image` 没有出现在公开日志；不能声称掌握同一整条命令。无 tmpfs 挂载输出也不能排除环境本身将 `/var/tmp` 放在 tmpfs。
+- stage1公开mic.log没有完整启动命令；stage2a控制台已取得实际 `cr auto ... --release ... -o ... -k ... --logfile=...`，详见QB报告逐日志章节。该命令没有显式runtime、pack-to、tmpdir或-c。无tmpfs挂载输出仍不能排除/确认环境将 `/var/tmp` 放在tmpfs。
 
 ### 20261003.102419
 
 - mic 宿主与 bootstrap 都打印 2.1.3：`downloads/logs/tizen-unified-toolchain_20261003.102419_tizen-headed-aarch64.log` L1、19；机器分别为 `.202`、`.91`、`.168`，不是同一 worker。
 - runtime=bootstrap 的实际行为由创建 bootstrap、复制宿主 mic、启动 chroot 证实：`downloads/logs/tizen-unified-toolchain_20261003.102419_tizen-headed-aarch64.log` L11–19。不是仅依据默认配置。
 - ks 路径见 `downloads/logs/tizen-unified-toolchain_20261003.102419_tizen-headed-aarch64.log` L2、20，构建工作目录由打包命令得到：`downloads/logs/tizen-unified-toolchain_20261003.102419_tizen-headed-aarch64.log` L7366。
-- 完整 mic 启动命令、显式 `--tmpdir/--cachedir/--outdir/--compress-image` 没有出现在公开日志；不能声称掌握同一整条命令。无 tmpfs 挂载输出也不能排除环境本身将 `/var/tmp` 放在 tmpfs。
+- stage1公开mic.log没有完整启动命令；stage2a控制台已取得实际 `cr auto ... --release ... -o ... -k ... --logfile=...`，详见QB报告逐日志章节。该命令没有显式runtime、pack-to、tmpdir或-c。无tmpfs挂载输出仍不能排除/确认环境将 `/var/tmp` 放在tmpfs。
 
 三份 ks 第一行都包含 `-A aarch64 -f loop --pack-to=@NAME@.tar.gz --record-pkgs=name,content,license`：成功 ks `downloads/logs/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.ks` L1；失败 ks `downloads/ks/20260930.105301-tizen-headed-aarch64.ks` L1、`downloads/ks/20261003.102419-tizen-headed-aarch64.ks` L1。成功 ks 的两个固定 repo URL 在 L26–27；两份失败 builddata ks 的 L26–27 仍是模板 URL，不能直接当成失败运行时的固定 repo。两份失败 ks sha256 完全相同。
 
@@ -84,23 +84,25 @@
 7367: [10/03 16:22:01 UTC] Running command: pigz -f /var/tmp/mic/build/imgcreate-q3ebnnd3/out/tmpvupuwmim.tar
 ```
 
-## 三个具体问题
+## 三个具体问题（按QB控制台更新）
 
-1. 成功 gzip 启动在 `downloads/logs/tizen-unified-toolchain_20260917.132101_tizen-headed-aarch64.log` L7427 的 19:11:52；下一条创建 manifest 在 L7428 的 19:13:05，相隔 **73 秒**。这是 gzip 加返回/改名等开销的日志区间，不能精确拆成纯 CPU 压缩时间。tar 段为 15 秒（L7426–7427），打包至 manifest 共 88 秒（L7425–7428）。公开目录 `downloads/indexes/20260917.132101-images.html` L14 列出输出 **696,473,433 字节（696.47 MB / 664.21 MiB）**，未下载 tar.gz 实体，因此是服务端目录宣称大小。
-2. 0930 的最后一行是 `downloads/logs/tizen-unified-toolchain_20260930.105301_tizen-headed-aarch64.log` L7367，16:54:24 gzip 启动。**公开日志没有 traceback**，无法计算“gzip 启动到 traceback”的秒数，也无法确认后续 mic 是否仍活着。不存在 gzip 的 ENOSPC stderr、`Killed` 或进程终止 signal 记录。全文出现的 `signal` 都是 `org.tizen.system-signal-sender` 包名/路径，不能算被杀证据（行号详见 `evidence/log_metadata.json`）。
-3. 1003 同样在 `downloads/logs/tizen-unified-toolchain_20261003.102419_tizen-headed-aarch64.log` L7367，16:22:01 pigz 启动行结束；最后一行与启动是同一条记录，故时间差 **0 秒**，不能当作 pigz 运行 0 秒就死亡。最后有完整换行，命令与文件名完整，无半行/半个字符截断；存在语义上的未完成，但没有字节级截断证据（`evidence/log_metadata.json`）。没有后续时间戳，未知实际终止时间。
+1. **成功对照可以精确到毫秒。** 1178308 gzip启动19:11:52,103 → manifest19:13:05,317 = **73.214秒**，Pack→manifest **88.008秒**；GCC成功1182527 gzip09:48:58,938 → manifest09:50:17,856 = **78.918秒**，Pack→manifest **93.993秒**。这些包含返回/move等开销；两份打包尾段均无警告/traceback，全文较早有其他警告。证据：`1178308full-log.txt` L8933–8936、8949、8974；`1182527full-log.txt` L8903–8906、8919、8944。0917发布输出大小仍为696,473,433字节（公开目录images.html L14，未下载tar.gz实体）。
+2. **0930 gzip确有shutil.move traceback。** `1187398full-log.txt` L8878 16:54:24,928 → L8879 16:55:07,361 = **42.433秒**；L8914–8915定位archive.py:346的move，最终FileNotFoundError L8926。未见gzip自身ENOSPC/Killed或其他stderr；L8936明确mic返回1，随后同步log、外层LocalError、QB标记Image_Create/IMAGE/master failed（L8927–8955）。因此此前只凭mic.log“不可知道mic后续是否存活”的项已解决；压缩器rc仍未知。
+3. **1003 pigz也有同一traceback。** `1189686full-log.txt` L8878 16:22:01,450 → L8879 16:22:31,278 = **29.828秒**；L8936 mic返回1，EOF在L8955的16:22:32,955，距离pigz启动 **31.505秒**。后面有QB正常failed链，不是只有启动行结束。**“pigz几秒就被杀、mic死了”被否定**；mic活到抛异常并返回1，但pigz子进程是否受SIGKILL仍无证据。父1189639关系由子L36–37明确，父L22536仅传播子失败；其中failed/cancelled/timed out是通用模板，不能称超时事实。
 
-## OOM 与 ENOSPC 证据对照
+以上QB原文件均在downloads/logs/；每条完整命令、全部打包尾段、所有关键词命中行见 [QB控制台取证](qb_console_forensics.md)。原mic.log末条与启动相差0秒的历史观察仍正确，但它只表示mic.log没记录后续，不再代表控制台/进程运行时长未知。
 
-|证据|构建机 / cgroup OOM|工作目录 ENOSPC|区分能力|
+## OOM 与 ENOSPC 证据对照（更新）
+
+|证据|构建机 / cgroup OOM|工作目录 ENOSPC|现在的区分能力|
 |---|---|---|---|
-|两次公开日志都止于压缩启动行|相容：mic/步骤被杀可如此|也相容：stderr/traceback 未进入 mic 日志|弱；须取完整控制台|
-|gzip 没有 stderr 和 rc|无法看到 -9|无法看到 1 + ENOSPC|不能据缺失排除 ENOSPC|
-|gzip 单线程，镜像总逻辑大小约 2.40 GiB|gzip 本体通常仅几 MiB；“gzip 自己耗尽 1 GiB”缺乏依据|先 tar 再 gzip 有明显额外磁盘需求|机制上 ENOSPC 值得优先验证|
-|1003 从 gzip 改为默认线程 pigz|会增加线程和缓冲；是否越限未知|中间完整 tar 仍然存在，未减少磁盘峰值|不能说明已修复 ENOSPC|
-|两次失败大小略低于成功|不能直接说明内存足够|同样不能说明剩余磁盘足够|须看 worker 实际资源|
-|未获得 dmesg / memory.events / df|没有 OOM 直接证据|没有 ENOSPC 直接证据|真实环境根因未闭合|
-|原始代码 fake gzip exit 1 与 SIGKILL 探针|SIGKILL 子进程 rc=-9 后仍转为缺文件异常|模拟 rc=1 + ENOSPC 文字也转为同样异常|证实原始诊断丢失，并非真实 OOM/ENOSPC 复现|
+|两份控制台均move traceback、mic返回1、QB正常failed链（两份L8879–8955）|排除mic自己被直接杀死作为此次终止方式；不能排除压缩子进程被杀|相容：外部失败之后缺文件|此前“mic死了或异常只写控制台”现在确定为后者|
+|两份没有压缩器stderr/rc，只有mic rc1（两份L8936；archive.py L66–110）|看不到-9，不能确认子进程OOM|看不到1+ENOSPC，不能确认磁盘满|压缩器SIGKILL与写失败仍不可区分|
+|gzip单线程，镜像逻辑大小约2.40GiB；tar全量暂存（两份L8877；磁盘模型）|gzip本体消耗1GiB的解释弱；cgroup页缓存/其他进程仍未知|tar和gz额外空间机制成立|ENOSPC仍是优先资源假设，非直接证据|
+|1003使用默认线程pigz（1189686 L8878）|线程/缓冲可能增内存；没有实际RSS/限额|中间tar没有消除|更换压缩器未解决缺输出形状，不证明同一资源触发|
+|父任务failed/cancelled/timed out模板（1189639 L22536）|不代表OOM/worker lost|不代表磁盘满|子日志已证明普通失败传播，不是超时/取消实证|
+|五份全文无ENOSPC/Killed/OOM事件，df/free子串全为包名/hash/路径等（QB报告第四节）|没有内核或memory.events|没有工作盘空闲块/ENOSPC|无法唯一判定真实资源原因|
+|原始代码fake exit1和SIGKILL探针（original_archive_probe.json）|rc=-9也折叠成缺文件异常|模拟ENOSPC exit1同样折叠|与两次QB真实traceback形状相符，但不是资源实验|
 
 ### 不可照单接受的推理起点
 
@@ -109,7 +111,7 @@
 - gzip 写失败可能删除半成品 `.gz`，仅文件缺失并不能区分写失败和终止；SIGKILL 的真实 gzip 也可能留下半成品，不能把文件缺失当作 SIGKILL 的必要特征。
 - **公开 mic 日志戛然而止不证明 mic 自己或整个步骤死了。** `archive._call_external` 捕获 stderr 后丢弃，未捕获 Python traceback 可只写控制台。已运行原始代码探针，fake exit1 和 sigkill 都得到 `FileNotFoundError` 控制台 traceback，而 mic.log 只保留启动行：`evidence/original_archive_probe.json`、`evidence/original-exit1-console.log`、`evidence/original-sigkill-console.log`、`evidence/original-exit1-mic.log`、`evidence/original-sigkill-mic.log`。
 
-结论：对“压缩失败信息被丢弃”的判断置信度高；对两次真实失败的外部触发原因，公开材料不足以定性。暂将 ENOSPC 作为优先验证假设，OOM 和 worker/步骤外部终止仍待查。
+结论：对“外部打包/压缩失败诊断被丢弃，最终由缺压缩输出触发move异常”的判断置信度高；两次mic返回1和QB正常失败均已确认。“mic自己被杀/步骤突然终止”不符合控制台证据。外部资源原因仍未闭合，ENOSPC是优先假设（低至中置信），压缩器子进程OOM/SIGKILL或tar先失败仍待直接rc/stderr、磁盘/cgroup/内核证据。仅有FileNotFoundError不足以证明哪种触发。
 
 ## 发布校验补充
 

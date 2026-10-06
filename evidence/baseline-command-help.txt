@@ -1,0 +1,77 @@
+=================================================================================================================================
+MIC Notification since v2.0.1:
+mic version has been upgraded from python2 to python3. Due to compatibility problem between python2 and python3.
+OS of Image creation server for projects using python2 : have to be equal or lower than ubuntu 20.04 and openuse 42.3.
+OS of Image creation server for projects using python3 : have to be equal or higher than ubuntu 22.04 and openuse 15.2.
+=================================================================================================================================
+
+usage: mic create auto [-h] [--logfile LOGFILE] [-c CONFIG] [-k CACHEDIR]
+                       [-o OUTDIR] [-A ARCH] [--release RID]
+                       [--record-pkgs RECORD_PKGS] [--pkgmgr PKGMGR]
+                       [--local-pkgs-path LOCAL_PKGS_PATH] [--runtime RUNTIME]
+                       [--pack-to PACK_TO] [--copy-kernel]
+                       [--install-pkgs INSTALL_PKGS] [--check-pkgs CHECK_PKGS]
+                       [--tmpfs] [--strict-mode] [--use-mic-in-bootstrap] [-d]
+                       [-v] [-i] [--run_script RUN_SCRIPT]
+                       [--tpk_install TPK_INSTALL] [--rpm-debug]
+                       [--skip-set-hosts]
+                       [--postscripts-maxruntime POSTSCRIPTS_MAXRUNTIME]
+                       [--block-recommends]
+                       ksfile
+
+positional arguments:
+  ksfile                Path of ksfile
+
+options:
+  -h, --help            show this help message and exit
+  --logfile LOGFILE     Path of logfile
+  -c CONFIG, --config CONFIG
+                        Specify config file for mic
+  -k CACHEDIR, --cachedir CACHEDIR
+                        Cache directory to store the downloaded
+  -o OUTDIR, --outdir OUTDIR
+                        Output directory
+  -A ARCH, --arch ARCH  Specify repo architecture
+  --release RID         Generate a release of RID with all necessary files,
+                        when @BUILD_ID@ is contained in kickstart file, it
+                        will be replaced by RID
+  --record-pkgs RECORD_PKGS
+                        Record the info of installed packages, multiple values
+                        can be specified which joined by ",", valid values:
+                        "name", "content", "license", "vcs"
+  --pkgmgr PKGMGR       Specify backend package manager
+  --local-pkgs-path LOCAL_PKGS_PATH
+                        Path for local pkgs(rpms) to be installed
+  --runtime RUNTIME     Specify runtime mode, avaiable: bootstrap
+  --pack-to PACK_TO     Pack the images together into the specified achive,
+                        extension supported: .zip, .tar, .tar.gz, .tar.bz2,
+                        etc. by default, .tar will be used
+  --copy-kernel         Copy kernel files from image /boot directory to the
+                        image output directory.
+  --install-pkgs INSTALL_PKGS
+                        Specify what type of packages to be installed, valid:
+                        source, debuginfo, debugsource
+  --check-pkgs CHECK_PKGS
+                        Check if given packages would be installed, packages
+                        should be separated by comma
+  --tmpfs               Setup tmpdir as tmpfs to accelerate, experimental
+                        feature, use it if you have more than 4G memory
+  --strict-mode         Abort creation of image, if there are some errors
+                        during rpm installation.
+  --use-mic-in-bootstrap
+                        This option works in bootstrap runtime mode, Use mic
+                        in bootstrap to create image. By default, copy host
+                        mic to bootstrap and use it.
+  -d, --debug           debug output
+  -v, --verbose         verbose output
+  -i, --interactive     interactive output
+  --run_script RUN_SCRIPT
+                        Run script on mic bootstrap after image created
+  --tpk_install TPK_INSTALL
+                        Copy tpk file to /usr/apps/.preload-tpk
+  --rpm-debug           Set debug mode for rpm install
+  --skip-set-hosts      choose to skip set hosts by mic
+  --postscripts-maxruntime POSTSCRIPTS_MAXRUNTIME
+                        max run time for post scripts
+  --block-recommends    Do not install recommended packages
+WARNING: cannot find config file: /etc/mic/mic.conf

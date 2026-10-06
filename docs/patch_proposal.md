@@ -1,6 +1,6 @@
 # 补丁方案（阶段稿，未实施）
 
-2026-10-06 的 `sudo -n true` 返回“需要密码”（`evidence/sudo_check.txt`）。依用户明确要求，本轮停止在复现前；以下为根据已确认代码缺陷整理的设计，**不是已交付/已验证 patch**。`patches/` 暂不放伪完成补丁。真实 ENOSPC、OOM 和完整 mic 基线尚未执行。
+2026-10-06 的 `sudo -n true` 返回“需要密码”（`evidence/sudo_check.txt`）。依用户明确要求，本轮停止在复现前；以下为根据已确认代码缺陷整理的设计，**不是已交付/已验证 patch**。`patches/` 暂不放伪完成补丁。真实ENOSPC/OOM和完整mic基线尚未完成。stage2a新增两份真实QB缺文件traceback并修正首次baseline的parser错误；只读参数验证通过，未新增实际源码patch。
 
 ## 已确认需要修复的部分
 
