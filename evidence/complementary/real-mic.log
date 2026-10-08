@@ -1,0 +1,5 @@
+[10/08 12:01:40 CST] Running command: /usr/bin/python3 -c 'import sys;sys.stderr.write('"'"'raw stderr marker\n  trailing spaces  \n'"'"');sys.exit(1)'
+[10/08 12:01:40 CST] Command failed: rc=1 cmd=/usr/bin/python3 -c 'import sys;sys.stderr.write('"'"'raw stderr marker\n  trailing spaces  \n'"'"');sys.exit(1)'
+[10/08 12:01:40 CST] raw stderr marker
+  trailing spaces  
+

@@ -1,0 +1,16 @@
+   96 docs/analysis_report.md
+   87 docs/baseline.md
+   62 docs/code_reading.md
+   80 docs/complementary.patch
+  161 docs/downloads.md
+  592 docs/hq_patch_review.md
+  133 docs/log_forensics.md
+   64 docs/mic_local.py
+    6 docs/need_sudo.sh
+   31 docs/patch_proposal.md
+  686 docs/qb_console_forensics.md
+   25 docs/repository_workflow.md
+   22 docs/sampler.py
+  115 docs/signature_experiment.md
+   48 docs/sparse_experiment.md
+   43 docs/status.md

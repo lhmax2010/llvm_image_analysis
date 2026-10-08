@@ -1,0 +1,173 @@
+From c446578d87b055984e5eeca04e2f485436f55759 Mon Sep 17 00:00:00 2001
+From: Jaehoon Chung <jh80.chung@samsung.com>
+Date: Wed, 7 Oct 2026 17:45:16 +0900
+Subject: [PATCH] Improve toybox compatibility and sparse file handling during
+ packaging
+
+- Update get_file_size() in mic/utils/misc.py to use native os.stat
+  for files and add POSIX du -s -k fallback for directories, ensuring
+  compatibility with toybox and busybox.
+- Run fallocate -d in mic/imager/loop.py to restore sparse holes in
+  image files before packaging.
+- Apply sparse archiving (tar -S) with fallback in mic/archive.py to
+  prevent expanding sparse holes and avoid disk space exhaustion.
+- Verify exit codes in compression functions (_do_gzip, _do_bzip2,
+  _do_lzop, _do_zstd) to ensure failures are raised explicitly.
+
+Signed-off-by: Jaehoon Chung <jh80.chung@samsung.com>
+---
+ mic/archive.py     | 33 +++++++++++++++++++++++++++------
+ mic/imager/loop.py |  8 ++++++--
+ mic/utils/misc.py  | 40 ++++++++++++++++++++++++++++------------
+ 3 files changed, 61 insertions(+), 20 deletions(-)
+
+diff --git a/mic/archive.py b/mic/archive.py
+index b9ea5cf..32672b1 100644
+--- a/mic/archive.py
++++ b/mic/archive.py
+@@ -99,7 +99,10 @@ def _do_gzip(input_name, compression=True):
+     else:
+         cmdln = [compressor, "-d", "-f", input_name]
+ 
+-    _call_external(cmdln)
++    (returncode, stdout, stderr) = _call_external(cmdln)
++    if returncode != 0:
++        msg = stdout.decode() if isinstance(stdout, bytes) else (stdout or "")
++        raise OSError("Compress/Decompress command failed: %s (exit code %d): %s" % (" ".join(cmdln), returncode, msg))
+ 
+     if compression:
+         output_name = input_name + ".gz"
+@@ -126,7 +129,10 @@ def _do_bzip2(input_name, compression=True):
+     else:
+         cmdln = [compressor, "-d", "-f", input_name]
+ 
+-    _call_external(cmdln)
++    (returncode, stdout, stderr) = _call_external(cmdln)
++    if returncode != 0:
++        msg = stdout.decode() if isinstance(stdout, bytes) else (stdout or "")
++        raise OSError("Compress/Decompress command failed: %s (exit code %d): %s" % (" ".join(cmdln), returncode, msg))
+ 
+     if compression:
+         output_name = input_name + ".bz2"
+@@ -150,7 +156,10 @@ def _do_lzop(input_name, compression=True):
+     else:
+         cmdln = [compressor, "-d", "-f", "-U", input_name]
+ 
+-    _call_external(cmdln)
++    (returncode, stdout, stderr) = _call_external(cmdln)
++    if returncode != 0:
++        msg = stdout.decode() if isinstance(stdout, bytes) else (stdout or "")
++        raise OSError("Compress/Decompress command failed: %s (exit code %d): %s" % (" ".join(cmdln), returncode, msg))
+ 
+     if compression:
+         output_name = input_name + ".lzo"
+@@ -177,7 +186,10 @@ def _do_zstd(input_name, compression=True):
+     else:
+         cmdln = [compressor, "--rm", "-d", "-f", input_name]
+ 
+-    _call_external(cmdln)
++    (returncode, stdout, stderr) = _call_external(cmdln)
++    if returncode != 0:
++        msg = stdout.decode() if isinstance(stdout, bytes) else (stdout or "")
++        raise OSError("Compress/Decompress command failed: %s (exit code %d): %s" % (" ".join(cmdln), returncode, msg))
+ 
+     if compression:
+         output_name = input_name + ".zst"
+@@ -287,9 +299,18 @@ def _do_tar(archive_name, target_name):
+     from mic.utils import misc
+     misc.show_tar_diagnostics("/var/tmp")
+ 
+-    cmdln = ["tar", "-C", target_dir, "-cf", archive_name]
++    # Try creating archive with sparse support (-S) first to save disk space
++    cmdln = ["tar", "-S", "-C", target_dir, "-cf", archive_name]
+     cmdln.extend(file_list)
+-    _call_external(cmdln)
++    (returncode, stdout, stderr) = _call_external(cmdln)
++    if returncode != 0:
++        # Fallback without -S for tar implementations without sparse support (e.g. toybox tar)
++        cmdln = ["tar", "-C", target_dir, "-cf", archive_name]
++        cmdln.extend(file_list)
++        (returncode, stdout, stderr) = _call_external(cmdln)
++        if returncode != 0:
++            msg = stdout.decode() if isinstance(stdout, bytes) else (stdout or "")
++            raise OSError("Tar command failed: %s (exit code %d): %s" % (" ".join(cmdln), returncode, msg))
+ 
+     return archive_name
+ 
+diff --git a/mic/imager/loop.py b/mic/imager/loop.py
+index 1d71f78..1d23e79 100644
+--- a/mic/imager/loop.py
++++ b/mic/imager/loop.py
+@@ -517,10 +517,14 @@ class LoopImageCreator(BaseImageCreator):
+             else:
+                 self.image_files.setdefault('image_files', []).append(item['name'])
+ 
++        fallocate = fs.find_binary_path("fallocate")
+         for item in os.listdir(self._imgdir):
+             imgfile = os.path.join(self._imgdir, item)
+-            imgsize = os.path.getsize(imgfile)
+-            msger.info("filesystem size of %s : %s bytes" % (item, imgsize))
++            if os.path.isfile(imgfile):
++                if fallocate:
++                    runner.quiet([fallocate, "-d", imgfile])
++                imgsize = os.path.getsize(imgfile)
++                msger.info("filesystem size of %s : %s bytes" % (item, imgsize))
+ 
+         self.run_sign_scripts()
+         if not self.pack_to:
+diff --git a/mic/utils/misc.py b/mic/utils/misc.py
+index 185fe08..6162750 100644
+--- a/mic/utils/misc.py
++++ b/mic/utils/misc.py
+@@ -405,20 +405,36 @@ def get_image_type(path):
+ 
+ 
+ def get_file_size(filename):
+-    """ Return size in MB unit """
+-    cmd = ['du', "-s", "-b", "-B", "1M", filename]
+-    rc, duOutput  = runner.runtool(cmd)
+-    if rc != 0:
+-        raise CreatorError("Failed to run: %s" % ' '.join(cmd))
+-    size1 = int(duOutput.split()[0])
++    """ Return size in MB unit (compatible with GNU coreutils, toybox, and busybox) """
++    import math
+ 
+-    cmd = ['du', "-s", "-B", "1M", filename]
+-    rc, duOutput = runner.runtool(cmd)
++    if os.path.isfile(filename):
++        try:
++            st = os.stat(filename)
++            size_apparent = math.ceil(st.st_size / (1024 * 1024))
++            size_allocated = math.ceil((st.st_blocks * 512) / (1024 * 1024))
++            return max(size_apparent, size_allocated, 1)
++        except OSError:
++            pass
++
++    # Try GNU du options first
++    cmd1 = ['du', "-s", "-b", "-B", "1M", filename]
++    rc1, duOutput1 = runner.runtool(cmd1)
++    cmd2 = ['du', "-s", "-B", "1M", filename]
++    rc2, duOutput2 = runner.runtool(cmd2)
++
++    if rc1 == 0 and rc2 == 0:
++        size1 = int(duOutput1.split()[0])
++        size2 = int(duOutput2.split()[0])
++        return max(size1, size2)
++
++    # Fallback to POSIX standard 'du -s -k' (compatible with toybox, busybox, etc.)
++    cmd_posix = ['du', "-s", "-k", filename]
++    rc, duOutput = runner.runtool(cmd_posix)
+     if rc != 0:
+-        raise CreatorError("Failed to run: %s" % ' '.join(cmd))
+-
+-    size2 = int(duOutput.split()[0])
+-    return max(size1, size2)
++        raise CreatorError("Failed to run: %s" % ' '.join(cmd_posix))
++    size_kb = int(duOutput.split()[0])
++    return max(int(math.ceil(size_kb / 1024.0)), 1)
+ 
+ 
+ def get_filesystem_avail(fs):
+-- 
+2.43.0
+

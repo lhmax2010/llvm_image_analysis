@@ -1,0 +1,66 @@
+[
+  {
+    "path": "work/sparse/extract-normal/filesystem.img",
+    "absolute_path": "/home/linhao/Toolchain/development/llvm_image_analysis/work/sparse/extract-normal/filesystem.img",
+    "bytes": 2147483648,
+    "sha256": "470f71672d4236200a452921708ab681b5f92bf5270c74218c4f4f43e4f3410c",
+    "source_url": null,
+    "generation": "Rootless truncate/mkfs.ext4/debugfs/tar/gzip/extraction; evidence/sparse/run_experiment.py"
+  },
+  {
+    "path": "work/sparse/extract-sparse/filesystem.img",
+    "absolute_path": "/home/linhao/Toolchain/development/llvm_image_analysis/work/sparse/extract-sparse/filesystem.img",
+    "bytes": 2147483648,
+    "sha256": "470f71672d4236200a452921708ab681b5f92bf5270c74218c4f4f43e4f3410c",
+    "source_url": null,
+    "generation": "Rootless truncate/mkfs.ext4/debugfs/tar/gzip/extraction; evidence/sparse/run_experiment.py"
+  },
+  {
+    "path": "work/sparse/filesystem.img",
+    "absolute_path": "/home/linhao/Toolchain/development/llvm_image_analysis/work/sparse/filesystem.img",
+    "bytes": 2147483648,
+    "sha256": "470f71672d4236200a452921708ab681b5f92bf5270c74218c4f4f43e4f3410c",
+    "source_url": null,
+    "generation": "Rootless truncate/mkfs.ext4/debugfs/tar/gzip/extraction; evidence/sparse/run_experiment.py"
+  },
+  {
+    "path": "work/sparse/normal.tar",
+    "absolute_path": "/home/linhao/Toolchain/development/llvm_image_analysis/work/sparse/normal.tar",
+    "bytes": 2147491840,
+    "sha256": "31f196d9d2067b44d3faf88667f871f728f6a855c989fd8f4d20c4f301d0e33f",
+    "source_url": null,
+    "generation": "Rootless truncate/mkfs.ext4/debugfs/tar/gzip/extraction; evidence/sparse/run_experiment.py"
+  },
+  {
+    "path": "work/sparse/normal.tar.gz",
+    "absolute_path": "/home/linhao/Toolchain/development/llvm_image_analysis/work/sparse/normal.tar.gz",
+    "bytes": 630732468,
+    "sha256": "f863261ade91597e306d6e65c8cc8209fa2c99fbfdf7d731cbabda9232c3130a",
+    "source_url": null,
+    "generation": "Rootless truncate/mkfs.ext4/debugfs/tar/gzip/extraction; evidence/sparse/run_experiment.py"
+  },
+  {
+    "path": "work/sparse/random-payload.bin",
+    "absolute_path": "/home/linhao/Toolchain/development/llvm_image_analysis/work/sparse/random-payload.bin",
+    "bytes": 629145600,
+    "sha256": "28a9fd4201fea49221e90429da78ad1ef02974ecfbd4b83a3e7872dc7c93262b",
+    "source_url": null,
+    "generation": "Rootless truncate/mkfs.ext4/debugfs/tar/gzip/extraction; evidence/sparse/run_experiment.py"
+  },
+  {
+    "path": "work/sparse/sparse.tar",
+    "absolute_path": "/home/linhao/Toolchain/development/llvm_image_analysis/work/sparse/sparse.tar",
+    "bytes": 697487360,
+    "sha256": "c1d015687390f69418fc89403b2fa725fbd25e5f26a511f138f464193ecaef80",
+    "source_url": null,
+    "generation": "Rootless truncate/mkfs.ext4/debugfs/tar/gzip/extraction; evidence/sparse/run_experiment.py"
+  },
+  {
+    "path": "work/sparse/sparse.tar.gz",
+    "absolute_path": "/home/linhao/Toolchain/development/llvm_image_analysis/work/sparse/sparse.tar.gz",
+    "bytes": 629320754,
+    "sha256": "cc5fd0a5e38af1231be0a90173a1e5433cf64fcb9c83f509f4693264efe23a1b",
+    "source_url": null,
+    "generation": "Rootless truncate/mkfs.ext4/debugfs/tar/gzip/extraction; evidence/sparse/run_experiment.py"
+  }
+]

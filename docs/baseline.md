@@ -1,3 +1,5 @@
+> 2026-10-08 方向调整：整镜像 baseline/space/oom 已取消。本文仅保留历史命令和非 root 启动取证；need_sudo.sh 已停用，以下历史配方不再执行，也不再要求 sudo。
+
 # 基线启动命令修正（stage2a2，2026-10-06）
 
 当前 `docs/need_sudo.sh` 使用 [mic_local.py](mic_local.py) 本地入口，`-c "$CONF"` 紧跟入口文件、在cr之前。入口先读取配置，再导入原始mic的插件管理器；转发给未修改的官方mic parser时，把-c放到其支持的create子命令参数位置。普通用户完整命令已执行到 `Root permission is required, abort`（rc2），没有插件目录或不支持loop警告；实际loop插件加载另行验证通过。所有验证都没有sudo、没有整镜像、没有绕过root检查。

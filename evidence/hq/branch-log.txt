@@ -1,0 +1,15 @@
+eadc8fd Support optional sparse tar archiving via kickstart and CLI
+c446578 Improve toybox compatibility and sparse file handling during packaging
+3cc580e Add diagnostics for /var/tmp usage and ulimit before tar operations
+15c21cd Fix F2FS compression option application failure
+cbbfcba Use pipe+tee to display stderr on terminal in real-time while logging to file with --logfile.
+acb42cf merge from tools/mic: 4f94c53a2a0f66b97608d8ab83037d0c9d179f44
+2f158fb Merge all python3 style code from tools/mic  to platform mic
+edffcba Upgrade version to 2.1.0
+ce3d635 Fix multiple bugs: btrfs/cpio check, len(None) error, python 3.13 compatibility
+51ea49b Support zstd compression in mic to pack image
+92efcf8 Add erofs support and load filesystem kernel module on host pc
+ab0153d Fix mic run error with python 3.13 or upper version
+4769f54 merge tizen branch code
+553841c Add --vfatoptions to part command
+3fdfcc2 Fix run error for erofs file system when erofs option have compress level

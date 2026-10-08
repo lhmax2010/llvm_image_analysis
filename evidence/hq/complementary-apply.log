@@ -1,0 +1,11 @@
+Hmm...  Looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- a/mic/archive.py
+|+++ b/mic/archive.py
+--------------------------
+patching file mic/archive.py
+Using Plan A...
+Hunk #1 succeeded at 32.
+Hunk #2 succeeded at 66.
+done

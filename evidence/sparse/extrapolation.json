@@ -1,0 +1,9 @@
+{
+  "reference_logical_bytes": 2580786618,
+  "reference_tar_model_bytes": 2580797440,
+  "reference_gzip_bytes": 696473433,
+  "experiment_sparse_to_normal_tar_ratio": 0.32479162295676056,
+  "same_allocation_fraction_estimated_tar_bytes": 838221389,
+  "same_sparse_tar_to_gzip_ratio_estimated_tar_bytes": 771913866,
+  "limits": "Both are conditional extrapolations, not measurements or bounds for the worker. Compression ratio does not determine allocated blocks."
+}

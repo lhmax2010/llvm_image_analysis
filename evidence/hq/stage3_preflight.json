@@ -1,0 +1,22 @@
+{
+  "files": 370,
+  "tracked_bytes": 16426330,
+  "largest_staged_file_bytes": 1884792,
+  "snapshot_entries_verified": 77,
+  "problems": [],
+  "credential_pattern_findings": [],
+  "shell_and_sampler_syntax": "通过；未执行sudo复现",
+  "report_date": "2026-10-08",
+  "stage3_complete": true,
+  "sparse_experiment": "all commands rc=0, extraction hashes and holes verified",
+  "HQ_clone": "git protocol success; SSH not used; no credential recorded",
+  "HQ_patch_direct_2_1_3": "c446 and eadc each fail one archive hunk; original patches unchanged",
+  "HQ_stack": "real 3cc580e dependency + c446578 + eadc8fd5 succeeds; raw offset17; no fuzz",
+  "complementary": "only imports/_call_external edited; verified both stack and Gerrit HEAD; original HQ changed blocks unchanged",
+  "rootless_cases": 28,
+  "actual_mic_logger_import_and_CreatorError": "passed",
+  "parser_cases": 10,
+  "large_files": "all workspace >5MB paths ignored; source Git pack registered",
+  "whitespace": "authored documentation/scripts passed; original mkfs outputs/upstream snapshots/format-patches/raw stderr preserved byte-for-byte including whitespace",
+  "commit_push": "next authorized action: commit stage3 and push; verify remote reference afterward"
+}

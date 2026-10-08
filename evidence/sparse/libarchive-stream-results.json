@@ -1,0 +1,27 @@
+{
+  "library": "libarchive 3.7.2",
+  "scope": "archive_read_data sequential host API; no lthor USB/device test",
+  "cases": [
+    {
+      "archive": "normal.tar",
+      "member_logical_bytes": 2147483648,
+      "sequential_bytes": 2147483648,
+      "sha256": "470f71672d4236200a452921708ab681b5f92bf5270c74218c4f4f43e4f3410c",
+      "seconds": 1.087257551989751
+    },
+    {
+      "archive": "sparse.tar",
+      "member_logical_bytes": 2147483648,
+      "sequential_bytes": 2147483648,
+      "sha256": "470f71672d4236200a452921708ab681b5f92bf5270c74218c4f4f43e4f3410c",
+      "seconds": 0.6952924040087964
+    },
+    {
+      "archive": "sparse.tar.gz",
+      "member_logical_bytes": 2147483648,
+      "sequential_bytes": 2147483648,
+      "sha256": "470f71672d4236200a452921708ab681b5f92bf5270c74218c4f4f43e4f3410c",
+      "seconds": 1.7886158329783939
+    }
+  ]
+}

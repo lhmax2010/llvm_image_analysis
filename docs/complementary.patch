@@ -1,0 +1,80 @@
+--- a/mic/archive.py
++++ b/mic/archive.py
+@@ -32,6 +32,8 @@
+ import shutil
+ import tempfile
+ import subprocess
++import shlex
++from mic.utils.errors import CreatorError
+ from mic import msger
+ 
+ __all__ = [
+@@ -64,23 +66,51 @@
+     return None
+ 
+ def _call_external(cmdln_or_args):
+-    """ Wapper for subprocess calls.
+-
+-    @cmdln_or_args: command line to be joined before execution.
+-    @retval: a tuple (returncode, outdata, errdata).
+-    """
+-    if isinstance(cmdln_or_args, list):
+-        shell = False
+-    else:
+-        shell = True
+-    msger.info("Running command: " + " ".join(cmdln_or_args))
+-
+-    proc = subprocess.Popen(cmdln_or_args, shell=shell,
+-                            stdout=subprocess.PIPE,
+-                            stderr=subprocess.STDOUT)
+-    (outdata, errdata) = proc.communicate()
+-
+-    return (proc.returncode, outdata, errdata)
++    """Run external commands; log failures and preserve HQ sparse-tar fallback.
++
++    Return (rc, combined output, stderr). Nonzero rc raises CreatorError,
++    except the first tar -S attempt, whose rc is needed by HQ's fallback.
++    """
++    shell = not isinstance(cmdln_or_args, list)
++    args = shlex.split(cmdln_or_args) if shell else cmdln_or_args
++    command = cmdln_or_args if shell else " ".join(shlex.quote(arg) for arg in args)
++    binary = os.path.basename(args[0]) if args else ""
++    compressors = ("gzip", "pigz", "bzip2", "pbzip2", "lzop", "zstd")
++
++    if binary in compressors and "-d" not in args and len(args) > 1:
++        input_name = os.path.abspath(args[-1])
++        output_dir = os.path.dirname(input_name)
++        try:
++            usage = shutil.disk_usage(output_dir)
++            msger.info("Before compression: input=%s input_bytes=%d "
++                       "output_dir=%s free_bytes=%d" %
++                       (input_name, os.path.getsize(input_name), output_dir, usage.free))
++        except OSError as err:
++            msger.warning("Compression disk diagnostic failed: %s" % err)
++
++    msger.info("Running command: " + command)
++    try:
++        proc = subprocess.Popen(cmdln_or_args, shell=shell,
++                                stdout=subprocess.PIPE, stderr=subprocess.PIPE)
++        outdata, errdata = proc.communicate()
++    except OSError as err:
++        msger.warning("Command could not start: %s: %s" % (command, err))
++        raise CreatorError("Command could not start: %s: %s" % (command, err))
++
++    combined = (outdata or b"") + (errdata or b"")
++    if proc.returncode != 0:
++        msger.warning("Command failed: rc=%d cmd=%s" % (proc.returncode, command))
++        if errdata:
++            # Raw text logging keeps the subprocess stderr, without trimming.
++            msger.raw(errdata.decode("utf-8", errors="replace"))
++        if outdata:
++            msger.raw(outdata.decode("utf-8", errors="replace"))
++        if not (binary == "tar" and "-S" in args):
++            tail = "\n".join(combined.decode("utf-8", errors="replace").splitlines()[-20:])
++            raise CreatorError("Command failed: rc=%d cmd=%s\n%s" %
++                               (proc.returncode, command, tail))
++
++    return (proc.returncode, combined, errdata)
+ 
+ def _do_gzip(input_name, compression=True):
+     """ Compress/decompress the file with 'gzip' utility.

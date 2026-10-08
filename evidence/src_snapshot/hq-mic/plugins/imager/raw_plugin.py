@@ -1,0 +1,228 @@
+#!/usr/bin/python3 -tt
+#
+# Copyright (c) 2011 Intel, Inc.
+#
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; version 2 of the License
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+# or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+# for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc., 59
+# Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+import os
+import subprocess
+import shutil
+import re
+import tempfile
+
+from mic import chroot, msger, rt_util
+from mic.utils import misc, fs_related, errors, runner
+from mic.plugin import pluginmgr
+from mic.utils.partitionedfs import PartitionedMount
+
+import mic.imager.raw as raw
+
+from mic.pluginbase import ImagerPlugin
+class RawPlugin(ImagerPlugin):
+    name = 'raw'
+
+    @classmethod
+    def do_create(self, args):
+        """${cmd_name}: create raw image
+        """
+
+        creatoropts, pkgmgr, recording_pkgs = rt_util.prepare_create(args)
+
+        creator = raw.RawImageCreator(creatoropts, pkgmgr, args.compress_image,
+                                      args.generate_bmap, args.fstab_entry)
+
+        if len(recording_pkgs) > 0:
+            creator._recording_pkgs = recording_pkgs
+
+        images = ["%s-%s.raw" % (creator.name, disk_name)
+                  for disk_name in creator.get_disk_names()]
+        self.check_image_exists(creator.destdir,
+                                creator.pack_to,
+                                images,
+                                creatoropts['release'])
+
+        try:
+            creator.check_depend_tools()
+            creator.mount(None, creatoropts["cachedir"])
+            creator.install()
+            creator.tpkinstall()
+            creator.configure(creatoropts["repomd"])
+            creator.copy_kernel()
+            creator.unmount()
+            creator.generate_bmap()
+            creator.package(creatoropts["destdir"])
+            creator.create_manifest()
+            if creatoropts['release'] is not None:
+                creator.release_output(args.ksfile, creatoropts['destdir'], creatoropts['release'])
+            creator.print_outimage_info()
+
+        except errors.CreatorError:
+            raise
+        finally:
+            creator.cleanup()
+
+        #Run script of --run_script after image created
+        if creatoropts['run_script']:
+            cmd = creatoropts['run_script']
+            try:
+                runner.show(cmd)
+            except OSError as err:
+                msger.warning(str(err))
+
+
+        msger.info("Finished.")
+        return 0
+
+    @classmethod
+    def do_chroot(cls, target, cmd=[]):
+        img = target
+        imgsize = misc.get_file_size(img) * 1024 * 1024
+        partedcmd = fs_related.find_binary_path("parted")
+        disk = fs_related.SparseLoopbackDisk(img, imgsize)
+        imgmnt = misc.mkdtemp()
+        imgloop = PartitionedMount(imgmnt, skipformat = True)
+        imgloop.add_disk('/dev/sdb', disk)
+        img_fstype = "ext3"
+
+        msger.info("Partition Table:")
+        partnum = []
+        for line in runner.outs([partedcmd, "-s", img, "print"]).splitlines():
+            # no use strip to keep line output here
+            if "Number" in line:
+                msger.raw(line)
+            if line.strip() and line.strip()[0].isdigit():
+                partnum.append(line.strip()[0])
+                msger.raw(line)
+
+        rootpart = None
+        if len(partnum) > 1:
+            rootpart = msger.choice("please choose root partition", partnum)
+
+        # Check the partitions from raw disk.
+        # if choose root part, the mark it as mounted
+        if rootpart:
+            root_mounted = True
+        else:
+            root_mounted = False
+        partition_mounts = 0
+        for line in runner.outs([ partedcmd, "-s", img, "unit", "B", "print" ]).splitlines():
+            line = line.strip()
+
+            # Lines that start with number are the partitions,
+            # because parted can be translated we can't refer to any text lines.
+            if not line or not line[0].isdigit():
+                continue
+
+            # Some vars have extra , as list seperator.
+            line = line.replace(",","")
+
+            # Example of parted output lines that are handled:
+            # Number  Start        End          Size         Type     File system    Flags
+            #  1      512B         3400000511B  3400000000B  primary
+            #  2      3400531968B  3656384511B  255852544B   primary  linux-swap(v1)
+            #  3      3656384512B  3720347647B  63963136B    primary  fat16          boot, lba
+
+            partition_info = re.split(r"\s+", line)
+
+            size = partition_info[3].split("B")[0]
+
+            if len(partition_info) < 6 or partition_info[5] in ["boot"]:
+                # No filesystem can be found from partition line. Assuming
+                # btrfs, because that is the only MeeGo fs that parted does
+                # not recognize properly.
+                # TODO: Can we make better assumption?
+                fstype = "btrfs"
+            elif partition_info[5] in [ "ext2", "ext3", "ext4", "btrfs", "f2fs", "erofs" ]:
+                fstype = partition_info[5]
+            elif partition_info[5] in [ "fat16", "fat32" ]:
+                fstype = "vfat"
+            elif "swap" in partition_info[5]:
+                fstype = "swap"
+            else:
+                raise errors.CreatorError("Could not recognize partition fs type '%s'." %
+                        partition_info[5])
+
+            if rootpart and rootpart == line[0]:
+                mountpoint = '/'
+            elif not root_mounted and fstype in [ "ext2", "ext3", "ext4", "btrfs", "f2fs", "erofs" ]:
+                # TODO: Check that this is actually the valid root partition from /etc/fstab
+                mountpoint = "/"
+                root_mounted = True
+            elif fstype == "swap":
+                mountpoint = "swap"
+            else:
+                # TODO: Assing better mount points for the rest of the partitions.
+                partition_mounts += 1
+                mountpoint = "/media/partition_%d" % partition_mounts
+
+            if "boot" in partition_info:
+                boot = True
+            else:
+                boot = False
+
+            msger.verbose("Size: %s Bytes, fstype: %s, mountpoint: %s, boot: %s" %
+                    (size, fstype, mountpoint, boot))
+            # TODO: add_partition should take bytes as size parameter.
+            imgloop.add_partition((int)(size)/1024/1024, "/dev/sdb", mountpoint,
+                    fstype = fstype, boot = boot)
+
+        try:
+            imgloop.mount()
+
+        except errors.MountError:
+            imgloop.cleanup()
+            raise
+
+        try:
+            if cmd is not None and len(cmd) != 0:
+                cmdline = ' '.join(cmd)
+            else:
+                cmdline = "/bin/bash"
+            envcmd = fs_related.find_binary_inchroot("env", imgmnt)
+            if envcmd:
+                cmdline = "%s HOME=/root %s" % (envcmd, cmdline)
+            chroot.chroot(imgmnt, None, cmdline)
+        except:
+            raise errors.CreatorError("Failed to chroot to %s." %img)
+        finally:
+            chroot.cleanup_after_chroot("img", imgloop, None, imgmnt)
+
+    @classmethod
+    def do_unpack(cls, srcimg):
+        srcimgsize = (misc.get_file_size(srcimg)) * 1024 * 1024
+        srcmnt = misc.mkdtemp("srcmnt")
+        disk = fs_related.SparseLoopbackDisk(srcimg, srcimgsize)
+        srcloop = PartitionedMount(srcmnt, skipformat = True)
+
+        srcloop.add_disk('/dev/sdb', disk)
+        srcloop.add_partition(srcimgsize/1024/1024, "/dev/sdb", "/", "ext3", boot=False)
+        try:
+            srcloop.mount()
+
+        except errors.MountError:
+            srcloop.cleanup()
+            raise
+
+        image = os.path.join(tempfile.mkdtemp(dir = "/var/tmp", prefix = "tmp"), "target.img")
+        args = ['dd', "if=%s" % srcloop.partitions[0]['device'], "of=%s" % image]
+
+        msger.info("`dd` image ...")
+        rc = runner.show(args)
+        srcloop.cleanup()
+        shutil.rmtree(os.path.dirname(srcmnt), ignore_errors = True)
+
+        if rc != 0:
+            raise errors.CreatorError("Failed to dd")
+        else:
+            return image

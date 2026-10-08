@@ -1,0 +1,8 @@
+来源：Tizen tools 官方 lthor 3.4 release source archive
+远端 URL：https://download.tizen.org/tools/latest-release/Ubuntu_24.04/lthor_3.4.tar.gz
+版本：3.4
+分支/commit/checkout 时间：不适用；下载归档，不是 Git checkout
+取得日期：2026-10-08（客户端日期）
+归档 sha256：e555fc934fbeb66be55e1cd74e4f7f8ed43607cfbee44f86e77cae1186ce4c42
+本地完整源码：downloads/src/lthor-3.4/BUILD/
+仅快照分析依赖文件；未安装或运行刷写程序。

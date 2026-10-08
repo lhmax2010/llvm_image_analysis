@@ -1,44 +1,31 @@
-# 补丁方案（阶段稿，未实施）
+# 总部后态的实际补充补丁（2026-10-08，stage3）
 
-2026-10-06 的 `sudo -n true` 返回“需要密码”（`evidence/sudo_check.txt`）。依用户明确要求，本轮停止在复现前；以下为根据已确认代码缺陷整理的设计，**不是已交付/已验证 patch**。`patches/` 暂不放伪完成补丁。真实ENOSPC/OOM和完整mic基线尚未完成。stage2a新增两份真实QB缺文件traceback并修正首次baseline的parser错误；只读参数验证通过，未新增实际源码patch。
+交付 [complementary.patch](complementary.patch)，只改mic/archive.py imports和_call_external。总部真实c446578已加四压缩/解压函数rc检查，不重复改它们；eadc8fd5的开关与tar回退代码也保留。完整逐行评审及真实diff/hunk见 [hq_patch_review.md](hq_patch_review.md)。流式只作可选方案，未实现。
 
-## 已确认需要修复的部分
+## 基线及叠加
 
-`evidence/src_snapshot/mic/mic/archive.py` L66–83 捕获 rc 和输出，L102、129、153、180、289 丢弃它们；L346 未验证结果直接 move。已用原始源码和 fake gzip 验证 rc=1 与 -9 被折叠成相同缺文件异常，见 `evidence/original_archive_probe.json`。
+两份Git导出patch对干净2.1.3单独dry-run都缺一个archive上下文hunk，不能假称“两份直接叠加”成功。先在work副本补齐真实3cc580e诊断依赖，再依次原样apply c446578、eadc8fd5；不编辑总部patch。我们的候选diff dry-run成功后才写正式docs文件，并apply到work副本，真实Gerrit HEAD同样dry-run成功。见 [验证JSON](../evidence/hq/complementary-validation.json)、[HQ HEAD dry-run](../evidence/hq/complementary-gerrit-dryrun.log)。downloads/src/mic及总部clone未修改。
 
-拟直接修改 mic 源码，而不是使用 bootstrap 的字符串替换脚本：
+## 实际改变
 
-1. 统一所有外部压缩、解压和 tar 调用的返回码检查。保留命令参数列表、不经 shell；出错信息包含子进程 rc、完整安全转义命令、stderr 最后20行（设置总字节上限）。`rc=-9` 标注 SIGKILL，不能直接写成 OOM；其他负 rc 同样标注对应 signal。错误派生自 `CreatorError` 并在发生处写入 msger，确保 QB 的 mic.log 也看得到。stdout/stderr 独立捕获并解码，修正 `_do_untar` 的 bytes/None join。长输出使用有界读取/环形缓冲，避免 `communicate()` 对未知大输出造成额外内存。
-2. `_make_tarball` 对内置 gz/bz2/lzo/zstd 压缩器使用流式管道：GNU `tar -C ... -cf - -- <files>` → `gzip/pigz -c` 等 → 同一目标目录的安全临时压缩文件。不落完整中间 `.tar`。不使用 shell，不加 `--sparse`，保留普通 tar 可刷写语义。
-3. 必须等待并分别检查 tar 与压缩器的 rc。压缩器出错导致 tar SIGPIPE 时，优先报告下游原始写失败/SIGKILL，并附 tar rc，避免误判根因。启动第二个进程失败时关闭管道、终止并回收已经启动的 tar；中途异常也回收两端，避免孤儿进程。
-4. 用 mkstemp 取代 mktemp；最终发布前检查产物存在，只有完整成功才原子 replace。失败清理半成品，保留已有最终文件。tar 不存在的 Python tarfile fallback 与未知自定义 compressor 回调维持兼容但同样做输出存在检查、失败清理；单文件 compress/decompress 不强制流式，但统一 rc 检查。
-5. 在共享 make_archive 层打包前和 finally 中各记录 `df -B1 <输入/暂存目录>` 与 `free -m`，两者 rc/输出都注明；资源诊断失败不能覆盖原始打包异常。如需最终 CLI outdir 的 df，可在 package 调用层另加。`free -m` 是宿主视角，cgroup memory.current/events 仍应由 QB worker 收集。
-6. 共享 archive 层被 loop、raw、fs 等 imager 使用，需要回归 tar/gztar/bztar/lzotar/zsttar 及单文件压缩/解压。现版本 `_do_zstd` 用于 zsttar，`_COMPRESS_FORMATS` 没有 zstd 注册，不顺便扩大 CLI 功能。
+1. _call_external保留返回tuple接口。stdout/stderr分别communicate，兼容字段outdata返回stdout+stderr；非零先warning记录rc和安全引用完整命令，raw记录未截断stderr与stdout，再抛CreatorError，异常包含输出末20行。启动失败同样抛CreatorError，不调用会直接sys.exit(2)的msger.error。
+2. 压缩前对gzip/pigz/bzip2/pbzip2/lzop/zstd取得实际输入文件大小和其输出目录shutil.disk_usage.free，写入日志。输入为中间.tar时就是用户要求的.tar大小。解压不误记该日志；查询失败warning，仍允许原命令报告实际失败。不是容量保证，不因未压缩输入大于free而提前拒绝。
+3. 唯一非零返回例外是tar -S初次尝试，供总部旧代码回退普通tar；stderr仍记录。若这里统一先抛错会破坏HQ兼容性，因此保留例外。普通tar最终非零、四种压缩及解压非零均抛CreatorError。总部四函数已有rc检查保留，可在JSON核验函数块完全未改。
 
-## 磁盘收益的当前模型
+## 普通用户小测试
 
-来自成功日志的 I（五个镜像逻辑大小）=2,580,786,618 字节，估计 GNU tar T=2,580,797,440 字节，目录列示压缩包 C=696,473,433 字节：旧打包约 `I+T+C=5,858,057,491` 字节，新打包约 `I+C=3,277,260,051` 字节，减少约 **2.40 GiB，44%**。计算见 `evidence/disk_model.json`，原始证据见 `docs/log_forensics.md`。
+[test_archive.py](../evidence/complementary/test_archive.py) 的26例全部通过：gzip、pigz、bzip2、zstd、lzop各压缩/解压exit1及SIGKILL（20例），真实gzip roundtrip、成功tuple、拒-S后总部fallback、真实稀疏gztar roundtrip、完整_make_tarball两个失败保留既有最终文件。使用真实子进程，只有msger消息记录和HQ递归/var/tmp诊断stub；CreatorError使用真实基线模块。见 [results.json](../evidence/complementary/results.json)、[test.log](../evidence/complementary/test.log)。此外独立真实包导入/真实msger文件日志验证，stderr空白未截断保留，见 [真实日志](../evidence/complementary/real-mic.log)；另有未修改Gerrit代码两组gzip失败测试，确认总部自身已报告rc和输出。所有测试无root、挂载、整镜像。
 
-这不是完整基线实测，实际应将 I 换为分配块 I_alloc，并加缓存/bootstrap/安装目录等 O；如最终输出跨文件系统还需计入双份 C。不能在未复现的情况下声称已测得峰值或补丁已修复 QB。
+原stage2b真EFBIG/SIGKILL签名证明旧mic诊断缺陷，但不是新补丁测试；本次新测试单独记录。假stderr写入ENOSPC文本只验证日志通道，不能冒充真实ENOSPC复现。
 
-## sandbox 各项的采用边界
+## 副作用与残留风险
 
-|可见/待确认项|处理|理由与证据|
-|---|---|---|
-|bootstrap 强制 GNU tar|采用/保留|0917/0930 spec L95–99，1003 spec L104–108；保护 lthor 兼容性|
-|bootstrap 提供 pigz 2.8|采用/保留可选压缩器|1003 spec L20、60–65、102–103；提速，未降低中间 tar 的磁盘占用|
-|pigz `-p 2`|待拿到 sandbox 后评审；倾向改为可配置上限|只是任务举例，未知原补丁是否有该改动；本机20CPU探针默认17,392KiB、p2 3,800KiB，差13,592KiB，gzip1,804KiB，见 `evidence/compressor_probe.json`；不足以证明修复GiB级压力|
-|失败后只检查文件存在|采用为末端防御，不能代替 rc/stderr|否则仍不能区分ENOSPC、信号和tar失败|
-|bootstrap 中 patch_archive.py 文本替换|不能逐项评价；倾向迁至 mic 源码|没有取得脚本；三次运行还复制宿主mic，必须核实补丁在复制前后何时应用|
-|对 bzip2/zstd/lzop 一致处理|采用|原函数均存在同样丢弃rc的问题，不能只修gzip|
+- 分离stdout/stderr后按stdout+stderr合并，失去跨流时间交织；日志保留全部stderr，异常只取20行。非UTF8用replace转文本，不声称保留原始字节；communicate仍无界缓冲，未扩大为新的I/O架构。
+- CreatorError替代大多数OSError会被mic正式错误处理分支捕获，改进控制台/mic.log可读性；-9只写rc，不自动定OOM。
+- 总部任意-S失败后回退普通tar的策略未改，可能在ENOSPC时扩大再次写盘；初次失败已新增原文日志帮助识别。
+- 依本轮限定范围，mktemp、无独立move前存在/完整性检查、config字符串布尔正规化、fallocate缺失/rc处理、失败后df/free/cgroup采样均未实施。它们不再作为stage3未完成项，部署风险/后续项已在最终报告列明。
+- 容量耗尽仍可发生；总部稀疏容量方案是缓解，c446已部分修复错误处理，我们补齐日志渠道与领域异常，不宣称消除ENOSPC。
 
-## 待实施测试
+## 流式作为后续独立选项
 
-- fake gzip 输出 ENOSPC 并 exit1：新错误必须有 rc=1、命令、stderr原文，最终文件不得发布。
-- fake gzip 自杀 SIGKILL：新错误必须有 rc=-9/SIGKILL，不能叫作已证明OOM。
-- fake tar 非零、gzip成功退出：必须仍失败，不发布不完整包；同时检查管道回收。
-- 大于管道缓冲的输入、早退下游，验证不挂死及两个rc的优先级。
-- gzip/pigz/bzip2/zstd 可用路径的真实小文件 roundtrip（缺少可选工具时明确skip），确认tar内容完整且没有稀疏pax特征。
-- 无tar的Python fallback、目标文件已存在、含空格/以横线开头名称、假压缩器rc0却不产物等边界。
-
-现有 `evidence/probe_scripts/original_archive_probe.py`（原执行位置work/） 是旧行为取证脚本，不能冒充上述新行为回归测试。
+tar | gzip/pigz可默认关闭、独立于-S，并与-S叠加去掉整个中间tar。须分别检查两端rc、关闭管道并回收进程，兼顾SIGPIPE优先级、输出原子发布、并发RSS与gzip头部变化；稀疏格式消费端兼容性不因流式消失。本轮不生成流式diff。容量模型见 [sparse_experiment.md](sparse_experiment.md)。

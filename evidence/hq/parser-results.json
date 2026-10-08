@@ -1,0 +1,57 @@
+{
+  "CLI": [
+    {
+      "imager": "auto",
+      "option_present": false,
+      "sparse_tar": false
+    },
+    {
+      "imager": "auto",
+      "option_present": true,
+      "sparse_tar": true
+    },
+    {
+      "imager": "loop",
+      "option_present": false,
+      "sparse_tar": false
+    },
+    {
+      "imager": "loop",
+      "option_present": true,
+      "sparse_tar": true
+    },
+    {
+      "imager": "raw",
+      "option_present": false,
+      "sparse_tar": false
+    },
+    {
+      "imager": "raw",
+      "option_present": true,
+      "sparse_tar": true
+    },
+    {
+      "imager": "fs",
+      "option_present": false,
+      "sparse_tar": false
+    },
+    {
+      "imager": "fs",
+      "option_present": true,
+      "sparse_tar": true
+    }
+  ],
+  "KS": [
+    {
+      "option_present": false,
+      "sparse_tar": false,
+      "serialized_option_present": false
+    },
+    {
+      "option_present": true,
+      "sparse_tar": true,
+      "serialized_option_present": true
+    }
+  ],
+  "limits": "Actual create_parser function without decorator; actual Mic_Bootloader/vendored pykickstart. No mic main, plugin, ConfigMgr full load or image creator execution."
+}

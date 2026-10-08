@@ -1,0 +1,35 @@
+{
+  "remote": "git://review.tizen.org/git/platform/upstream/mic",
+  "branch": "sandbox/jaehoon80/devel",
+  "commit": "eadc8fd5c1288206601485c1dbff0ecdb1425bcd",
+  "checkout_time": "2026-10-08T11:55:02.326521+08:00",
+  "git_protocol_clone_rc": 0,
+  "ssh_used": false,
+  "large_pack": {
+    "path": "/home/linhao/Toolchain/development/llvm_image_analysis/downloads/src/hq_mic/mic/.git/objects/pack/pack-2c31f5b800e9057dd04b70e42f64b24c88dc81c4.pack",
+    "bytes": 5744026,
+    "sha256": "97ba5f8845c56d59a059939b79995b294ac4fb9ab694a76a8d580965e0d8e9e3"
+  },
+  "snapshot_files": [
+    "mic/archive.py",
+    "mic/cmd_create.py",
+    "mic/conf.py",
+    "mic/imager/loop.py",
+    "mic/imager/raw.py",
+    "mic/imager/fs.py",
+    "mic/kickstart/custom_commands/micboot.py",
+    "tools/mic",
+    "mic/imager/baseimager.py",
+    "mic/rt_util.py",
+    "mic/utils/misc.py",
+    "mic/utils/runner.py",
+    "mic/utils/fs_related.py",
+    "mic/msger.py",
+    "mic/utils/errors.py",
+    "mic/__init__.py",
+    "plugins/imager/loop_plugin.py",
+    "plugins/imager/raw_plugin.py",
+    "plugins/imager/fs_plugin.py",
+    "COPYING"
+  ]
+}

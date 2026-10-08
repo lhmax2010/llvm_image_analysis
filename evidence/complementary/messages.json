@@ -1,0 +1,402 @@
+[
+  {
+    "level": "info",
+    "message": "Before compression: input=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/gzipTruefailure/input.tar input_bytes=10 output_dir=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/gzipTruefailure free_bytes=100216434688"
+  },
+  {
+    "level": "info",
+    "message": "Running command: gzip -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/gzipTruefailure/input.tar"
+  },
+  {
+    "level": "warning",
+    "message": "Command failed: rc=1 cmd=gzip -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/gzipTruefailure/input.tar"
+  },
+  {
+    "level": "raw",
+    "message": "write failed: No space left on device\n  trailing spaces  \n"
+  },
+  {
+    "level": "info",
+    "message": "Before compression: input=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/gzipTruekill/input.tar input_bytes=10 output_dir=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/gzipTruekill free_bytes=100216422400"
+  },
+  {
+    "level": "info",
+    "message": "Running command: gzip -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/gzipTruekill/input.tar"
+  },
+  {
+    "level": "warning",
+    "message": "Command failed: rc=-9 cmd=gzip -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/gzipTruekill/input.tar"
+  },
+  {
+    "level": "raw",
+    "message": "before injected SIGKILL\n"
+  },
+  {
+    "level": "info",
+    "message": "Running command: gzip -d -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/gzipFalsefailure/input.tar.gz"
+  },
+  {
+    "level": "warning",
+    "message": "Command failed: rc=1 cmd=gzip -d -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/gzipFalsefailure/input.tar.gz"
+  },
+  {
+    "level": "raw",
+    "message": "write failed: No space left on device\n  trailing spaces  \n"
+  },
+  {
+    "level": "info",
+    "message": "Running command: gzip -d -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/gzipFalsekill/input.tar.gz"
+  },
+  {
+    "level": "warning",
+    "message": "Command failed: rc=-9 cmd=gzip -d -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/gzipFalsekill/input.tar.gz"
+  },
+  {
+    "level": "raw",
+    "message": "before injected SIGKILL\n"
+  },
+  {
+    "level": "info",
+    "message": "Before compression: input=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/pigzTruefailure/input.tar input_bytes=10 output_dir=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/pigzTruefailure free_bytes=100216377344"
+  },
+  {
+    "level": "info",
+    "message": "Running command: pigz -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/pigzTruefailure/input.tar"
+  },
+  {
+    "level": "warning",
+    "message": "Command failed: rc=1 cmd=pigz -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/pigzTruefailure/input.tar"
+  },
+  {
+    "level": "raw",
+    "message": "write failed: No space left on device\n  trailing spaces  \n"
+  },
+  {
+    "level": "info",
+    "message": "Before compression: input=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/pigzTruekill/input.tar input_bytes=10 output_dir=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/pigzTruekill free_bytes=100216365056"
+  },
+  {
+    "level": "info",
+    "message": "Running command: pigz -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/pigzTruekill/input.tar"
+  },
+  {
+    "level": "warning",
+    "message": "Command failed: rc=-9 cmd=pigz -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/pigzTruekill/input.tar"
+  },
+  {
+    "level": "raw",
+    "message": "before injected SIGKILL\n"
+  },
+  {
+    "level": "info",
+    "message": "Running command: pigz -d -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/pigzFalsefailure/input.tar.gz"
+  },
+  {
+    "level": "warning",
+    "message": "Command failed: rc=1 cmd=pigz -d -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/pigzFalsefailure/input.tar.gz"
+  },
+  {
+    "level": "raw",
+    "message": "write failed: No space left on device\n  trailing spaces  \n"
+  },
+  {
+    "level": "info",
+    "message": "Running command: pigz -d -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/pigzFalsekill/input.tar.gz"
+  },
+  {
+    "level": "warning",
+    "message": "Command failed: rc=-9 cmd=pigz -d -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/pigzFalsekill/input.tar.gz"
+  },
+  {
+    "level": "raw",
+    "message": "before injected SIGKILL\n"
+  },
+  {
+    "level": "info",
+    "message": "Before compression: input=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/bzip2Truefailure/input.tar input_bytes=10 output_dir=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/bzip2Truefailure free_bytes=100216320000"
+  },
+  {
+    "level": "info",
+    "message": "Running command: bzip2 -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/bzip2Truefailure/input.tar"
+  },
+  {
+    "level": "warning",
+    "message": "Command failed: rc=1 cmd=bzip2 -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/bzip2Truefailure/input.tar"
+  },
+  {
+    "level": "raw",
+    "message": "write failed: No space left on device\n  trailing spaces  \n"
+  },
+  {
+    "level": "info",
+    "message": "Before compression: input=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/bzip2Truekill/input.tar input_bytes=10 output_dir=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/bzip2Truekill free_bytes=100216307712"
+  },
+  {
+    "level": "info",
+    "message": "Running command: bzip2 -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/bzip2Truekill/input.tar"
+  },
+  {
+    "level": "warning",
+    "message": "Command failed: rc=-9 cmd=bzip2 -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/bzip2Truekill/input.tar"
+  },
+  {
+    "level": "raw",
+    "message": "before injected SIGKILL\n"
+  },
+  {
+    "level": "info",
+    "message": "Running command: bzip2 -d -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/bzip2Falsefailure/input.tar.gz"
+  },
+  {
+    "level": "warning",
+    "message": "Command failed: rc=1 cmd=bzip2 -d -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/bzip2Falsefailure/input.tar.gz"
+  },
+  {
+    "level": "raw",
+    "message": "write failed: No space left on device\n  trailing spaces  \n"
+  },
+  {
+    "level": "info",
+    "message": "Running command: bzip2 -d -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/bzip2Falsekill/input.tar.gz"
+  },
+  {
+    "level": "warning",
+    "message": "Command failed: rc=-9 cmd=bzip2 -d -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/bzip2Falsekill/input.tar.gz"
+  },
+  {
+    "level": "raw",
+    "message": "before injected SIGKILL\n"
+  },
+  {
+    "level": "info",
+    "message": "Before compression: input=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/zstdTruefailure/input.tar input_bytes=10 output_dir=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/zstdTruefailure free_bytes=100216262656"
+  },
+  {
+    "level": "info",
+    "message": "Running command: zstd --rm -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/zstdTruefailure/input.tar"
+  },
+  {
+    "level": "warning",
+    "message": "Command failed: rc=1 cmd=zstd --rm -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/zstdTruefailure/input.tar"
+  },
+  {
+    "level": "raw",
+    "message": "write failed: No space left on device\n  trailing spaces  \n"
+  },
+  {
+    "level": "info",
+    "message": "Before compression: input=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/zstdTruekill/input.tar input_bytes=10 output_dir=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/zstdTruekill free_bytes=100216250368"
+  },
+  {
+    "level": "info",
+    "message": "Running command: zstd --rm -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/zstdTruekill/input.tar"
+  },
+  {
+    "level": "warning",
+    "message": "Command failed: rc=-9 cmd=zstd --rm -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/zstdTruekill/input.tar"
+  },
+  {
+    "level": "raw",
+    "message": "before injected SIGKILL\n"
+  },
+  {
+    "level": "info",
+    "message": "Running command: zstd --rm -d -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/zstdFalsefailure/input.tar.gz"
+  },
+  {
+    "level": "warning",
+    "message": "Command failed: rc=1 cmd=zstd --rm -d -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/zstdFalsefailure/input.tar.gz"
+  },
+  {
+    "level": "raw",
+    "message": "write failed: No space left on device\n  trailing spaces  \n"
+  },
+  {
+    "level": "info",
+    "message": "Running command: zstd --rm -d -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/zstdFalsekill/input.tar.gz"
+  },
+  {
+    "level": "warning",
+    "message": "Command failed: rc=-9 cmd=zstd --rm -d -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/zstdFalsekill/input.tar.gz"
+  },
+  {
+    "level": "raw",
+    "message": "before injected SIGKILL\n"
+  },
+  {
+    "level": "info",
+    "message": "Before compression: input=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/lzopTruefailure/input.tar input_bytes=10 output_dir=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/lzopTruefailure free_bytes=100216205312"
+  },
+  {
+    "level": "info",
+    "message": "Running command: lzop -f -U /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/lzopTruefailure/input.tar"
+  },
+  {
+    "level": "warning",
+    "message": "Command failed: rc=1 cmd=lzop -f -U /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/lzopTruefailure/input.tar"
+  },
+  {
+    "level": "raw",
+    "message": "write failed: No space left on device\n  trailing spaces  \n"
+  },
+  {
+    "level": "info",
+    "message": "Before compression: input=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/lzopTruekill/input.tar input_bytes=10 output_dir=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/lzopTruekill free_bytes=100216193024"
+  },
+  {
+    "level": "info",
+    "message": "Running command: lzop -f -U /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/lzopTruekill/input.tar"
+  },
+  {
+    "level": "warning",
+    "message": "Command failed: rc=-9 cmd=lzop -f -U /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/lzopTruekill/input.tar"
+  },
+  {
+    "level": "raw",
+    "message": "before injected SIGKILL\n"
+  },
+  {
+    "level": "info",
+    "message": "Running command: lzop -d -f -U /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/lzopFalsefailure/input.tar.gz"
+  },
+  {
+    "level": "warning",
+    "message": "Command failed: rc=1 cmd=lzop -d -f -U /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/lzopFalsefailure/input.tar.gz"
+  },
+  {
+    "level": "raw",
+    "message": "write failed: No space left on device\n  trailing spaces  \n"
+  },
+  {
+    "level": "info",
+    "message": "Running command: lzop -d -f -U /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/lzopFalsekill/input.tar.gz"
+  },
+  {
+    "level": "warning",
+    "message": "Command failed: rc=-9 cmd=lzop -d -f -U /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/lzopFalsekill/input.tar.gz"
+  },
+  {
+    "level": "raw",
+    "message": "before injected SIGKILL\n"
+  },
+  {
+    "level": "info",
+    "message": "Before compression: input=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/normal/data.bin input_bytes=262144 output_dir=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/normal free_bytes=100215894016"
+  },
+  {
+    "level": "info",
+    "message": "Running command: gzip -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/normal/data.bin"
+  },
+  {
+    "level": "info",
+    "message": "Running command: gzip -d -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/normal/data.bin.gz"
+  },
+  {
+    "level": "info",
+    "message": "Running command: /usr/bin/python3 -c 'import sys;sys.stdout.write('\"'\"'ok'\"'\"');sys.stderr.write('\"'\"'success diagnostic'\"'\"')'"
+  },
+  {
+    "level": "info",
+    "message": "HQ diagnostics stub: /var/tmp"
+  },
+  {
+    "level": "info",
+    "message": "Running command: tar -S -C /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/fallback/source -cf /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/fallback/tmpk3qcnm36.tar item"
+  },
+  {
+    "level": "warning",
+    "message": "Command failed: rc=2 cmd=tar -S -C /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/fallback/source -cf /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/fallback/tmpk3qcnm36.tar item"
+  },
+  {
+    "level": "raw",
+    "message": "unsupported -S\n"
+  },
+  {
+    "level": "warning",
+    "message": "tar with -S failed, falling back without -S"
+  },
+  {
+    "level": "info",
+    "message": "Running command: tar -C /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/fallback/source -cf /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/fallback/tmpk3qcnm36.tar item"
+  },
+  {
+    "level": "info",
+    "message": "Before compression: input=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/fallback/tmpk3qcnm36.tar input_bytes=10240 output_dir=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/fallback free_bytes=100215865344"
+  },
+  {
+    "level": "info",
+    "message": "Running command: gzip -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/fallback/tmpk3qcnm36.tar"
+  },
+  {
+    "level": "info",
+    "message": "HQ diagnostics stub: /var/tmp"
+  },
+  {
+    "level": "info",
+    "message": "Running command: tar -S -C /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/sparse-input -cf /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/tmpbai8bu8v.tar member.bin"
+  },
+  {
+    "level": "info",
+    "message": "Before compression: input=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/tmpbai8bu8v.tar input_bytes=10240 output_dir=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq free_bytes=100215853056"
+  },
+  {
+    "level": "info",
+    "message": "Running command: gzip -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/tmpbai8bu8v.tar"
+  },
+  {
+    "level": "info",
+    "message": "HQ diagnostics stub: /var/tmp"
+  },
+  {
+    "level": "info",
+    "message": "Running command: tar -C /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/fallback/source -cf /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/pack-failure/tmp7pytavua.tar item"
+  },
+  {
+    "level": "info",
+    "message": "Before compression: input=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/pack-failure/tmp7pytavua.tar input_bytes=10240 output_dir=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/pack-failure free_bytes=100215828480"
+  },
+  {
+    "level": "info",
+    "message": "Running command: gzip -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/pack-failure/tmp7pytavua.tar"
+  },
+  {
+    "level": "warning",
+    "message": "Command failed: rc=1 cmd=gzip -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/pack-failure/tmp7pytavua.tar"
+  },
+  {
+    "level": "raw",
+    "message": "write failed: No space left on device\n  trailing spaces  \n"
+  },
+  {
+    "level": "info",
+    "message": "HQ diagnostics stub: /var/tmp"
+  },
+  {
+    "level": "info",
+    "message": "Running command: tar -C /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/fallback/source -cf /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/pack-kill/tmp_7gnjby3.tar item"
+  },
+  {
+    "level": "info",
+    "message": "Before compression: input=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/pack-kill/tmp_7gnjby3.tar input_bytes=10240 output_dir=/home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/pack-kill free_bytes=100215803904"
+  },
+  {
+    "level": "info",
+    "message": "Running command: gzip -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/pack-kill/tmp_7gnjby3.tar"
+  },
+  {
+    "level": "warning",
+    "message": "Command failed: rc=-9 cmd=gzip -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/pack-kill/tmp_7gnjby3.tar"
+  },
+  {
+    "level": "raw",
+    "message": "before injected SIGKILL\n"
+  },
+  {
+    "level": "info",
+    "message": "Running command: gzip -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/unmodified-hq-failure/input.tar"
+  },
+  {
+    "level": "info",
+    "message": "Running command: gzip -f /home/linhao/Toolchain/development/llvm_image_analysis/work/complementary/tmpvac8y0iq/unmodified-hq-kill/input.tar"
+  }
+]

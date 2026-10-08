@@ -1,0 +1,182 @@
+{
+  "uid": 1000,
+  "base": "2.1.3 + original3cc580e + c446578 + eadc8fd5 + complementary.patch",
+  "cases": [
+    {
+      "case": "gzip-compress-failure",
+      "expected_rc": 1,
+      "exception": "CreatorError",
+      "raw_stderr_exact": true,
+      "disk_log": true
+    },
+    {
+      "case": "gzip-compress-kill",
+      "expected_rc": -9,
+      "exception": "CreatorError",
+      "raw_stderr_exact": true,
+      "disk_log": true
+    },
+    {
+      "case": "gzip-decompress-failure",
+      "expected_rc": 1,
+      "exception": "CreatorError",
+      "raw_stderr_exact": true,
+      "disk_log": false
+    },
+    {
+      "case": "gzip-decompress-kill",
+      "expected_rc": -9,
+      "exception": "CreatorError",
+      "raw_stderr_exact": true,
+      "disk_log": false
+    },
+    {
+      "case": "pigz-compress-failure",
+      "expected_rc": 1,
+      "exception": "CreatorError",
+      "raw_stderr_exact": true,
+      "disk_log": true
+    },
+    {
+      "case": "pigz-compress-kill",
+      "expected_rc": -9,
+      "exception": "CreatorError",
+      "raw_stderr_exact": true,
+      "disk_log": true
+    },
+    {
+      "case": "pigz-decompress-failure",
+      "expected_rc": 1,
+      "exception": "CreatorError",
+      "raw_stderr_exact": true,
+      "disk_log": false
+    },
+    {
+      "case": "pigz-decompress-kill",
+      "expected_rc": -9,
+      "exception": "CreatorError",
+      "raw_stderr_exact": true,
+      "disk_log": false
+    },
+    {
+      "case": "bzip2-compress-failure",
+      "expected_rc": 1,
+      "exception": "CreatorError",
+      "raw_stderr_exact": true,
+      "disk_log": true
+    },
+    {
+      "case": "bzip2-compress-kill",
+      "expected_rc": -9,
+      "exception": "CreatorError",
+      "raw_stderr_exact": true,
+      "disk_log": true
+    },
+    {
+      "case": "bzip2-decompress-failure",
+      "expected_rc": 1,
+      "exception": "CreatorError",
+      "raw_stderr_exact": true,
+      "disk_log": false
+    },
+    {
+      "case": "bzip2-decompress-kill",
+      "expected_rc": -9,
+      "exception": "CreatorError",
+      "raw_stderr_exact": true,
+      "disk_log": false
+    },
+    {
+      "case": "zstd-compress-failure",
+      "expected_rc": 1,
+      "exception": "CreatorError",
+      "raw_stderr_exact": true,
+      "disk_log": true
+    },
+    {
+      "case": "zstd-compress-kill",
+      "expected_rc": -9,
+      "exception": "CreatorError",
+      "raw_stderr_exact": true,
+      "disk_log": true
+    },
+    {
+      "case": "zstd-decompress-failure",
+      "expected_rc": 1,
+      "exception": "CreatorError",
+      "raw_stderr_exact": true,
+      "disk_log": false
+    },
+    {
+      "case": "zstd-decompress-kill",
+      "expected_rc": -9,
+      "exception": "CreatorError",
+      "raw_stderr_exact": true,
+      "disk_log": false
+    },
+    {
+      "case": "lzop-compress-failure",
+      "expected_rc": 1,
+      "exception": "CreatorError",
+      "raw_stderr_exact": true,
+      "disk_log": true
+    },
+    {
+      "case": "lzop-compress-kill",
+      "expected_rc": -9,
+      "exception": "CreatorError",
+      "raw_stderr_exact": true,
+      "disk_log": true
+    },
+    {
+      "case": "lzop-decompress-failure",
+      "expected_rc": 1,
+      "exception": "CreatorError",
+      "raw_stderr_exact": true,
+      "disk_log": false
+    },
+    {
+      "case": "lzop-decompress-kill",
+      "expected_rc": -9,
+      "exception": "CreatorError",
+      "raw_stderr_exact": true,
+      "disk_log": false
+    },
+    {
+      "case": "real-gzip-roundtrip",
+      "passed": true
+    },
+    {
+      "case": "success-return-tuple",
+      "passed": true
+    },
+    {
+      "case": "HQ-sparse-fallback-preserved",
+      "passed": true
+    },
+    {
+      "case": "real-sparse-gztar-roundtrip",
+      "passed": true
+    },
+    {
+      "case": "HQ-make-tarball-failure",
+      "existing_final_preserved": true
+    },
+    {
+      "case": "HQ-make-tarball-kill",
+      "existing_final_preserved": true
+    },
+    {
+      "case": "unmodified-HQ-gzip-failure",
+      "exception": "OSError",
+      "rc_and_output_present": true
+    },
+    {
+      "case": "unmodified-HQ-gzip-kill",
+      "exception": "OSError",
+      "rc_and_output_present": true
+    }
+  ],
+  "all_passed": true,
+  "limits": "Only mic.msger and show_tar_diagnostics are stubbed; real subprocesses/real tar/gzip; no do_create/root/mount."
+}

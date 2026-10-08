@@ -1,0 +1,20 @@
+{
+  "report_date": "2026-10-08",
+  "requested_commit": "eadc8fd5c1288206601485c1dbff0ecdb1425bcd",
+  "paths": [
+    {
+      "path": "downloads/src/hq_mic",
+      "exists": false
+    },
+    {
+      "path": "downloads/src/hq_mic/eadc8fd5.patch",
+      "exists": false
+    }
+  ],
+  "public_patch_attempt": {
+    "url": "https://review.tizen.org/git/?p=platform/upstream/mic.git;a=patch;h=eadc8fd5c1288206601485c1dbff0ecdb1425bcd",
+    "result": "HTTP 403; curl rc=22; no patch body obtained"
+  },
+  "status": "Awaiting original HQ patch/local checkout; no reconstructed HQ source",
+  "historical_note": "此前阶段的缺失状态原样字段保留；本轮git协议clone成功，已经由clone-provenance.json/commits.json记录解决，不再阻塞stage3。"
+}

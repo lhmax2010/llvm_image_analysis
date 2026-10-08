@@ -1,0 +1,56 @@
+Hmm...  Looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|From 3cc580ebf07677610d58bd8f4b2c3b9ba0a7c15d Mon Sep 17 00:00:00 2001
+|From: Jaehoon Chung <jh80.chung@samsung.com>
+|Date: Wed, 7 Oct 2026 11:39:10 +0900
+|Subject: [PATCH] Add diagnostics for /var/tmp usage and ulimit before tar
+| operations
+|
+|Display filesystem disk space of /var/tmp (total, used, free),
+|directory usage of /var/tmp and /var/tmp/mic, and process resource
+|limits (ulimit via /proc/self/limits) prior to creating tar archives.
+|This helps troubleshoot build failures caused by disk space exhaustion
+|or resource limitations during tar operations.
+|
+|Signed-off-by: Jaehoon Chung <jh80.chung@samsung.com>
+|---
+| mic/archive.py    |  8 +++++++-
+| mic/imager/fs.py  |  2 ++
+| mic/utils/misc.py | 43 +++++++++++++++++++++++++++++++++++++++++++
+| 3 files changed, 52 insertions(+), 1 deletion(-)
+|
+|diff --git a/mic/archive.py b/mic/archive.py
+|index 9942db8..b9ea5cf 100644
+|--- a/mic/archive.py
+|+++ b/mic/archive.py
+--------------------------
+patching file mic/archive.py
+Using Plan A...
+Hunk #1 succeeded at 284.
+Hunk #2 succeeded at 316.
+Hunk #3 succeeded at 349.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/mic/imager/fs.py b/mic/imager/fs.py
+|index 0fd6b46..870bce8 100644
+|--- a/mic/imager/fs.py
+|+++ b/mic/imager/fs.py
+--------------------------
+patching file mic/imager/fs.py
+Using Plan A...
+Hunk #1 succeeded at 79.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/mic/utils/misc.py b/mic/utils/misc.py
+|index 21c92ff..185fe08 100644
+|--- a/mic/utils/misc.py
+|+++ b/mic/utils/misc.py
+--------------------------
+patching file mic/utils/misc.py
+Using Plan A...
+Hunk #1 succeeded at 1074.
+Hmm...  Ignoring the trailing garbage.
+done

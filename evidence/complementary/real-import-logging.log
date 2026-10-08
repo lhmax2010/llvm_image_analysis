@@ -1,0 +1,6 @@
+INFO: Running command: /usr/bin/python3 -c 'import sys;sys.stderr.write('"'"'raw stderr marker\n  trailing spaces  \n'"'"');sys.exit(1)'
+WARNING: Command failed: rc=1 cmd=/usr/bin/python3 -c 'import sys;sys.stderr.write('"'"'raw stderr marker\n  trailing spaces  \n'"'"');sys.exit(1)'
+raw stderr marker
+  trailing spaces  
+
+Real package import, real CreatorError catch, real logger stderr preservation: PASS

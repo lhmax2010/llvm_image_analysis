@@ -1,7 +1,7 @@
 # 只跟踪分析所需的文本；源码通过 evidence/src_snapshot 保存。
 /work/
 /downloads/cache/
-/downloads/src/
+/downloads/src/*
 *.rpm
 *.tar.gz
 *.tar
@@ -53,3 +53,20 @@ __pycache__/
 /work/signature/mic-pigz-sigkill/final.tar.gz
 /work/signature/mic-pigz-sigkill/tmp7bz51oc3.tar
 /work/signature/random.tar
+
+# stage3 sparse experiment >5MB files (find checked; all local only)
+/work/sparse/extract-normal/filesystem.img
+/work/sparse/extract-sparse/filesystem.img
+/work/sparse/filesystem.img
+/work/sparse/normal.tar
+/work/sparse/normal.tar.gz
+/work/sparse/random-payload.bin
+/work/sparse/sparse.tar
+/work/sparse/sparse.tar.gz
+
+# HQ clone remains local; only original git format-patch exports are tracked
+!/downloads/src/hq_mic/
+/downloads/src/hq_mic/*
+!/downloads/src/hq_mic/0001-*.patch
+/downloads/src/hq_mic/mic/
+/downloads/src/hq_mic/mic/.git/objects/pack/pack-2c31f5b800e9057dd04b70e42f64b24c88dc81c4.pack

@@ -1,0 +1,119 @@
+From 3cc580ebf07677610d58bd8f4b2c3b9ba0a7c15d Mon Sep 17 00:00:00 2001
+From: Jaehoon Chung <jh80.chung@samsung.com>
+Date: Wed, 7 Oct 2026 11:39:10 +0900
+Subject: [PATCH] Add diagnostics for /var/tmp usage and ulimit before tar
+ operations
+
+Display filesystem disk space of /var/tmp (total, used, free),
+directory usage of /var/tmp and /var/tmp/mic, and process resource
+limits (ulimit via /proc/self/limits) prior to creating tar archives.
+This helps troubleshoot build failures caused by disk space exhaustion
+or resource limitations during tar operations.
+
+Signed-off-by: Jaehoon Chung <jh80.chung@samsung.com>
+---
+ mic/archive.py    |  8 +++++++-
+ mic/imager/fs.py  |  2 ++
+ mic/utils/misc.py | 43 +++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 52 insertions(+), 1 deletion(-)
+
+diff --git a/mic/archive.py b/mic/archive.py
+index 9942db8..b9ea5cf 100644
+--- a/mic/archive.py
++++ b/mic/archive.py
+@@ -284,6 +284,9 @@ def _do_tar(archive_name, target_name):
+         target_dir = os.path.dirname(target_name)
+         target_name = os.path.basename(target_name)
+         file_list.append(target_name)
++    from mic.utils import misc
++    misc.show_tar_diagnostics("/var/tmp")
++
+     cmdln = ["tar", "-C", target_dir, "-cf", archive_name]
+     cmdln.extend(file_list)
+     _call_external(cmdln)
+@@ -313,6 +316,9 @@ def _imp_tarfile(archive_name, target_name):
+     """
+     import tarfile
+ 
++    from mic.utils import misc
++    misc.show_tar_diagnostics("/var/tmp")
++
+     msger.info("Taring files to %s using tarfile module" % archive_name)
+     tar = tarfile.open(archive_name, 'w')
+     if os.path.isdir(target_name):
+@@ -343,7 +349,7 @@ def _make_tarball(archive_name, target_name, compressor=None):
+     if compressor:
+         tarball_name = compressor(tarball_name, True)
+ 
+-    shutil.move(tarball_name, archive_name)
++    shutil.move(tarball_name, archive_name, copy_function=shutil.copy)
+ 
+     return os.path.exists(archive_name)
+ 
+diff --git a/mic/imager/fs.py b/mic/imager/fs.py
+index 0fd6b46..870bce8 100644
+--- a/mic/imager/fs.py
++++ b/mic/imager/fs.py
+@@ -79,6 +79,8 @@ class FsImageCreator(BaseImageCreator):
+             dst = os.path.join(destdir, self.pack_to)
+             msger.info("Pack rootfs to %s. Please wait..." % dst)
+ 
++            misc.show_tar_diagnostics("/var/tmp")
++
+             tar = find_binary_path('tar')
+             tar_cmdline = [tar, "--numeric-owner",
+                                 "--preserve-permissions",
+diff --git a/mic/utils/misc.py b/mic/utils/misc.py
+index 21c92ff..185fe08 100644
+--- a/mic/utils/misc.py
++++ b/mic/utils/misc.py
+@@ -1074,3 +1074,46 @@ def strip_archive_suffix(filename):
+     else:
+         msger.warning("Not supported archive file format: %s" % filename)
+     return None
++
++def show_tar_diagnostics(target_dir="/var/tmp"):
++    """Display disk space of target_dir and resource limits (ulimit) before tar operations."""
++    msger.info("================ [Diagnostics Before Tar] ================")
++
++    if os.path.exists(target_dir):
++        try:
++            usage = shutil.disk_usage(target_dir)
++            total_gb = usage.total / (1024 ** 3)
++            used_gb = usage.used / (1024 ** 3)
++            free_gb = usage.free / (1024 ** 3)
++            free_pct = (usage.free / usage.total) * 100 if usage.total > 0 else 0
++            msger.info("Disk space (%s): Total=%.2f GB, Used=%.2f GB, Free=%.2f GB (Free: %.1f%%)" % (
++                target_dir, total_gb, used_gb, free_gb, free_pct
++            ))
++        except Exception as err:
++            msger.warning("Failed to get disk usage for %s: %s" % (target_dir, err))
++
++    for path in [target_dir, os.path.join(target_dir, "mic")]:
++        if os.path.exists(path):
++            try:
++                proc = subprocess.run(
++                    ["du", "-sh", path],
++                    stdout=subprocess.PIPE,
++                    stderr=subprocess.DEVNULL,
++                    universal_newlines=True
++                )
++                if proc.stdout:
++                    msger.info("Directory usage: %s" % proc.stdout.strip())
++            except Exception:
++                pass
++
++    msger.info("Resource Limits (/proc/self/limits):")
++    try:
++        with open("/proc/self/limits", "r") as f:
++            for line in f:
++                if any(k in line for k in ["Limit", "file size", "open files", "address space", "data size"]):
++                    msger.info("  " + line.rstrip())
++    except Exception as err:
++        msger.warning("Failed to read /proc/self/limits: %s" % err)
++
++    msger.info("==========================================================")
++
+-- 
+2.43.0
+

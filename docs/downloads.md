@@ -126,3 +126,36 @@ GNU源码原样摘录在evidence/src_snapshot/gzip-1.12/，Ubuntu相关补丁原
 |work/signature/random.tar|300011520|942b542b1e0f6a7664daa5119e3f393b98bdbb2854e49eeb08a0296b8a61fe98|无；真实压缩器/随机输入/tar/loop实验本地产物，方法见docs/signature_experiment.md|
 
 补充原样归档独立出现的evidence/baseline-20261006-214442-*文本；不属于本轮签名驱动产物，没有来源下载URL，也未在本轮调用sudo重新执行。console记录插件初始化失败返回2。
+
+## stage3：lthor 兼容性分析源码
+
+|本地路径|大小（字节）|sha256|来源 URL|
+|---|---:|---|---|
+|downloads/src/lthor_3.4.tar.gz|24508|e555fc934fbeb66be55e1cd74e4f7f8ed43607cfbee44f86e77cae1186ce4c42|https://download.tizen.org/tools/latest-release/Ubuntu_24.04/lthor_3.4.tar.gz|
+
+仅解包和读取源码，不安装、不连接设备、不刷写；依赖文件原样快照至 evidence/src_snapshot/lthor-3.4/。
+
+## stage3：稀疏实验本地大文件（不入Git）
+
+find work/sparse -type f -size +5000000c 共取得以下8份；显式追加.gitignore。证据JSON另含绝对路径：evidence/sparse/large_files.json。没有来源URL，均为本地普通用户生成；不推镜像/归档/随机数据。
+
+|本地路径|大小（字节）|sha256|来源 URL / 生成方式|
+|---|---:|---|---|
+|/home/linhao/Toolchain/development/llvm_image_analysis/work/sparse/extract-normal/filesystem.img|2147483648|470f71672d4236200a452921708ab681b5f92bf5270c74218c4f4f43e4f3410c|无；truncate/mkfs.ext4/debugfs/tar/gzip/提取，见docs/sparse_experiment.md|
+|/home/linhao/Toolchain/development/llvm_image_analysis/work/sparse/extract-sparse/filesystem.img|2147483648|470f71672d4236200a452921708ab681b5f92bf5270c74218c4f4f43e4f3410c|无；truncate/mkfs.ext4/debugfs/tar/gzip/提取，见docs/sparse_experiment.md|
+|/home/linhao/Toolchain/development/llvm_image_analysis/work/sparse/filesystem.img|2147483648|470f71672d4236200a452921708ab681b5f92bf5270c74218c4f4f43e4f3410c|无；truncate/mkfs.ext4/debugfs/tar/gzip/提取，见docs/sparse_experiment.md|
+|/home/linhao/Toolchain/development/llvm_image_analysis/work/sparse/normal.tar|2147491840|31f196d9d2067b44d3faf88667f871f728f6a855c989fd8f4d20c4f301d0e33f|无；truncate/mkfs.ext4/debugfs/tar/gzip/提取，见docs/sparse_experiment.md|
+|/home/linhao/Toolchain/development/llvm_image_analysis/work/sparse/normal.tar.gz|630732468|f863261ade91597e306d6e65c8cc8209fa2c99fbfdf7d731cbabda9232c3130a|无；truncate/mkfs.ext4/debugfs/tar/gzip/提取，见docs/sparse_experiment.md|
+|/home/linhao/Toolchain/development/llvm_image_analysis/work/sparse/random-payload.bin|629145600|28a9fd4201fea49221e90429da78ad1ef02974ecfbd4b83a3e7872dc7c93262b|无；truncate/mkfs.ext4/debugfs/tar/gzip/提取，见docs/sparse_experiment.md|
+|/home/linhao/Toolchain/development/llvm_image_analysis/work/sparse/sparse.tar|697487360|c1d015687390f69418fc89403b2fa725fbd25e5f26a511f138f464193ecaef80|无；truncate/mkfs.ext4/debugfs/tar/gzip/提取，见docs/sparse_experiment.md|
+|/home/linhao/Toolchain/development/llvm_image_analysis/work/sparse/sparse.tar.gz|629320754|cc5fd0a5e38af1231be0a90173a1e5433cf64fcb9c83f509f4693264efe23a1b|无；truncate/mkfs.ext4/debugfs/tar/gzip/提取，见docs/sparse_experiment.md|
+
+## stage3：总部mic真实Git源码与导出补丁
+
+来源git://review.tizen.org/git/platform/upstream/mic，sandbox/jaehoon80/devel，HEAD eadc8fd5c1288206601485c1dbff0ecdb1425bcd；取得时间2026-10-08T11:55:02.326521+08:00。clone仅本地，Git导出的两份0001-*.patch是downloads/src/唯一准入特例，原样源码依赖快照另存evidence/src_snapshot/hq-mic/。额外诊断依赖3cc580e的真实导出放evidence/hq/3cc580e-diagnostics.patch。
+
+|本地路径|大小（字节）|sha256|来源 URL|
+|---|---:|---|---|
+|downloads/src/hq_mic/0001-Improve-toybox-compatibility-and-sparse-file-handlin.patch|7029|dcc62dd040afddc981eb530f95dc91822f985c994d42bb167708f654fdd1b071|git://review.tizen.org/git/platform/upstream/mic；git format-patch -1原样导出|
+|downloads/src/hq_mic/0001-Support-optional-sparse-tar-archiving-via-kickstart-.patch|10210|62603fbc6a26eb11eb651f6ce1e9e83c8fcbf8ed3fd1ae6c17645ade2b0ac7d2|git://review.tizen.org/git/platform/upstream/mic；git format-patch -1原样导出|
+|/home/linhao/Toolchain/development/llvm_image_analysis/downloads/src/hq_mic/mic/.git/objects/pack/pack-2c31f5b800e9057dd04b70e42f64b24c88dc81c4.pack|5744026|97ba5f8845c56d59a059939b79995b294ac4fb9ab694a76a8d580965e0d8e9e3|git://review.tizen.org/git/platform/upstream/mic；clone的Git对象pack，不入库|

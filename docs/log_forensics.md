@@ -125,3 +125,9 @@ stage1 部分据三份公开 mic.log；stage2a 新增用户提供的五份QB控�
 ## 发布校验补充
 
 成功ks当前下载MD5与MD5SUMS不一致（expected d6525a80cb6c07fc27554f093874d864 / actual ba215c35a7b10975c6f69956528f81cc）；目录L10修改时间23:20晚于校验清单L5的19:13。其余已下载且可核验的packages/files/xml/manifest均匹配，见 `evidence/published_md5_check.json`。不能把当前ks当作成功构建输入逐字节副本；日志与原文件均保留。
+
+## stage3 稀疏归档收益与证据边界（2026-10-08）
+
+普通用户未挂载ext4文件实验中，中间tar从2,147,491,840 B缩到697,487,360 B（减少67.52%），gzip体积基本相同；普通提取变稠密，稀疏提取还原洞且内容哈希一致。见 [稀疏实验](sparse_experiment.md) 与 [原始结果](../evidence/sparse/summary.json)。这进一步支持原完整中间tar造成磁盘压力的机制，**不能证明历史worker确实ENOSPC**。真实0917按相同分配比例外推2.581 GB→约0.838 GB，属于条件估算，真实洞图仍未知。
+
+最终日志/现场签名判定保持：两次QB更吻合压缩写失败后主动清理输出，ENOSPC为最可能资源触发（中等置信）；mic忽略压缩器rc和输出导致FileNotFoundError掩盖原始原因（高置信）。真实中途SIGKILL留下坏.gz、旧mic直接move，和两次QB缺文件不同；不是所有SIGKILL时机都已排除。EFBIG/配额、可捕获信号、tar先失败等仍需原始rc/stderr和worker资源记录。用户已取消整镜像baseline/space/oom，不再将sudo实验列为下一步。总部真实源码现已取得：c446578已修四种压缩/解压rc检查，eadc8fd5使稀疏归档opt-in；容量触发仍为缓解。新方案不能倒推旧QB errno，见hq_patch_review.md。

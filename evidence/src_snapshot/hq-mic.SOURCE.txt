@@ -1,0 +1,7 @@
+远端 URL：git://review.tizen.org/git/platform/upstream/mic
+分支：sandbox/jaehoon80/devel
+commit：eadc8fd5c1288206601485c1dbff0ecdb1425bcd
+checkout时间：2026-10-08T11:55:02.326521+08:00（.git/HEAD本地mtime）
+来源：本会话按用户命令完整git clone；未使用SSH或写认证账号
+完整clone：downloads/src/hq_mic/mic（忽略不推）
+本快照是HEAD分析直接依赖文件原样复制；不代表逐行审计全仓。

@@ -1,0 +1,123 @@
+Hmm...  Looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|From eadc8fd5c1288206601485c1dbff0ecdb1425bcd Mon Sep 17 00:00:00 2001
+|From: Jaehoon Chung <jh80.chung@samsung.com>
+|Date: Wed, 7 Oct 2026 19:31:54 +0900
+|Subject: [PATCH] Support optional sparse tar archiving via kickstart and CLI
+|
+|- Add --sparse-tar option to the bootloader command in
+|  mic/kickstart/custom_commands/micboot.py, allowing kickstart
+|  files to selectively opt in to sparse tar archiving.
+|- Add --sparse-tar CLI option to tools/mic and mic/cmd_create.py.
+|- Pass sparse_tar flag through mic/conf.py and image creators
+|  (loop, raw, fs) to mic/archive.py.
+|- Keep standard non-sparse tar (tar -cf) as default to ensure
+|  100% backward compatibility, while enabling tar -S with
+|  automatic fallback when --sparse-tar is explicitly specified.
+|
+|Signed-off-by: Jaehoon Chung <jh80.chung@samsung.com>
+|---
+| mic/archive.py                           | 36 +++++++++++++++---------
+| mic/cmd_create.py                        |  3 ++
+| mic/conf.py                              |  4 +++
+| mic/imager/fs.py                         |  3 ++
+| mic/imager/loop.py                       |  2 +-
+| mic/imager/raw.py                        |  2 +-
+| mic/kickstart/custom_commands/micboot.py |  5 ++++
+| tools/mic                                |  2 ++
+| 8 files changed, 42 insertions(+), 15 deletions(-)
+|
+|diff --git a/mic/archive.py b/mic/archive.py
+|index 32672b1..7ea7ac0 100644
+|--- a/mic/archive.py
+|+++ b/mic/archive.py
+--------------------------
+checking file mic/archive.py
+Using Plan A...
+Hunk #1 succeeded at 279.
+Hunk #2 succeeded at 300.
+Hunk #3 succeeded at 355.
+Hunk #4 succeeded at 453.
+Hunk #5 succeeded at 483.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/mic/cmd_create.py b/mic/cmd_create.py
+|index ed8a7c9..8e6e49c 100644
+|--- a/mic/cmd_create.py
+|+++ b/mic/cmd_create.py
+--------------------------
+checking file mic/cmd_create.py
+Using Plan A...
+Hunk #1 succeeded at 165.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/mic/conf.py b/mic/conf.py
+|index 0666d1f..320c826 100644
+|--- a/mic/conf.py
+|+++ b/mic/conf.py
+--------------------------
+checking file mic/conf.py
+Using Plan A...
+Hunk #1 succeeded at 82.
+Hunk #2 succeeded at 218.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/mic/imager/fs.py b/mic/imager/fs.py
+|index 870bce8..90e5a7b 100644
+|--- a/mic/imager/fs.py
+|+++ b/mic/imager/fs.py
+--------------------------
+checking file mic/imager/fs.py
+Using Plan A...
+Hunk #1 succeeded at 87.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/mic/imager/loop.py b/mic/imager/loop.py
+|index 1d23e79..89d4c31 100644
+|--- a/mic/imager/loop.py
+|+++ b/mic/imager/loop.py
+--------------------------
+checking file mic/imager/loop.py
+Using Plan A...
+Hunk #1 succeeded at 534.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/mic/imager/raw.py b/mic/imager/raw.py
+|index d9ea698..9b0504d 100644
+|--- a/mic/imager/raw.py
+|+++ b/mic/imager/raw.py
+--------------------------
+checking file mic/imager/raw.py
+Using Plan A...
+Hunk #1 succeeded at 494 (offset 17 lines).
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/mic/kickstart/custom_commands/micboot.py b/mic/kickstart/custom_commands/micboot.py
+|index d978be8..b70204b 100644
+|--- a/mic/kickstart/custom_commands/micboot.py
+|+++ b/mic/kickstart/custom_commands/micboot.py
+--------------------------
+checking file mic/kickstart/custom_commands/micboot.py
+Using Plan A...
+Hunk #1 succeeded at 31.
+Hunk #2 succeeded at 40.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/tools/mic b/tools/mic
+|index 7b01a1f..71e5173 100755
+|--- a/tools/mic
+|+++ b/tools/mic
+--------------------------
+checking file tools/mic
+Using Plan A...
+Hunk #1 succeeded at 99.
+Hmm...  Ignoring the trailing garbage.
+done

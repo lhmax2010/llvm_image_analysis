@@ -1,0 +1,244 @@
+From eadc8fd5c1288206601485c1dbff0ecdb1425bcd Mon Sep 17 00:00:00 2001
+From: Jaehoon Chung <jh80.chung@samsung.com>
+Date: Wed, 7 Oct 2026 19:31:54 +0900
+Subject: [PATCH] Support optional sparse tar archiving via kickstart and CLI
+
+- Add --sparse-tar option to the bootloader command in
+  mic/kickstart/custom_commands/micboot.py, allowing kickstart
+  files to selectively opt in to sparse tar archiving.
+- Add --sparse-tar CLI option to tools/mic and mic/cmd_create.py.
+- Pass sparse_tar flag through mic/conf.py and image creators
+  (loop, raw, fs) to mic/archive.py.
+- Keep standard non-sparse tar (tar -cf) as default to ensure
+  100% backward compatibility, while enabling tar -S with
+  automatic fallback when --sparse-tar is explicitly specified.
+
+Signed-off-by: Jaehoon Chung <jh80.chung@samsung.com>
+---
+ mic/archive.py                           | 36 +++++++++++++++---------
+ mic/cmd_create.py                        |  3 ++
+ mic/conf.py                              |  4 +++
+ mic/imager/fs.py                         |  3 ++
+ mic/imager/loop.py                       |  2 +-
+ mic/imager/raw.py                        |  2 +-
+ mic/kickstart/custom_commands/micboot.py |  5 ++++
+ tools/mic                                |  2 ++
+ 8 files changed, 42 insertions(+), 15 deletions(-)
+
+diff --git a/mic/archive.py b/mic/archive.py
+index 32672b1..7ea7ac0 100644
+--- a/mic/archive.py
++++ b/mic/archive.py
+@@ -279,11 +279,12 @@ def decompress(file_path, decompress_format=None):
+     return func(file_path, False)
+ 
+ 
+-def _do_tar(archive_name, target_name):
++def _do_tar(archive_name, target_name, sparse=False):
+     """ Archive the directory or the file with 'tar' utility
+ 
+     @archive_name: the name of the tarball file
+     @target_name: the name of the target to tar
++    @sparse: whether to enable sparse archiving with tar -S
+     @retval: the path of the archived file
+     """
+     file_list = []
+@@ -299,18 +300,21 @@ def _do_tar(archive_name, target_name):
+     from mic.utils import misc
+     misc.show_tar_diagnostics("/var/tmp")
+ 
+-    # Try creating archive with sparse support (-S) first to save disk space
+-    cmdln = ["tar", "-S", "-C", target_dir, "-cf", archive_name]
++    if sparse:
++        cmdln = ["tar", "-S", "-C", target_dir, "-cf", archive_name]
++        cmdln.extend(file_list)
++        (returncode, stdout, stderr) = _call_external(cmdln)
++        if returncode == 0:
++            return archive_name
++        # Fallback without -S if -S is not supported by tar utility
++        msger.warning("tar with -S failed, falling back without -S")
++
++    cmdln = ["tar", "-C", target_dir, "-cf", archive_name]
+     cmdln.extend(file_list)
+     (returncode, stdout, stderr) = _call_external(cmdln)
+     if returncode != 0:
+-        # Fallback without -S for tar implementations without sparse support (e.g. toybox tar)
+-        cmdln = ["tar", "-C", target_dir, "-cf", archive_name]
+-        cmdln.extend(file_list)
+-        (returncode, stdout, stderr) = _call_external(cmdln)
+-        if returncode != 0:
+-            msg = stdout.decode() if isinstance(stdout, bytes) else (stdout or "")
+-            raise OSError("Tar command failed: %s (exit code %d): %s" % (" ".join(cmdln), returncode, msg))
++        msg = stdout.decode() if isinstance(stdout, bytes) else (stdout or "")
++        raise OSError("Tar command failed: %s (exit code %d): %s" % (" ".join(cmdln), returncode, msg))
+ 
+     return archive_name
+ 
+@@ -351,19 +355,20 @@ def _imp_tarfile(archive_name, target_name):
+     tar.close()
+     return archive_name
+ 
+-def _make_tarball(archive_name, target_name, compressor=None):
++def _make_tarball(archive_name, target_name, compressor=None, sparse=False):
+     """ Create a tarball from all the files under 'target_name' or itself.
+ 
+     @archive_name: the name of the archived file to create
+     @target_name: the directory or the file name to archive
+     @compressor: callback function to compress the tarball
++    @sparse: whether to archive with sparse support
+     @retval: indicate the compressing result
+     """
+     archive_dir = os.path.dirname(archive_name)
+     tarball_name = tempfile.mktemp(suffix=".tar", dir=archive_dir)
+ 
+     if which("tar") is not None:
+-        _do_tar(tarball_name, target_name)
++        _do_tar(tarball_name, target_name, sparse=sparse)
+     else:
+         _imp_tarfile(tarball_name, target_name)
+ 
+@@ -448,11 +453,12 @@ def get_archive_suffixes():
+ 
+     return suffixes
+ 
+-def make_archive(archive_name, target_name):
++def make_archive(archive_name, target_name, sparse=False):
+     """ Create an archive file (eg. tar or zip).
+ 
+     @archive_name: the name of the archived file
+     @target_name: the directory or the file to archive
++    @sparse: whether to enable sparse archiving with tar -S
+     @retval: the archiving result
+     """
+     if not os.path.exists(target_name):
+@@ -477,6 +483,10 @@ def make_archive(archive_name, target_name):
+     if not os.path.exists(archive_dir):
+         os.makedirs(archive_dir)
+ 
++    kwargs = dict(kwargs)
++    if "compressor" in kwargs or func == _make_tarball:
++        kwargs["sparse"] = sparse
++
+     return func(archive_name, target_name, **kwargs)
+ 
+ def extract_archive(archive_name, target_name):
+diff --git a/mic/cmd_create.py b/mic/cmd_create.py
+index ed8a7c9..8e6e49c 100644
+--- a/mic/cmd_create.py
++++ b/mic/cmd_create.py
+@@ -165,6 +165,9 @@ def main(parser, args, argv):
+     if args.pack_to is not None:
+         configmgr.create['pack_to'] = args.pack_to
+ 
++    if args.sparse_tar:
++        configmgr.create['sparse_tar'] = args.sparse_tar
++
+     if args.copy_kernel:
+         configmgr.create['copy_kernel'] = args.copy_kernel
+ 
+diff --git a/mic/conf.py b/mic/conf.py
+index 0666d1f..320c826 100644
+--- a/mic/conf.py
++++ b/mic/conf.py
+@@ -82,6 +82,7 @@ class ConfigMgr(object):
+                     "skip_set_hosts": False,
+                     "postscripts_maxruntime": 120,
+                     "block_recommends": False,
++                    "sparse_tar": False,
+                 },
+                 'chroot': {
+                     "saveto": None,
+@@ -217,6 +218,9 @@ class ConfigMgr(object):
+         ks = kickstart.read_kickstart(ksconf)
+ 
+         self.create['ks'] = ks
++        if hasattr(ks.handler, 'bootloader') and getattr(ks.handler.bootloader, 'sparse_tar', False):
++            self.create['sparse_tar'] = True
++
+         self.create['name'] = os.path.splitext(os.path.basename(ksconf))[0]
+ 
+         self.create['name'] = misc.build_name(ksconf,
+diff --git a/mic/imager/fs.py b/mic/imager/fs.py
+index 870bce8..90e5a7b 100644
+--- a/mic/imager/fs.py
++++ b/mic/imager/fs.py
+@@ -87,6 +87,9 @@ class FsImageCreator(BaseImageCreator):
+                                 "--one-file-system",
+                                 "--directory",
+                                 self._instroot]
++            if getattr(self, 'sparse_tar', False):
++                tar_cmdline.insert(1, "-S")
++
+             for ignore_entry in ignores:
+                 if ignore_entry.startswith('/'):
+                     ignore_entry = ignore_entry[1:]
+diff --git a/mic/imager/loop.py b/mic/imager/loop.py
+index 1d23e79..89d4c31 100644
+--- a/mic/imager/loop.py
++++ b/mic/imager/loop.py
+@@ -534,7 +534,7 @@ class LoopImageCreator(BaseImageCreator):
+         else:
+             msger.info("Pack all loop images together to %s" % self.pack_to)
+             dstfile = os.path.join(self._outdir, self.pack_to)
+-            packing(dstfile, self._imgdir)
++            packing(dstfile, self._imgdir, sparse=getattr(self, 'sparse_tar', False))
+             self.image_files['image_files'] = [self.pack_to]
+ 
+ 
+diff --git a/mic/imager/raw.py b/mic/imager/raw.py
+index d9ea698..9b0504d 100644
+--- a/mic/imager/raw.py
++++ b/mic/imager/raw.py
+@@ -477,7 +477,7 @@ class RawImageCreator(BaseImageCreator):
+         if self.pack_to:
+             dst = os.path.join(self._outdir, self.pack_to)
+             msger.info("Pack all raw images to %s" % dst)
+-            packing(dst, self.__imgdir)
++            packing(dst, self.__imgdir, sparse=getattr(self, 'sparse_tar', False))
+             self.image_files.update({'image_files': self.pack_to})
+         else:
+             msger.debug("moving disks to stage location")
+diff --git a/mic/kickstart/custom_commands/micboot.py b/mic/kickstart/custom_commands/micboot.py
+index d978be8..b70204b 100644
+--- a/mic/kickstart/custom_commands/micboot.py
++++ b/mic/kickstart/custom_commands/micboot.py
+@@ -31,6 +31,7 @@ class Mic_Bootloader(F8_Bootloader):
+ 
+         self.menus = ""
+         self.ptable = "msdos"
++        self.sparse_tar = False
+ 
+     def _getArgsAsStr(self):
+         ret = F8_Bootloader._getArgsAsStr(self)
+@@ -39,11 +40,15 @@ class Mic_Bootloader(F8_Bootloader):
+             ret += " --menus=%s" %(self.menus,)
+         if self.ptable:
+             ret += " --ptable=\"%s\"" %(self.ptable,)
++        if getattr(self, 'sparse_tar', False):
++            ret += " --sparse-tar"
+         return ret
+ 
+     def _getParser(self):
+         op = F8_Bootloader._getParser(self)
+         op.add_argument("--menus", dest="menus",version=FC4, help='menus')
+         op.add_argument("--ptable", dest="ptable", type=str, version=FC4, help='ptable')
++        op.add_argument("--sparse-tar", action="store_true", dest="sparse_tar",
++                        default=False, version=FC4, help='Use sparse format when archiving with tar')
+         return op
+ 
+diff --git a/tools/mic b/tools/mic
+index 7b01a1f..71e5173 100755
+--- a/tools/mic
++++ b/tools/mic
+@@ -99,6 +99,8 @@ def create_parser(parser):
+                                     ' achive, extension supported: .zip, .tar, '
+                                     '.tar.gz, .tar.bz2, etc. by default, .tar '
+                                     'will be used')
++    parent_parser.add_argument('--sparse-tar', action='store_true', dest='sparse_tar',
++                               default=False, help='Archive sparse files with tar -S')
+     parent_parser.add_argument('--copy-kernel', action='store_true', dest='copy_kernel',
+                                help='Copy kernel files from image /boot directory'
+                                     ' to the image output directory.')
+-- 
+2.43.0
+

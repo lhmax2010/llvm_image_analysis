@@ -1,0 +1,20 @@
+[
+  {
+    "hash": "c446578d87b055984e5eeca04e2f485436f55759",
+    "author": "Jaehoon Chung",
+    "author_date": "2026-10-07T17:45:16+09:00",
+    "subject": "Improve toybox compatibility and sparse file handling during packaging"
+  },
+  {
+    "hash": "eadc8fd5c1288206601485c1dbff0ecdb1425bcd",
+    "author": "Jaehoon Chung",
+    "author_date": "2026-10-07T19:31:54+09:00",
+    "subject": "Support optional sparse tar archiving via kickstart and CLI"
+  },
+  {
+    "hash": "3cc580ebf07677610d58bd8f4b2c3b9ba0a7c15d",
+    "author": "Jaehoon Chung",
+    "author_date": "2026-10-07T11:39:10+09:00",
+    "subject": "Add diagnostics for /var/tmp usage and ulimit before tar operations"
+  }
+]

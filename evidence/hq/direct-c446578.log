@@ -1,0 +1,63 @@
+Hmm...  Looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|From c446578d87b055984e5eeca04e2f485436f55759 Mon Sep 17 00:00:00 2001
+|From: Jaehoon Chung <jh80.chung@samsung.com>
+|Date: Wed, 7 Oct 2026 17:45:16 +0900
+|Subject: [PATCH] Improve toybox compatibility and sparse file handling during
+| packaging
+|
+|- Update get_file_size() in mic/utils/misc.py to use native os.stat
+|  for files and add POSIX du -s -k fallback for directories, ensuring
+|  compatibility with toybox and busybox.
+|- Run fallocate -d in mic/imager/loop.py to restore sparse holes in
+|  image files before packaging.
+|- Apply sparse archiving (tar -S) with fallback in mic/archive.py to
+|  prevent expanding sparse holes and avoid disk space exhaustion.
+|- Verify exit codes in compression functions (_do_gzip, _do_bzip2,
+|  _do_lzop, _do_zstd) to ensure failures are raised explicitly.
+|
+|Signed-off-by: Jaehoon Chung <jh80.chung@samsung.com>
+|---
+| mic/archive.py     | 33 +++++++++++++++++++++++++++------
+| mic/imager/loop.py |  8 ++++++--
+| mic/utils/misc.py  | 40 ++++++++++++++++++++++++++++------------
+| 3 files changed, 61 insertions(+), 20 deletions(-)
+|
+|diff --git a/mic/archive.py b/mic/archive.py
+|index b9ea5cf..32672b1 100644
+|--- a/mic/archive.py
+|+++ b/mic/archive.py
+--------------------------
+checking file mic/archive.py
+Using Plan A...
+Hunk #1 succeeded at 99.
+Hunk #2 succeeded at 129.
+Hunk #3 succeeded at 156.
+Hunk #4 succeeded at 186.
+Hunk #5 FAILED at 299.
+1 out of 5 hunks FAILED
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/mic/imager/loop.py b/mic/imager/loop.py
+|index 1d71f78..1d23e79 100644
+|--- a/mic/imager/loop.py
+|+++ b/mic/imager/loop.py
+--------------------------
+checking file mic/imager/loop.py
+Using Plan A...
+Hunk #1 succeeded at 517.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/mic/utils/misc.py b/mic/utils/misc.py
+|index 185fe08..6162750 100644
+|--- a/mic/utils/misc.py
+|+++ b/mic/utils/misc.py
+--------------------------
+checking file mic/utils/misc.py
+Using Plan A...
+Hunk #1 succeeded at 405.
+Hmm...  Ignoring the trailing garbage.
+done

@@ -1,0 +1,2 @@
+  173 downloads/src/hq_mic/0001-Improve-toybox-compatibility-and-sparse-file-handlin.patch
+  244 downloads/src/hq_mic/0001-Support-optional-sparse-tar-archiving-via-kickstart-.patch

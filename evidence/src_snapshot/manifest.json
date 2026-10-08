@@ -310,5 +310,130 @@
     "snapshot": "evidence/src_snapshot/mic/mic/plugin.py",
     "bytes": 3268,
     "sha256": "7a19c638e925d8653e091a1fea4e6c49b7b5c8ccfac5dd8dbe9410fdad6dbb58"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/lthor-3.4/libthor/thor_tar.c",
+    "local_source": "downloads/src/lthor-3.4/BUILD/libthor/thor_tar.c",
+    "sha256": "ee844d58f737f6c2536ced449ab222dadd0460037bb66b64d1516fd1de2c0068"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/lthor-3.4/libthor/thor.c",
+    "local_source": "downloads/src/lthor-3.4/BUILD/libthor/thor.c",
+    "sha256": "cbad8807d602b9444bb8bbd53d541cffe1eb279590c507cc8d406f1c513d1119"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/lthor-3.4/libthor/thor.h",
+    "local_source": "downloads/src/lthor-3.4/BUILD/libthor/thor.h",
+    "sha256": "f7b86319e86b9d8eda7cae2bc285178fac548940d28f7bc6ecd9d2d9f20892e8"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/lthor-3.4/LICENSE.APLv2",
+    "local_source": "downloads/src/lthor-3.4/BUILD/LICENSE.APLv2",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/lthor-3.4/NOTICE",
+    "local_source": "downloads/src/lthor-3.4/BUILD/NOTICE",
+    "sha256": "8e1ca8aad20091124f2420d9e821e6c4ebc8bc30a22a908b6dff93ac76693c96"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/hq-mic/mic/archive.py",
+    "local_source": "downloads/src/hq_mic/mic/mic/archive.py",
+    "sha256": "63d5ab3e29b594fc2ffafe7431ae00ce80688958bb210b8520c7117342f610e0"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/hq-mic/mic/cmd_create.py",
+    "local_source": "downloads/src/hq_mic/mic/mic/cmd_create.py",
+    "sha256": "20550f7cb9d30904eab9b52d8cc366b3fcea1ed50976ec7a9fd341cbf2bdf8f5"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/hq-mic/mic/conf.py",
+    "local_source": "downloads/src/hq_mic/mic/mic/conf.py",
+    "sha256": "ecd37a93c7a16f5b735fbcd5f3399ae1be8a42a125e565356747424fb2dccf56"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/hq-mic/mic/imager/loop.py",
+    "local_source": "downloads/src/hq_mic/mic/mic/imager/loop.py",
+    "sha256": "dbea1a603dd804715ecb9321f1dc17eb9ec683f455d7027419a4eb21bd617148"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/hq-mic/mic/imager/raw.py",
+    "local_source": "downloads/src/hq_mic/mic/mic/imager/raw.py",
+    "sha256": "96f8d8dd1291d630bdcf91417b739f9c4bdf24635b8ce49db4420a33b252e151"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/hq-mic/mic/imager/fs.py",
+    "local_source": "downloads/src/hq_mic/mic/mic/imager/fs.py",
+    "sha256": "f0b2ad4ffe930f2546818b205c47b76b170fcf500ab4d537dd6a1f5417f0decf"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/hq-mic/mic/kickstart/custom_commands/micboot.py",
+    "local_source": "downloads/src/hq_mic/mic/mic/kickstart/custom_commands/micboot.py",
+    "sha256": "d30318ae261b36f9626b14a7eb4a515698e47cd56e3a56c9fedd13fe17634670"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/hq-mic/tools/mic",
+    "local_source": "downloads/src/hq_mic/mic/tools/mic",
+    "sha256": "57b9f0b4d684015423eed340113e94ecf333873cb17fa30d9014446913ab9fc9"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/hq-mic/mic/imager/baseimager.py",
+    "local_source": "downloads/src/hq_mic/mic/mic/imager/baseimager.py",
+    "sha256": "69f7ae96ef1378cfa9418404dcd067234e1c8756c95d58d2a1f846bc62633102"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/hq-mic/mic/rt_util.py",
+    "local_source": "downloads/src/hq_mic/mic/mic/rt_util.py",
+    "sha256": "9dfaf17e7bb5778c975bff06e8c655b3da62e03b23bab35d037340937be93f84"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/hq-mic/mic/utils/misc.py",
+    "local_source": "downloads/src/hq_mic/mic/mic/utils/misc.py",
+    "sha256": "3dbe3d349c4725791d0eb651a0dbeb4171c17a0028ce145e4bfc2845cd8050e1"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/hq-mic/mic/utils/runner.py",
+    "local_source": "downloads/src/hq_mic/mic/mic/utils/runner.py",
+    "sha256": "2ed3c1d2d3e54f6eb730a7c454a1ae1380186d699448d702b37c39fa8d4eb1f0"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/hq-mic/mic/utils/fs_related.py",
+    "local_source": "downloads/src/hq_mic/mic/mic/utils/fs_related.py",
+    "sha256": "45c1ca51e41bd0ebe5eb13cc4a00efcd17549eac7a972325b3b61947451335db"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/hq-mic/mic/msger.py",
+    "local_source": "downloads/src/hq_mic/mic/mic/msger.py",
+    "sha256": "6c0b4086a15f4dab6cac5719694056042a0017a26e0ab0f52ccd98287ea01277"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/hq-mic/mic/utils/errors.py",
+    "local_source": "downloads/src/hq_mic/mic/mic/utils/errors.py",
+    "sha256": "f1dbdea83808d8ce00dc984db2a65a59bf103bdcfcc2afad313fb4f70b726748"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/hq-mic/mic/__init__.py",
+    "local_source": "downloads/src/hq_mic/mic/mic/__init__.py",
+    "sha256": "48ae24d0946f24690d4cbfc604f417f78f86c2f867dab3afe43fc57f474d4eae"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/hq-mic/plugins/imager/loop_plugin.py",
+    "local_source": "downloads/src/hq_mic/mic/plugins/imager/loop_plugin.py",
+    "sha256": "c1dea3bfae77150e74fc109fabf6dbbd05c456724c5a6ed0c423f29ad580c8da"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/hq-mic/plugins/imager/raw_plugin.py",
+    "local_source": "downloads/src/hq_mic/mic/plugins/imager/raw_plugin.py",
+    "sha256": "883677de3e6ceca4866faa780356acdfa702463019c609cffee4a34f8cb9112b"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/hq-mic/plugins/imager/fs_plugin.py",
+    "local_source": "downloads/src/hq_mic/mic/plugins/imager/fs_plugin.py",
+    "sha256": "3be8d55c8b245c40500f66eca8f1b0fe770127fc2c81498b908aa624e123184e"
+  },
+  {
+    "snapshot": "evidence/src_snapshot/hq-mic/COPYING",
+    "local_source": "downloads/src/hq_mic/mic/COPYING",
+    "sha256": "aafcb8d3e2523737670e0d6f2517f21f506a9b572f97bf66ec29c0ccd6b8ee0a"
   }
 ]
